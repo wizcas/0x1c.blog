@@ -1,5 +1,5 @@
 import { Outlet } from 'remix';
-import type { LinksFunction } from 'remix';
+
 import {
   Document,
   Layout,
@@ -7,8 +7,10 @@ import {
   ErrorBoundary,
 } from '~/components/frame';
 
-import globalStylesUrl from '~/styles/global.css';
+import type { LinksFunction } from 'remix';
+
 import darkStylesUrl from '~/styles/dark.css';
+import globalStylesUrl from '~/styles/global.css';
 
 export { CatchBoundary, ErrorBoundary };
 

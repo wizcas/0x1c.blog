@@ -52,6 +52,10 @@ module.exports = {
     'import/order': [
       'warn',
       {
+        pathGroups: [
+          { pattern: '~/styles/**', group: 'object', position: 'after' },
+          { pattern: '~/**', group: 'internal' },
+        ],
         groups: [
           'builtin',
           'external',
@@ -62,6 +66,8 @@ module.exports = {
           'type',
           'object',
         ],
+        'newlines-between': 'always',
+        alphabetize: { order: 'asc', caseInsensitive: false },
       },
     ],
 

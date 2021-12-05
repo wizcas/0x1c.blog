@@ -1,4 +1,5 @@
 import { useCatch } from 'remix';
+
 import { Document } from './Document';
 import { Layout } from './Layout';
 

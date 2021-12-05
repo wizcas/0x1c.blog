@@ -1,4 +1,5 @@
 import { useLoaderData, json, Link } from 'remix';
+
 import type { MetaFunction, LoaderFunction } from 'remix';
 
 type IndexData = {
