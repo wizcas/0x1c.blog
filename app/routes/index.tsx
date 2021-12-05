@@ -1,6 +1,8 @@
-import { useLoaderData, json, Link } from 'remix';
+import { useLoaderData, json, Link, LinksFunction } from 'remix';
 
 import type { MetaFunction, LoaderFunction } from 'remix';
+
+import styles from '~/styles/index.css';
 
 type IndexData = {
   resources: Array<{ name: string; url: string }>;
@@ -55,6 +57,8 @@ export const meta: MetaFunction = () => {
   };
 };
 
+export const links: LinksFunction = () => [{ rel: 'stylesheet', href: styles }];
+
 // https://remix.run/guides/routing#index-routes
 export default function Index() {
   const data = useLoaderData<IndexData>();
@@ -62,6 +66,11 @@ export default function Index() {
   return (
     <div className="remix__page">
       <main>
+        <div className="btn">hi</div>
+        <div className="test">
+          test
+          <span className="nested">xxx</span>
+        </div>
         <h2>Welcome to Remix!</h2>
         <p>We're stoked that you're here. 🥳</p>
         <p>
