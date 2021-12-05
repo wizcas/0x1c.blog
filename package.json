@@ -1,7 +1,12 @@
 {
   "private": true,
-  "name": "remix-app-template",
-  "description": "",
+  "name": "0x1c-blog",
+  "description": "A blog system built on Remix",
+  "author": {
+    "name": "Wizcas Chen",
+    "email": "chen@0x1c.dev"
+  },
+  "version": "0.1.0",
   "license": "",
   "scripts": {
     "prepare": "husky install",
