@@ -5,6 +5,7 @@ module.exports = {
     require('postcss-preset-env')({
       features: {
         'nesting-rules': false,
+        'color-functional-notation': true,
       },
     }),
   ],

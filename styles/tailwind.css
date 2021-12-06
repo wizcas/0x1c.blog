@@ -6,6 +6,9 @@
   .btn {
     @apply px-4 py-2 bg-blue-600 text-white rounded;
   }
+  input::placeholder {
+    color: rgb(255 0 0);
+  }
 }
 
 .test {
@@ -13,7 +16,4 @@
   & .nested {
     @apply text-red-500 font-bold;
   }
-}
-::placeholder {
-  color: gray;
 }
