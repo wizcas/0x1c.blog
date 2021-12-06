@@ -14,3 +14,6 @@
     @apply text-red-500 font-bold;
   }
 }
+::placeholder {
+  color: gray;
+}
