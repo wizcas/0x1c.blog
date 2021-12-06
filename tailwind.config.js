@@ -5,7 +5,15 @@ module.exports = {
   purge: ['./app/**/*.{ts,tsx}'],
   darkMode: false, // or 'media' or 'class'
   theme: {
-    extend: {},
+    extend: {
+      zIndex: {
+        '-10': '-10',
+      },
+      height: {
+        hero: '20vh',
+        superhero: '40vh',
+      },
+    },
     colors: {
       // Build your palette here
       transparent: 'transparent',
