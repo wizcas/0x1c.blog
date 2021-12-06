@@ -1,0 +1,13 @@
+{
+  "name": "0x1C.dev",
+  "short_name": "0x1c",
+  "icons": [
+    {
+      "src": "logo-light512px.png",
+      "sizes": "512x512"
+    }
+  ],
+  "background_color": "#243033",
+  "theme_color": "#EB6D71",
+  "display": "fullscreen"
+}
