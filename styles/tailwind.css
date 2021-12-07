@@ -8,8 +8,10 @@
 /* Custom Definitions */
 @custom-selector :--heading h1, h2, h3, h4, h5, h6;
 %hyperlink {
-  @apply text-hi-link no-underline hover:text-hi-link-bright;
   @apply transition-all duration-200 ease-in-out;
+  @apply no-underline;
+
+  @apply text-hi-link hover:text-hi-link-bright;
   &:hover {
     text-shadow: theme(colors.hi.link) 0 0 0.5em;
   }
@@ -54,7 +56,9 @@
     @apply px-1;
   }
   a {
-    @extend %hyperlink;
+    &:not(.card) {
+      @extend %hyperlink;
+    }
   }
 }
 
@@ -67,6 +71,16 @@
 
     & a {
       @extend %hyperlink;
+    }
+  }
+
+  a.card > * {
+    @apply transition-all duration-200 ease-in-out;
+    @apply transform;
+    &:hover {
+      @apply scale-105 shadow-md bg-opacity-80;
+      color: inherit;
+      text-shadow: none;
     }
   }
 }
