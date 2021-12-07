@@ -53,6 +53,7 @@
     "husky": "^7.0.0",
     "pm2": "^5.1.2",
     "postcss": "^8.4.4",
+    "postcss-extend-rule": "^3.0.0",
     "postcss-preset-env": "^7.0.1",
     "prettier": "^2.5.0",
     "tailwindcss": "^2.2.19",

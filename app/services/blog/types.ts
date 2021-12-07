@@ -1,8 +1,8 @@
 export interface Category {
   title: string;
   slug: string;
-  description: string;
   color: string;
+  description?: string;
   coverUrl?: string;
   latestArticles?: Article[];
 }
@@ -10,6 +10,7 @@ export interface Category {
 export interface Topic {
   slug: string;
   title: string;
+  category: Category;
 }
 
 export interface Tag {
@@ -23,5 +24,6 @@ export interface Article {
   excerpt: string;
   content: string;
   datetime: string;
+  topic?: Topic;
   tags?: Tag[];
 }

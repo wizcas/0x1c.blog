@@ -51,7 +51,11 @@ module.exports = {
         800: '#243033',
         900: '#1D2729',
       },
-      primary: '#EB6D71',
+      hi: {
+        primary: '#EB6D71',
+        link: '#00BFE5',
+        'link-bright': '#99EEFF',
+      },
     },
   },
   variants: {

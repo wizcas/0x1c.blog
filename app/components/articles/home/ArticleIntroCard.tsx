@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import type { Article } from '~/services/blog/types';
 
 import DateTime from '../meta/DateTime';
+import Topic from '../meta/Topic';
 
 interface Props {
   article: Article;
@@ -18,7 +19,10 @@ export default function ArticleIntroCard({ article }: Props) {
       )}
     >
       <h3>{article.title}</h3>
-      <DateTime value={article.datetime} />
+      <div className="space-x-2">
+        <DateTime value={article.datetime} />
+        {article.topic && <Topic topic={article.topic} />}
+      </div>
       <p className="line-clamp-5">{article.excerpt}</p>
     </article>
   );

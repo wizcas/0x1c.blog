@@ -4,14 +4,6 @@ import type { Article } from '~/services/blog/types';
 
 import { loremIpsum } from './lorem';
 
-export const ARTICLE: Article = {
-  title: 'Mock Article Is Useful',
-  slug: 'mock-article',
-  datetime: dayjs().toISOString(),
-  excerpt: loremIpsum(5),
-  content: loremIpsum(20),
-};
-
 function mockArticle(id: string) {
   return {
     title: 'Mock Article Is Useful',
@@ -19,6 +11,20 @@ function mockArticle(id: string) {
     datetime: dayjs().toISOString(),
     excerpt: loremIpsum(5),
     content: loremIpsum(20),
+    topic: {
+      title: 'Pop my eyeballs',
+      slug: 'pop-eyes',
+      category: {
+        title: 'Coding Career',
+        slug: 'coding-career',
+        color: '#0049B2',
+      },
+    },
+    tags: [
+      { label: 'eye', slug: 'eye' },
+      { label: 'vision', slug: 'vision' },
+      { label: 'medical emergency', slug: 'med-emergency' },
+    ],
   };
 }
 

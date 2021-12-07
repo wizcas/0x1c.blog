@@ -9,5 +9,6 @@ module.exports = {
         'custom-selectors': true,
       },
     }),
+    require('postcss-extend-rule'),
   ],
 };
