@@ -12,7 +12,7 @@ const headerStyles = classNames(
 export default function Header() {
   return (
     <header className={headerStyles}>
-      <div className="container mx-auto flex flex-row items-center justify-between h-full">
+      <div className="page-content flex flex-row items-center justify-between h-full">
         <Logo />
       </div>
     </header>

@@ -1,13 +1,16 @@
 import classNames from 'classnames';
-import { CSSProperties } from 'react';
+import { CSSProperties, ReactNode } from 'react';
 
 import { Category } from '~/services/blog/types';
+
+import ArticleIntroCard from './ArticleIntroCard';
 
 interface Props {
   category: Category;
   odd: boolean;
+  children?: ReactNode;
 }
-export default function CategoryIntroBlock({ category, odd }: Props) {
+export default function CategoryIntroBlock({ category, odd, children }: Props) {
   const dir = odd ? 1 : -1;
   const cover3dStyle = {
     transform: `perspective(30rem)
@@ -17,45 +20,62 @@ export default function CategoryIntroBlock({ category, odd }: Props) {
   return (
     <div
       data-name="category-intro-block"
-      className="relative h-superhero w-full"
+      className="relative min-h-superhero w-full"
       style={{ backgroundColor: category.color }}
     >
-      <div
-        data-name="category-intro-content"
-        className={classNames(
-          'container h-full mx-auto relative',
-          'p-4 sm:p-0',
-          'flex justify-between items-stretch gap-8 xl:gap-32',
-          'absolute transform -translate-y-1/2',
-          'relative h-64 md:h-64',
-          {
-            'flex-row-reverse': odd,
-          }
-        )}
+      <section
+        data-name="category-intro-wrapper"
+        className="transform -translate-y-32"
       >
         <div
-          data-name="category-intro-text"
-          className="prose max-w-none grid grid-rows-2 flex-1 p-2"
+          data-name="category-intro-header"
+          className={classNames(
+            'page-content h-full relative',
+            'flex justify-between items-stretch gap-8 xl:gap-32',
+            'relative h-64 md:h-64',
+            {
+              'flex-row-reverse': odd,
+            }
+          )}
         >
-          <h1 className="self-end whitespace-nowrap">{category.title}</h1>
-          <div className="mt-8 overflow-ellipsis overflow-hidden">
-            {category.description}
+          <div
+            data-name="category-intro-text"
+            className="prose max-w-none grid grid-rows-2 flex-1 p-2"
+          >
+            <h1 className="self-end whitespace-nowrap">{category.title}</h1>
+            <div className="mt-8 line-clamp-3">{category.description}</div>
           </div>
+          {category.coverUrl && (
+            <img
+              data-name="category-intro-cover"
+              src={category.coverUrl}
+              alt=""
+              className={classNames(
+                'h-10vh md:h-20vh lg:h-30vh max-h-96 rounded-md',
+                'hidden md:block',
+                'flex-initial self-center'
+              )}
+              style={cover3dStyle}
+            />
+          )}
         </div>
-        {category.coverUrl && (
-          <img
-            data-name="category-intro-cover"
-            src={category.coverUrl}
-            alt=""
+        <div data-name="category-intro-content">
+          <ul
+            data-name="category-intro-article-list"
             className={classNames(
-              'h-10vh md:h-20vh lg:h-30vh max-h-96 rounded-md',
-              'hidden md:block',
-              'flex-initial self-center'
+              'page-content grid grid-cols-1 md:grid-cols-3 gap-4',
+              'my-8'
             )}
-            style={cover3dStyle}
-          />
-        )}
-      </div>
+          >
+            {category.latestArticles?.map((article) => (
+              <li>
+                <ArticleIntroCard key={article.slug} article={article} />
+              </li>
+            ))}
+            {children}
+          </ul>
+        </div>
+      </section>
     </div>
   );
 }

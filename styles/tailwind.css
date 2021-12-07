@@ -5,6 +5,14 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  .page-content {
+    @apply container mx-auto px-4 sm:px-2;
+  }
+  article {
+  }
+}
+
 @layer components {
   .btn {
     @apply px-4 py-2 bg-blue-600 text-white rounded;

@@ -1,5 +1,5 @@
 import { CATEGORIES } from '~/mocks/categories';
 
-export function fetchCategories() {
+export function getCategories() {
   return CATEGORIES;
 }

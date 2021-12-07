@@ -93,7 +93,7 @@ export function loremIpsum(sentences?: number) {
     }
   }
 
-  const output = all.map((paragraph) => paragraph.join(' ')).join(' ');
+  const output = all.map((paragraph) => paragraph.join(' ')).join('\n\n');
 
   return output;
 }

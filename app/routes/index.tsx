@@ -1,7 +1,7 @@
 import { json, MetaFunction, useLoaderData } from 'remix';
 
 import CategoryIntroBlock from '~/components/articles/CategoryIntroBlock';
-import { fetchCategories } from '~/services/blog/categories';
+import { getCategories } from '~/services/blog/category';
 
 // https://remix.run/api/conventions#meta
 export const meta: MetaFunction = () => {
@@ -20,15 +20,15 @@ interface Category {
 }
 
 export const loader = () => {
-  return json(fetchCategories());
+  return json(getCategories());
 };
 
 // https://remix.run/guides/routing#index-routes
 export default function Index() {
   const categories = useLoaderData<Category[]>();
   return (
-    <div className="flex flex-col items-stretch">
-      <div className="h-hero" />
+    <main className="flex flex-col items-stretch">
+      <div className="h-40vh" />
       {categories.map((category, index) => (
         <CategoryIntroBlock
           key={category.slug}
@@ -36,6 +36,6 @@ export default function Index() {
           odd={index % 2 !== 0}
         />
       ))}
-    </div>
+    </main>
   );
 }

@@ -1,13 +1,21 @@
 const colors = require('tailwindcss/colors');
 
-const screenUnits = new Array(10).map((_, i) => (i + 1) * 10);
+const screenUnits = new Array(10).fill(0).map((_, i) => (i + 1) * 10);
 
 function unitRange(values, unit) {
   const getName = (v) => `${v}${unit}`;
-  return values.map((v) => getName(v));
+  return values.reduce((values, v) => {
+    const n = getName(v);
+    values[n] = n;
+    return values;
+  }, {});
 }
 
-const vhs = unitRange(screenUnits, 'vh');
+const heightExtension = {
+  hero: '40vh',
+  superhero: '80vh',
+  ...unitRange(screenUnits, 'vh'),
+};
 
 module.exports = {
   mode: 'jit',
@@ -18,20 +26,9 @@ module.exports = {
       zIndex: {
         '-10': '-10',
       },
-      height: {
-        hero: '30vh',
-        superhero: '60vh',
-        // ...unitRange(screenUnits, 'vh'),
-        '10vh': '10vh',
-        '20vh': '20vh',
-        '30vh': '30vh',
-        '40vh': '40vh',
-        '50vh': '50vh',
-        '60vh': '60vh',
-        '70vh': '70vh',
-        '80vh': '80vh',
-        '90vh': '90vh',
-      },
+      height: heightExtension,
+      minHeight: heightExtension,
+      maxHeight: heightExtension,
     },
     colors: {
       // Build your palette here

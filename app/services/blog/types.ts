@@ -4,6 +4,7 @@ export interface Category {
   description: string;
   color: string;
   coverUrl?: string;
+  latestArticles?: Article[];
 }
 
 export interface Topic {
