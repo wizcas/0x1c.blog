@@ -43,6 +43,7 @@ module.exports = {
     'no-underscore-dangle': 'off',
     'max-classes-per-file': 'off',
     'class-methods-use-this': 'off',
+    'no-plusplus': 'off',
 
     '@typescript-eslint/no-use-before-define': ['error', { functions: false }],
 
