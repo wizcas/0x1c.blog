@@ -1,5 +1,6 @@
 import { ReactNode } from 'react';
 
+import { Footer } from './Footer';
 import Header from './Header';
 
 export function Layout({ children }: { children: ReactNode }) {
@@ -7,7 +8,7 @@ export function Layout({ children }: { children: ReactNode }) {
     <div className="app">
       <Header />
       <div className="pt-24">{children}</div>
-      <footer>&copy; 0x1C.dev</footer>
+      <Footer />
     </div>
   );
 }

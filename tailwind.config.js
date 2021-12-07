@@ -34,8 +34,8 @@ module.exports = {
       // Build your palette here
       transparent: 'transparent',
       current: 'currentColor',
-      white: '#fff',
-      black: '#000',
+      white: colors.white,
+      black: colors.black,
       gray: colors.trueGray,
       red: colors.red,
       blue: colors.sky,
@@ -48,6 +48,7 @@ module.exports = {
         800: '#243033',
         900: '#1D2729',
       },
+      primary: '#EB6D71',
     },
   },
   variants: {

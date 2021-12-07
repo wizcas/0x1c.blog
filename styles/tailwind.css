@@ -32,6 +32,10 @@
   h6 {
     @apply text-base font-semibold;
   }
+  em {
+    @apply text-primary not-italic font-semibold;
+    @apply px-1;
+  }
 }
 
 @layer components {
