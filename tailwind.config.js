@@ -40,9 +40,12 @@ module.exports = {
       red: colors.red,
       blue: colors.sky,
       yellow: colors.amber,
+      light: {
+        50: '#F1F3F4',
+        100: '#D5DCDD',
+        200: '#ABB9BA',
+      },
       dark: {
-        400: '#CCC',
-        500: '#999',
         600: '#36494D',
         700: '#273538',
         800: '#243033',

@@ -28,7 +28,7 @@ export default function LatestArticleList({ articles, align = 'left' }: Props) {
         to="/"
         className={classNames(
           align === 'left' ? 'self-end' : 'self-start',
-          'text-sm text-dark-400'
+          'text-sm text-light-100'
         )}
       >
         More articles&hellip;
