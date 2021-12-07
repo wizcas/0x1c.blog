@@ -11,8 +11,19 @@
   }
 }
 
+@custom-selector :--heading h1, h2, h3, h4, h5, h6;
+
 html,
 body {
-  @apply bg-dark-800;
   font-size: 16px;
+  @apply bg-dark-800;
+  @apply text-white;
+  @apply overflow-x-hidden;
+}
+
+.prose {
+  @apply text-dark-400;
+  & :--heading {
+    @apply text-white;
+  }
 }

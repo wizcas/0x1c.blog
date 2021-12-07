@@ -6,6 +6,7 @@ module.exports = {
       features: {
         'nesting-rules': false,
         'color-functional-notation': true,
+        'custom-selectors': true,
       },
     }),
   ],
