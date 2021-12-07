@@ -1,16 +1,15 @@
 import classNames from 'classnames';
-import { CSSProperties, ReactNode } from 'react';
+import { CSSProperties } from 'react';
 
-import { Category } from '~/services/blog/types';
+import type { Category } from '~/services/blog/types';
 
-import ArticleIntroCard from './ArticleIntroCard';
+import LatestArticleList from './LastestArticleList';
 
 interface Props {
   category: Category;
   odd: boolean;
-  children?: ReactNode;
 }
-export default function CategoryIntroBlock({ category, odd, children }: Props) {
+export default function CategoryIntroBlock({ category, odd }: Props) {
   const dir = odd ? 1 : -1;
   const cover3dStyle = {
     transform: `perspective(30rem)
@@ -25,12 +24,11 @@ export default function CategoryIntroBlock({ category, odd, children }: Props) {
     >
       <section
         data-name="category-intro-wrapper"
-        className="transform -translate-y-32"
+        className="page-content transform -translate-y-32"
       >
         <div
           data-name="category-intro-header"
           className={classNames(
-            'page-content h-full relative',
             'flex justify-between items-stretch gap-8 xl:gap-32',
             'relative h-64 md:h-64',
             {
@@ -40,7 +38,7 @@ export default function CategoryIntroBlock({ category, odd, children }: Props) {
         >
           <div
             data-name="category-intro-text"
-            className="prose max-w-none grid grid-rows-2 flex-1 p-2"
+            className="prose max-w-none grid grid-rows-2 flex-1 py-2"
           >
             <h1 className="self-end whitespace-nowrap">{category.title}</h1>
             <div className="mt-8 line-clamp-3">{category.description}</div>
@@ -60,20 +58,12 @@ export default function CategoryIntroBlock({ category, odd, children }: Props) {
           )}
         </div>
         <div data-name="category-intro-content">
-          <ul
-            data-name="category-intro-article-list"
-            className={classNames(
-              'page-content grid grid-cols-1 md:grid-cols-3 gap-4',
-              'my-8'
-            )}
-          >
-            {category.latestArticles?.map((article) => (
-              <li>
-                <ArticleIntroCard key={article.slug} article={article} />
-              </li>
-            ))}
-            {children}
-          </ul>
+          {category.latestArticles && (
+            <LatestArticleList
+              articles={category.latestArticles}
+              align={odd ? 'right' : 'left'}
+            />
+          )}
         </div>
       </section>
     </div>

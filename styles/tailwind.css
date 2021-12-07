@@ -5,11 +5,32 @@
 @tailwind components;
 @tailwind utilities;
 
+@custom-selector :--heading h1, h2, h3, h4, h5, h6;
+
 @layer base {
   .page-content {
     @apply container mx-auto px-4 sm:px-2;
   }
-  article {
+  :--heading {
+    @apply text-white;
+  }
+  h1 {
+    @apply text-4xl font-extrabold;
+  }
+  h2 {
+    @apply text-3xl font-bold;
+  }
+  h3 {
+    @apply text-2xl font-bold;
+  }
+  h4 {
+    @apply text-xl font-semibold;
+  }
+  h5 {
+    @apply text-lg font-semibold;
+  }
+  h6 {
+    @apply text-base font-semibold;
   }
 }
 
@@ -17,9 +38,13 @@
   .btn {
     @apply px-4 py-2 bg-blue-600 text-white rounded;
   }
+  .prose {
+    @apply text-dark-400;
+    & :--heading {
+      @apply text-white;
+    }
+  }
 }
-
-@custom-selector :--heading h1, h2, h3, h4, h5, h6;
 
 html,
 body {
@@ -27,11 +52,4 @@ body {
   @apply bg-dark-800;
   @apply text-white;
   @apply overflow-x-hidden;
-}
-
-.prose {
-  @apply text-dark-400;
-  & :--heading {
-    @apply text-white;
-  }
 }

@@ -1,6 +1,6 @@
 import { json, MetaFunction, useLoaderData } from 'remix';
 
-import CategoryIntroBlock from '~/components/articles/CategoryIntroBlock';
+import CategoryIntroBlock from '~/components/articles/home/CategoryIntroBlock';
 import { getCategories } from '~/services/blog/category';
 
 // https://remix.run/api/conventions#meta

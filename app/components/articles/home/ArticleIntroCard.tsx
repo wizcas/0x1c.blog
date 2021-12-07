@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 
-import { Article } from '~/services/blog/types';
+import type { Article } from '~/services/blog/types';
 
 interface Props {
   article: Article;
