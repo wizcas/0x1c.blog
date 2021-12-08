@@ -1,3 +1,11 @@
+import { useLoaderData } from 'remix';
+
+import ArticleList, { articlesLoader } from '~/components/articles/ArticleList';
+import type { Article } from '~/services/blog/types';
+
+export const loader = articlesLoader;
+
 export default function CategoryIndex() {
-  return <div>category index</div>;
+  const articles = useLoaderData<Article[]>() || [];
+  return <ArticleList articles={articles} pagination />;
 }

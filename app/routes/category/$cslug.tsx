@@ -15,21 +15,13 @@ export const loader: LoaderFunction = async ({ params }) => {
 };
 
 export default function CategoryIndex() {
-  const { title, articles = [] } = useLoaderData<Category>();
-  const hasArticles = articles.length > 0;
+  const { title } = useLoaderData<Category>();
   return (
-    <div>
-      <h1>{title}</h1>
+    <main className="page-content flex flex-col gap-8">
+      <header className="hero">
+        <h1>{title}</h1>
+      </header>
       <Outlet />
-      <div>
-        {hasArticles ? (
-          articles.map((article) => (
-            <div key={article.slug}>{article.title}</div>
-          ))
-        ) : (
-          <div>No articles</div>
-        )}
-      </div>
-    </div>
+    </main>
   );
 }

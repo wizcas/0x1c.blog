@@ -90,6 +90,10 @@
       text-shadow: none;
     }
   }
+
+  .hero {
+    @apply h-30vh;
+  }
 }
 
 @layer utilities {
