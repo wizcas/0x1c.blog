@@ -89,9 +89,9 @@
   a.card {
     @apply transform;
     &:hover {
-      @apply scale-105 shadow-md;
+      @apply shadow-md;
       @apply rounded-sm;
-      @apply ring-1 ring-hi-primary;
+      @apply brightness-110;
       color: inherit;
       text-shadow: none;
     }
@@ -103,4 +103,7 @@
 }
 
 @layer utilities {
+  .spacer {
+    @apply flex-1;
+  }
 }

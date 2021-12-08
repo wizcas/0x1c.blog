@@ -33,7 +33,9 @@ export default function ArticleDetailedCard({ article }: Props) {
   );
   return (
     <Link className="card" to={url}>
-      <article className={classNames('prose')}>
+      <article
+        className={classNames('prose h-full', 'flex flex-col items-stretch')}
+      >
         <div
           className={classNames({ 'h-48': bgUrl, [COVER_CLASS]: bgUrl })}
           style={coverStyle}
@@ -46,11 +48,17 @@ export default function ArticleDetailedCard({ article }: Props) {
           <DateTime value={article.datetime} />
           {article.topic && <Topic topic={article.topic} />}
         </div>
-        <p className="line-clamp-8">{article.excerpt}</p>
+        <p className={classNames(bgUrl ? 'line-clamp-5' : 'line-clamp-8')}>
+          {article.excerpt}
+        </p>
+        <div className="spacer" />
         {article.tags && article.tags.length > 0 && (
           <section data-name="article-tag-list" className="space-x-4 text-sm">
             {article.tags.map((tag) => (
-              <Link to={`/${tag.slug}`} className="space-x-1 !text-light-200">
+              <Link
+                to={`/${tag.slug}`}
+                className="space-x-1 !text-light-200 hover:!text-hi-primary"
+              >
                 <Tag className="icon" size="16" />
                 <span>{tag.label}</span>
               </Link>

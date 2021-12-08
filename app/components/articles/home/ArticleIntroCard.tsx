@@ -12,7 +12,10 @@ interface Props {
 export default function ArticleIntroCard({ article }: Props) {
   const url = `/articles/${article.slug}`;
   return (
-    <Link className="card bg-opacity-60 hover:bg-opacity-80" to={url}>
+    <Link
+      className="card bg-opacity-50 hover:bg-opacity-80 hover:saturate-50"
+      to={url}
+    >
       <article className={classNames('prose')}>
         <h3 className="!mt-0">{article.title}</h3>
         <div className="space-x-2">
