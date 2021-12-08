@@ -37,7 +37,7 @@ export default function LatestArticleList({ articles, align = 'left' }: Props) {
         className={classNames(
           'self-start',
           align === 'left' ? 'md:self-end' : 'md:self-start',
-          'text-sm text-light-100'
+          '!text-light-100'
         )}
       >
         View more <ChevronsRight className="inline-block" />
