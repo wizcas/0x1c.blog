@@ -60,6 +60,10 @@
       @extend %hyperlink;
     }
   }
+  *[is='icon'],
+  .icon {
+    @apply inline-block;
+  }
 }
 
 @layer components {
@@ -79,13 +83,15 @@
     @apply p-4 rounded-md;
     @apply flex flex-col items-stretch;
     @apply transition-all duration-200 ease-in-out;
-    @apply transform;
+    @apply overflow-hidden;
   }
 
   a.card {
+    @apply transform;
     &:hover {
       @apply scale-105 shadow-md;
       @apply rounded-sm;
+      @apply ring ring-hi-link ring-opacity-10;
       color: inherit;
       text-shadow: none;
     }

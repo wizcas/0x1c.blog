@@ -24,6 +24,7 @@ export interface Article {
   excerpt: string;
   content: string;
   datetime: string;
+  cover?: string;
   topic?: Topic;
   tags?: Tag[];
 }

@@ -19,14 +19,18 @@ export const articlesLoader: LoaderFunction = async ({ params }) => {
 };
 
 export default function ArticleList({ articles, pagination }: Props) {
-  const hasArtcle = articles.length > 0;
+  const hasArticle = articles.length > 0;
+  if (!hasArticle) {
+    return (
+      <div className="text-sm self-center text-light-200">No articles</div>
+    );
+  }
   return (
-    <div className="flex flex-col items-stretch gap-4">
-      {hasArtcle ? (
-        articles.map((article) => <ArticleDetailedCard article={article} />)
-      ) : (
-        <div className="text-sm self-center text-light-200">No articles</div>
-      )}
+    // <div className="flex flex-col items-stretch gap-4">
+    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
+      {articles.map((article) => (
+        <ArticleDetailedCard article={article} />
+      ))}
     </div>
   );
 }
