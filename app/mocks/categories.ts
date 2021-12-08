@@ -11,7 +11,7 @@ export const CATEGORIES: Category[] = [
     color: '#0049B2',
     coverUrl:
       'https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2344&q=80',
-    latestArticles: generateArticles(3),
+    articles: generateArticles(3),
   },
   {
     title: 'Game Making',
@@ -20,7 +20,7 @@ export const CATEGORIES: Category[] = [
     color: '#1C1A17',
     coverUrl:
       'https://images.unsplash.com/photo-1600861194942-f883de0dfe96?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2338&q=80',
-    latestArticles: generateArticles(3),
+    articles: generateArticles(3),
   },
   {
     title: 'Bits & Pieces',
@@ -29,6 +29,6 @@ export const CATEGORIES: Category[] = [
     color: '#A3293D',
     coverUrl:
       'https://images.unsplash.com/photo-1560088032-d21fe602f4bc?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2340&q=80',
-    latestArticles: generateArticles(3),
+    articles: generateArticles(3),
   },
 ];

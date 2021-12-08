@@ -2,16 +2,21 @@ import classNames from 'classnames';
 import { ChevronsRight } from 'react-feather';
 import { Link } from 'remix';
 
-import type { Article } from '~/services/blog/types';
+import type { Article, Category } from '~/services/blog/types';
 
 import ArticleIntroCard from './ArticleIntroCard';
 
 interface Props {
+  category: Category;
   articles: Article[];
   align?: 'left' | 'right';
 }
 
-export default function LatestArticleList({ articles, align = 'left' }: Props) {
+export default function LatestArticleList({
+  category,
+  articles,
+  align = 'left',
+}: Props) {
   return (
     <div
       data-name="latest-article-list"
@@ -33,7 +38,7 @@ export default function LatestArticleList({ articles, align = 'left' }: Props) {
         ))}
       </ul>
       <Link
-        to="/"
+        to={`/category/${category.slug}`}
         className={classNames(
           'self-start',
           align === 'left' ? 'md:self-end' : 'md:self-start',

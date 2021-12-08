@@ -58,9 +58,10 @@ export default function CategoryIntroBlock({ category, odd }: Props) {
           )}
         </div>
         <div data-name="category-intro-content">
-          {category.latestArticles && (
+          {category.articles && (
             <LatestArticleList
-              articles={category.latestArticles}
+              category={category}
+              articles={category.articles}
               align={odd ? 'right' : 'left'}
             />
           )}
