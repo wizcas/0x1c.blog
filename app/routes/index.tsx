@@ -28,7 +28,7 @@ export default function Index() {
   const categories = useLoaderData<Category[]>();
   return (
     <main className="flex flex-col items-stretch">
-      <div className="h-40vh">0x1C</div>
+      <div className="h-40vh" />
       {categories.map((category, index) => (
         <CategoryIntroBlock
           key={category.slug}

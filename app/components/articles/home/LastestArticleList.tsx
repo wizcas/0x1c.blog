@@ -1,4 +1,5 @@
 import classNames from 'classnames';
+import { ChevronsRight } from 'react-feather';
 import { Link } from 'remix';
 
 import type { Article } from '~/services/blog/types';
@@ -14,9 +15,16 @@ export default function LatestArticleList({ articles, align = 'left' }: Props) {
   return (
     <div
       data-name="latest-article-list"
-      className={classNames('my-16', 'flex flex-col gap-4')}
+      className={classNames('mt-8 mb-24', 'flex flex-col gap-4')}
     >
-      <h5 className={align === 'left' ? 'self-start' : 'self-end'}>Latest</h5>
+      <h5
+        className={classNames(
+          'self-start',
+          align === 'left' ? 'md:self-start' : 'md:self-end'
+        )}
+      >
+        Latest
+      </h5>
       <ul className={classNames('grid grid-cols-1 md:grid-cols-3 gap-4')}>
         {articles?.map((article) => (
           <li>
@@ -27,11 +35,12 @@ export default function LatestArticleList({ articles, align = 'left' }: Props) {
       <Link
         to="/"
         className={classNames(
-          align === 'left' ? 'self-end' : 'self-start',
+          'self-start',
+          align === 'left' ? 'md:self-end' : 'md:self-start',
           'text-sm text-light-100'
         )}
       >
-        More articles&hellip;
+        View more <ChevronsRight className="inline-block" />
       </Link>
     </div>
   );
