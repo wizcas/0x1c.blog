@@ -9,10 +9,10 @@ import Topic from '../meta/Topic';
 interface Props {
   article: Article;
 }
-export default function ArticleIntroCard({ article }: Props) {
+export default function ArticleDetailedCard({ article }: Props) {
   const url = `/articles/${article.slug}`;
   return (
-    <Link className="card bg-opacity-60 hover:bg-opacity-80" to={url}>
+    <Link className="card" to={url}>
       <article className={classNames('prose')}>
         <h3 className="!mt-0">{article.title}</h3>
         <div className="space-x-2">

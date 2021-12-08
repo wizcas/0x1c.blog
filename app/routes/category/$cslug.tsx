@@ -21,7 +21,9 @@ export default function CategoryIndex() {
       <header className="hero">
         <h1>{title}</h1>
       </header>
-      <Outlet />
+      <section className="mb-16">
+        <Outlet />
+      </section>
     </main>
   );
 }

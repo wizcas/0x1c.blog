@@ -4,7 +4,7 @@ import invariant from 'tiny-invariant';
 import { getArticles } from '~/services/blog/article';
 import type { Article } from '~/services/blog/types';
 
-import ArticleIntroCard from './home/ArticleIntroCard';
+import ArticleDetailedCard from './ArticleDetailedCard';
 
 interface Props {
   articles: Article[];
@@ -23,7 +23,7 @@ export default function ArticleList({ articles, pagination }: Props) {
   return (
     <div className="flex flex-col items-stretch gap-4">
       {hasArtcle ? (
-        articles.map((article) => <ArticleIntroCard article={article} />)
+        articles.map((article) => <ArticleDetailedCard article={article} />)
       ) : (
         <div className="text-sm self-center text-light-200">No articles</div>
       )}

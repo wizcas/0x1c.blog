@@ -75,7 +75,7 @@
   }
 
   .card {
-    @apply bg-dark-700 bg-opacity-60;
+    @apply bg-dark-700;
     @apply p-4 rounded-md;
     @apply flex flex-col items-stretch;
     @apply transition-all duration-200 ease-in-out;
@@ -84,7 +84,7 @@
 
   a.card {
     &:hover {
-      @apply scale-105 shadow-md bg-opacity-80;
+      @apply scale-105 shadow-md;
       @apply rounded-sm;
       color: inherit;
       text-shadow: none;
