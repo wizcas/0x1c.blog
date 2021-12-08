@@ -46,7 +46,7 @@ export default function ArticleDetailedCard({ article }: Props) {
           <DateTime value={article.datetime} />
           {article.topic && <Topic topic={article.topic} />}
         </div>
-        <p className="line-clamp-5">{article.excerpt}</p>
+        <p className="line-clamp-8">{article.excerpt}</p>
         {article.tags && article.tags.length > 0 && (
           <section data-name="article-tag-list" className="space-x-4 text-sm">
             {article.tags.map((tag) => (

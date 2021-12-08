@@ -91,7 +91,7 @@
     &:hover {
       @apply scale-105 shadow-md;
       @apply rounded-sm;
-      @apply ring ring-hi-link ring-opacity-10;
+      @apply ring-1 ring-hi-primary;
       color: inherit;
       text-shadow: none;
     }
