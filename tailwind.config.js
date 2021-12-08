@@ -53,8 +53,8 @@ module.exports = {
       },
       hi: {
         primary: '#EB6D71',
-        link: '#00BFE5',
-        'link-bright': '#99EEFF',
+        link: '#52D5E0',
+        'link-bright': '#A8EAF0',
       },
     },
   },

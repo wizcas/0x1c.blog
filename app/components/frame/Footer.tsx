@@ -6,7 +6,7 @@ export function Footer() {
           <em>&copy;</em>
           0x1C.dev
           <br />
-          <em className="text-sm">by</em>
+          <em className="text-xs">by</em>
           Wizcas Chen
         </p>
       </div>

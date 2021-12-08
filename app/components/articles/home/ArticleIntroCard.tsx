@@ -13,14 +13,7 @@ export default function ArticleIntroCard({ article }: Props) {
   const url = `/articles/${article.slug}`;
   return (
     <Link className="card" to={url}>
-      <article
-        className={classNames(
-          'bg-dark-800 bg-opacity-50',
-          'p-4 rounded-md',
-          'flex flex-col items-stretch',
-          'prose'
-        )}
-      >
+      <article className={classNames('prose')}>
         <h3 className="!mt-0">{article.title}</h3>
         <div className="space-x-2">
           <DateTime value={article.datetime} />
