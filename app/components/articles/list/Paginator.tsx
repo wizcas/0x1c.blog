@@ -1,7 +1,12 @@
 import classNames from 'classnames';
 import clamp from 'lodash/clamp';
 import { ReactNode } from 'react';
-import { ChevronsLeft, ChevronsRight } from 'react-feather';
+import {
+  ChevronLeft,
+  ChevronRight,
+  ChevronsLeft,
+  ChevronsRight,
+} from 'react-feather';
 import { useLocation, Link } from 'remix';
 
 export function parsePage(search: string): number | undefined {
@@ -32,7 +37,7 @@ export default function Paginator({
   className,
   total,
   current,
-  maxNumbers = 10,
+  maxNumbers = 8,
 }: Props) {
   const location = useLocation();
   if (auto) {
@@ -44,9 +49,7 @@ export default function Paginator({
   const hasNext = current >= total;
 
   // how many pages to show under the constraint of maxNumbers
-  const visiblePages = maxNumbers
-    ? clamp(maxNumbers - 2 /* exclude prev & next */, 1, total)
-    : 0;
+  const visiblePages = maxNumbers ? clamp(maxNumbers, 1, total) : 0;
 
   // try to split the leading and trailing items in average.
   // the cases of reaching start or end are handled specifically.
@@ -68,15 +71,22 @@ export default function Paginator({
   return (
     <ul
       className={classNames(
-        'flex justify-center items-center gap-2 text-sm',
+        'flex justify-center items-center gap-1 text-sm',
+        'paginator',
         className
       )}
     >
-      <PageLink to={current - 1} disabled={hasPrev}>
+      <PageLink to={1} disabled={hasPrev}>
         <ChevronsLeft />
+      </PageLink>
+      <PageLink to={current - 1} disabled={hasPrev}>
+        <ChevronLeft />
       </PageLink>
       {pageLinks}
       <PageLink to={current + 1} disabled={hasNext}>
+        <ChevronRight />
+      </PageLink>
+      <PageLink to={total} disabled={hasNext}>
         <ChevronsRight />
       </PageLink>
     </ul>
@@ -93,7 +103,13 @@ function PageLink({ children, to, disabled, active }: PageLinkProps) {
   const location = useLocation();
   const url = `./?${getPageQuery(location.search, to)}`;
   return (
-    <li>
+    <li
+      className={classNames(
+        'flex flex-col items-stretch justify-center text-center',
+        'w-6 h-8 leading-8',
+        active && 'bg-dark-700'
+      )}
+    >
       {disabled || active ? (
         <div
           className={classNames(
@@ -105,7 +121,10 @@ function PageLink({ children, to, disabled, active }: PageLinkProps) {
           {children}
         </div>
       ) : (
-        <Link to={url} className="!text-light-100 hover:!text-hi-primary">
+        <Link
+          to={url}
+          className={classNames('!text-light-100 hover:!text-hi-primary')}
+        >
           {children}
         </Link>
       )}
