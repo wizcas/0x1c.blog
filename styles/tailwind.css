@@ -92,6 +92,7 @@
       @apply shadow-md;
       @apply rounded-sm;
       @apply brightness-110;
+      @apply ring-1 ring-dark-900;
       color: inherit;
       text-shadow: none;
     }
