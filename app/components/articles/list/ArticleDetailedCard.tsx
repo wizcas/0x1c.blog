@@ -1,11 +1,11 @@
 import classNames from 'classnames';
-import { Tag } from 'react-feather';
 import { Link } from 'remix';
 
 import CardHeader from '~/components/card/CardHeader';
 import type { Article } from '~/services/blog/types';
 
 import DateTime from '../meta/DateTime';
+import TagLink from '../meta/TagLink';
 import Topic from '../meta/Topic';
 
 interface Props {
@@ -34,14 +34,7 @@ export default function ArticleDetailedCard({ article }: Props) {
         {article.tags && article.tags.length > 0 && (
           <section data-name="article-tag-list" className="space-x-4 text-sm">
             {article.tags.map((tag) => (
-              <Link
-                key={tag.slug}
-                to={`/${tag.slug}`}
-                className="space-x-1 !text-light-200 hover:!text-hi-primary"
-              >
-                <Tag className="icon" size="16" />
-                <span>{tag.label}</span>
-              </Link>
+              <TagLink key={tag.slug} tag={tag} />
             ))}
           </section>
         )}
