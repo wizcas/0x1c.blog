@@ -9,7 +9,7 @@ interface Props {
 export default function Topic({ topic }: Props) {
   return (
     <Link
-      to={`/category/${topic.category.slug}/topics/${topic.slug}`}
+      to={`/category/${topic.category.slug}/topic/${topic.slug}`}
       className="text-sm"
     >
       {`// ${topic.title}`}

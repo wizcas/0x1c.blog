@@ -10,7 +10,8 @@ import Paginator, { parsePage } from './Paginator';
 const PAGE_SIZE = 12;
 
 export const articlesLoader: LoaderFunction = async ({ params, request }) => {
-  const { cslug, ...rest } = params;
+  console.log({ params });
+  const { cslug, tslug, gslugs } = params;
   const { search } = new URL(request.url);
   const page = parsePage(search) || 1;
   invariant(cslug, 'Category is required');
@@ -19,7 +20,8 @@ export const articlesLoader: LoaderFunction = async ({ params, request }) => {
       limit: PAGE_SIZE,
       offset: (page - 1) * PAGE_SIZE,
       cslug,
-      ...rest,
+      tslug,
+      gslugs: gslugs?.split('+'),
     })
   );
 };
