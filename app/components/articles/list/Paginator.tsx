@@ -4,6 +4,21 @@ import { ReactNode } from 'react';
 import { ChevronsLeft, ChevronsRight } from 'react-feather';
 import { useLocation, Link } from 'remix';
 
+export function parsePage(search: string): number | undefined {
+  const pageParam = new URLSearchParams(search).get('page');
+  let page = (pageParam && Number(pageParam)) || undefined;
+  if (Number.isNaN(page)) {
+    page = undefined;
+  }
+  return page;
+}
+
+export function getPageQuery(search: string, page: number): string {
+  const params = new URLSearchParams(search);
+  params.set('page', String(page));
+  return params.toString();
+}
+
 interface Props {
   className?: string;
   maxNumbers?: number;
@@ -21,11 +36,7 @@ export default function Paginator({
 }: Props) {
   const location = useLocation();
   if (auto) {
-    const pageParam = new URLSearchParams(location.search).get('page');
-    current = (pageParam && Number(pageParam)) || undefined;
-    if (Number.isNaN(current)) {
-      current = undefined;
-    }
+    current = parsePage(location.search) || 1;
   }
   current = clamp(current ?? 1, 1, total);
 
@@ -80,9 +91,7 @@ interface PageLinkProps {
 }
 function PageLink({ children, to, disabled, active }: PageLinkProps) {
   const location = useLocation();
-  const params = new URLSearchParams(location.search);
-  params.set('page', String(to));
-  const url = `./?${params.toString()}`;
+  const url = `./?${getPageQuery(location.search, to)}`;
   return (
     <li>
       {disabled || active ? (
