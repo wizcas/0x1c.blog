@@ -6,7 +6,7 @@ import type { Article } from '~/services/blog/types';
 
 import DateTime from '../meta/DateTime';
 import TagLink from '../meta/TagLink';
-import Topic from '../meta/Topic';
+import TopicLink from '../meta/TopicLink';
 
 interface Props {
   article: Article;
@@ -21,7 +21,7 @@ export default function ArticleDetailedCard({ article }: Props) {
         <CardHeader title={article.title} coverUrl={article.cover} />
         <div className="space-x-2">
           <DateTime value={article.datetime} />
-          {article.topic && <Topic topic={article.topic} />}
+          {article.topic && <TopicLink topic={article.topic} />}
         </div>
         <p
           className={classNames(

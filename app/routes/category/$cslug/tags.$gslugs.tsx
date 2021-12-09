@@ -7,7 +7,7 @@ import {
 import type { Articles } from '~/services/blog/types';
 
 export const loader = articlesLoader;
-export default function TopicIndex() {
+export default function TagsIndex() {
   const articles = useLoaderData<Articles>() || [];
   return <PagedArticleList {...articles} />;
 }

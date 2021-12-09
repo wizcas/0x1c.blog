@@ -4,7 +4,7 @@ import { Link } from 'remix';
 import type { Article } from '~/services/blog/types';
 
 import DateTime from '../meta/DateTime';
-import Topic from '../meta/Topic';
+import TopicLink from '../meta/TopicLink';
 
 interface Props {
   article: Article;
@@ -20,7 +20,7 @@ export default function ArticleIntroCard({ article }: Props) {
         <h3 className="!mt-0">{article.title}</h3>
         <div className="space-x-2">
           <DateTime value={article.datetime} />
-          {article.topic && <Topic topic={article.topic} />}
+          {article.topic && <TopicLink topic={article.topic} />}
         </div>
         <p className="line-clamp-5">{article.excerpt}</p>
       </article>
