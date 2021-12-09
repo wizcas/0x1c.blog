@@ -5,19 +5,29 @@ import { ChevronsLeft, ChevronsRight } from 'react-feather';
 import { useLocation, Link } from 'remix';
 
 interface Props {
-  total: number;
-  current: number;
   className?: string;
   maxNumbers?: number;
+  total: number;
+  current?: number;
+  auto?: boolean;
 }
 
 export default function Paginator({
+  auto,
+  className,
   total,
   current,
-  className,
   maxNumbers = 10,
 }: Props) {
-  current = clamp(current, 1, total);
+  const location = useLocation();
+  if (auto) {
+    const pageParam = new URLSearchParams(location.search).get('page');
+    current = (pageParam && Number(pageParam)) || undefined;
+    if (Number.isNaN(current)) {
+      current = undefined;
+    }
+  }
+  current = clamp(current ?? 1, 1, total);
 
   const hasPrev = current <= 1;
   const hasNext = current >= total;

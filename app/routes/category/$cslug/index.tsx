@@ -13,7 +13,7 @@ export default function CategoryIndex() {
   return (
     <>
       <ArticleList articles={articles} pagination />
-      <Paginator total={10} current={1} maxNumbers={20} />
+      <Paginator total={10} auto maxNumbers={20} />
     </>
   );
 }
