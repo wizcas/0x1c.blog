@@ -35,6 +35,7 @@ export default function ArticleDetailedCard({ article }: Props) {
           <section data-name="article-tag-list" className="space-x-4 text-sm">
             {article.tags.map((tag) => (
               <Link
+                key={tag.slug}
                 to={`/${tag.slug}`}
                 className="space-x-1 !text-light-200 hover:!text-hi-primary"
               >
