@@ -1,19 +1,14 @@
 import { useLoaderData } from 'remix';
 
-import ArticleList, {
+import {
   articlesLoader,
+  PagedArticleList,
 } from '~/components/articles/list/ArticleList';
-import Paginator from '~/components/articles/list/Paginator';
-import type { Article } from '~/services/blog/types';
+import type { Articles } from '~/services/blog/types';
 
 export const loader = articlesLoader;
 
 export default function CategoryIndex() {
-  const articles = useLoaderData<Article[]>() || [];
-  return (
-    <>
-      <ArticleList articles={articles} pagination />
-      <Paginator total={10} auto maxNumbers={20} />
-    </>
-  );
+  const articles = useLoaderData<Articles>() || [];
+  return <PagedArticleList {...articles} />;
 }

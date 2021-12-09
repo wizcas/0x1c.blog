@@ -1,24 +1,34 @@
-import { LoaderFunction } from 'remix';
+import { json, LoaderFunction } from 'remix';
 import invariant from 'tiny-invariant';
 
 import { getArticles } from '~/services/blog/article';
 import type { Article } from '~/services/blog/types';
 
 import ArticleDetailedCard from './ArticleDetailedCard';
+import Paginator, { parsePage } from './Paginator';
 
-interface Props {
-  articles: Article[];
-  pagination: any;
-}
+const PAGE_SIZE = 12;
 
-export const articlesLoader: LoaderFunction = async ({ params }) => {
+export const articlesLoader: LoaderFunction = async ({ params, request }) => {
   const { cslug, ...rest } = params;
+  const { search } = new URL(request.url);
+  const page = parsePage(search) || 1;
   invariant(cslug, 'Category is required');
-  return getArticles({ cslug, ...rest });
-  // return [];
+  return json(
+    await getArticles({
+      limit: PAGE_SIZE,
+      offset: (page - 1) * PAGE_SIZE,
+      cslug,
+      ...rest,
+    })
+  );
 };
 
-export default function ArticleList({ articles, pagination }: Props) {
+interface ArticleListProps {
+  articles: Article[];
+}
+
+export function ArticleList({ articles }: ArticleListProps) {
   const hasArticle = articles.length > 0;
   if (!hasArticle) {
     return (
@@ -30,6 +40,22 @@ export default function ArticleList({ articles, pagination }: Props) {
       {articles.map((article) => (
         <ArticleDetailedCard key={article.slug} article={article} />
       ))}
+    </div>
+  );
+}
+
+interface PagedArticleListProps extends ArticleListProps {
+  totalPages: number;
+}
+
+export function PagedArticleList({
+  totalPages,
+  ...rest
+}: PagedArticleListProps) {
+  return (
+    <div className="space-y-8">
+      <ArticleList {...rest} />
+      <Paginator total={totalPages} auto />
     </div>
   );
 }

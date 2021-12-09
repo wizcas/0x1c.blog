@@ -28,3 +28,8 @@ export interface Article {
   topic?: Topic;
   tags?: Tag[];
 }
+
+export interface Articles {
+  articles: Article[];
+  totalPages: number;
+}
