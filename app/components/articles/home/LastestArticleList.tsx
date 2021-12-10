@@ -4,7 +4,7 @@ import { Link } from 'remix';
 
 import type { Article, Category } from '~/services/blog/types';
 
-import ArticleIntroCard from './ArticleIntroCard';
+import ArticleCard from '../../card/ArticleCard';
 
 interface Props {
   category: Category;
@@ -33,7 +33,8 @@ export default function LatestArticleList({
       <ul className={classNames('grid grid-cols-1 md:grid-cols-3 gap-4')}>
         {articles?.map((article) => (
           <li>
-            <ArticleIntroCard key={article.slug} article={article} />
+            {/* <ArticleIntroCard key={article.slug} article={article} /> */}
+            <ArticleCard article={article} compact className="h-full" />
           </li>
         ))}
       </ul>

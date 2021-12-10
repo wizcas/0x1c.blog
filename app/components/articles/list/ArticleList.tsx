@@ -4,7 +4,8 @@ import invariant from 'tiny-invariant';
 import { getArticles } from '~/services/blog/article';
 import type { Article } from '~/services/blog/types';
 
-import ArticleDetailedCard from './ArticleDetailedCard';
+import ArticleCard from '../../card/ArticleCard';
+
 import Paginator, { parsePage } from './Paginator';
 
 const PAGE_SIZE = 12;
@@ -39,7 +40,7 @@ export function ArticleList({ articles }: ArticleListProps) {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
       {articles.map((article) => (
-        <ArticleDetailedCard key={article.slug} article={article} />
+        <ArticleCard key={article.slug} article={article} />
       ))}
     </div>
   );

@@ -12,22 +12,28 @@ interface Props {
   title: string;
   coverUrl?: string;
   className?: string;
+  compact?: boolean;
 }
 
-export default function CardHeader({ title, coverUrl, className }: Props) {
+export default function CardHeader({
+  title,
+  coverUrl,
+  className,
+  compact,
+}: Props) {
   const hasCover = coverUrl;
   return (
     <div
       className={classNames(
         'card-header',
-        { [COVER_CLASS]: hasCover },
+        { [COVER_CLASS]: hasCover, 'h-36': compact && hasCover },
         className
       )}
     >
       {coverUrl && <img src={coverUrl} alt="" className="card-cover-image" />}
-      <h3 className={classNames('!m-0', coverUrl && COVERED_TITLE_CLASS)}>
+      <h4 className={classNames('!m-0', coverUrl && COVERED_TITLE_CLASS)}>
         {title}
-      </h3>
+      </h4>
     </div>
   );
 }
