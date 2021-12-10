@@ -10,20 +10,25 @@ import Paginator, { parsePage } from './Paginator';
 
 const PAGE_SIZE = 12;
 
-export const articlesLoader: LoaderFunction = async ({ params, request }) => {
+export async function fetchArticles({
+  params,
+  request,
+}: Parameters<LoaderFunction>[0]) {
   const { cslug, tslug, gslugs } = params;
   const { search } = new URL(request.url);
   const page = parsePage(search) || 1;
   invariant(cslug, 'Category is required');
-  return json(
-    await getArticles({
-      limit: PAGE_SIZE,
-      offset: (page - 1) * PAGE_SIZE,
-      cslug,
-      tslug,
-      gslugs: gslugs?.split('+'),
-    })
-  );
+  return getArticles({
+    limit: PAGE_SIZE,
+    offset: (page - 1) * PAGE_SIZE,
+    cslug,
+    tslug,
+    gslugs: gslugs?.split('+'),
+  });
+}
+
+export const articlesLoader: LoaderFunction = async (args) => {
+  return json(await fetchArticles(args));
 };
 
 interface ArticleListProps {

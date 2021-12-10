@@ -1,13 +1,30 @@
-import { useLoaderData } from 'remix';
+import { json, LoaderFunction, useLoaderData } from 'remix';
 
 import {
-  articlesLoader,
+  fetchArticles,
   PagedArticleList,
 } from '~/components/articles/list/ArticleList';
 import type { Articles } from '~/services/blog/types';
 
-export const loader = articlesLoader;
+interface LoaderData {
+  topicTitle: string;
+  articles: Articles;
+}
+
+export const loader: LoaderFunction = async (args) => {
+  const articles = await fetchArticles(args);
+  const topicTitle = 'Topic Name';
+  return json({ articles, topicTitle } as LoaderData);
+};
 export default function TopicIndex() {
-  const articles = useLoaderData<Articles>() || [];
-  return <PagedArticleList {...articles} />;
+  const { topicTitle, articles } = useLoaderData<LoaderData>() || [];
+  return (
+    <>
+      <h5>
+        Articles in &nbsp;
+        <code className="text-hi-primary">{`//${topicTitle}`}</code>
+      </h5>
+      <PagedArticleList {...articles} />
+    </>
+  );
 }
