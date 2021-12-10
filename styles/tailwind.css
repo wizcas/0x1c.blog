@@ -94,7 +94,7 @@
       @apply -z-10;
       @apply bg-dark-900 bg-opacity-90;
       @apply m-0;
-      @apply transform transition-all duration-200 ease-out;
+      @apply transform transition-all duration-300 ease-out;
     }
   }
 
@@ -109,7 +109,7 @@
       text-shadow: none;
 
       & .card-cover-image {
-        @apply scale-105;
+        @apply scale-110 brightness-50 saturate-50;
       }
     }
   }
