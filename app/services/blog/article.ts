@@ -1,5 +1,11 @@
 import { generateArticles } from '~/mocks/articles';
 
-export async function getArticles(categoryId: string) {
-  return generateArticles(5);
+import type { Articles, ArticlesFilter } from './types';
+
+export async function getArticles(filter: ArticlesFilter) {
+  return {
+    articles: generateArticles(5),
+    totalPages: 10,
+    filter,
+  } as Articles;
 }

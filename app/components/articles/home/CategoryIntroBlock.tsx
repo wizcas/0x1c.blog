@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import { CSSProperties } from 'react';
 
+import { CategoryContext } from '~/contexts/CategoryContext';
 import type { Category } from '~/services/blog/types';
 
 import LatestArticleList from './LastestArticleList';
@@ -17,55 +18,58 @@ export default function CategoryIntroBlock({ category, odd }: Props) {
     translateX(${dir * 1}rem)`,
   } as CSSProperties;
   return (
-    <div
-      data-name="category-intro-block"
-      className="relative min-h-superhero w-full"
-      style={{ backgroundColor: category.color }}
-    >
-      <section
-        data-name="category-intro-wrapper"
-        className="page-content transform -translate-y-32"
+    <CategoryContext.Provider value={category}>
+      <div
+        data-name="category-intro-block"
+        className="relative min-h-superhero w-full"
+        style={{ backgroundColor: category.color }}
       >
-        <div
-          data-name="category-intro-header"
-          className={classNames(
-            'flex justify-between items-stretch gap-8 xl:gap-32',
-            'relative h-64 md:h-64',
-            {
-              'flex-row-reverse': odd,
-            }
-          )}
+        <section
+          data-name="category-intro-wrapper"
+          className="page-content transform -translate-y-32"
         >
           <div
-            data-name="category-intro-text"
-            className="prose max-w-none grid grid-rows-2 flex-1 py-2"
+            data-name="category-intro-header"
+            className={classNames(
+              'flex justify-between items-stretch gap-8 xl:gap-32',
+              'relative h-64 md:h-64',
+              {
+                'flex-row-reverse': odd,
+              }
+            )}
           >
-            <h1 className="self-end whitespace-nowrap">{category.title}</h1>
-            <div className="mt-8 line-clamp-3">{category.description}</div>
+            <div
+              data-name="category-intro-text"
+              className="prose max-w-none grid grid-rows-2 flex-1 py-2"
+            >
+              <h1 className="self-end whitespace-nowrap">{category.title}</h1>
+              <div className="mt-8 line-clamp-3">{category.description}</div>
+            </div>
+            {category.coverUrl && (
+              <img
+                data-name="category-intro-cover"
+                src={category.coverUrl}
+                alt=""
+                className={classNames(
+                  'h-10vh md:h-20vh lg:h-30vh max-h-96 rounded-md',
+                  'hidden md:block',
+                  'flex-initial self-center'
+                )}
+                style={cover3dStyle}
+              />
+            )}
           </div>
-          {category.coverUrl && (
-            <img
-              data-name="category-intro-cover"
-              src={category.coverUrl}
-              alt=""
-              className={classNames(
-                'h-10vh md:h-20vh lg:h-30vh max-h-96 rounded-md',
-                'hidden md:block',
-                'flex-initial self-center'
-              )}
-              style={cover3dStyle}
-            />
-          )}
-        </div>
-        <div data-name="category-intro-content">
-          {category.latestArticles && (
-            <LatestArticleList
-              articles={category.latestArticles}
-              align={odd ? 'right' : 'left'}
-            />
-          )}
-        </div>
-      </section>
-    </div>
+          <div data-name="category-intro-content">
+            {category.articles && (
+              <LatestArticleList
+                category={category}
+                articles={category.articles}
+                align={odd ? 'right' : 'left'}
+              />
+            )}
+          </div>
+        </section>
+      </div>
+    </CategoryContext.Provider>
   );
 }

@@ -4,7 +4,7 @@ export interface Category {
   color: string;
   description?: string;
   coverUrl?: string;
-  latestArticles?: Article[];
+  articles?: Article[];
 }
 
 export interface Topic {
@@ -24,6 +24,21 @@ export interface Article {
   excerpt: string;
   content: string;
   datetime: string;
+  cover?: string;
   topic?: Topic;
   tags?: Tag[];
+}
+
+export interface ArticlesFilter {
+  cslug: string;
+  tslug?: string;
+  gslugs?: string[];
+  offset?: number;
+  limit: number;
+}
+
+export interface Articles {
+  articles: Article[];
+  totalPages: number;
+  filter?: ArticlesFilter;
 }

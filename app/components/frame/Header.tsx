@@ -1,4 +1,5 @@
 import classNames from 'classnames';
+import { Link } from 'remix';
 
 import Logo from '~/components/branding/Logo';
 
@@ -13,7 +14,9 @@ export default function Header() {
   return (
     <header className={headerStyles}>
       <div className="page-content flex flex-row items-center justify-between h-full">
-        <Logo />
+        <Link to="/">
+          <Logo />
+        </Link>
       </div>
     </header>
   );

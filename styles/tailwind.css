@@ -8,7 +8,7 @@
 /* Custom Definitions */
 @custom-selector :--heading h1, h2, h3, h4, h5, h6;
 %hyperlink {
-  @apply transition-all duration-200 ease-in-out;
+  @apply transition-all duration-200 ease-out;
   @apply no-underline;
 
   @apply text-hi-link hover:text-hi-link-bright;
@@ -60,6 +60,10 @@
       @extend %hyperlink;
     }
   }
+  *[is='icon'],
+  .icon {
+    @apply inline-block;
+  }
 }
 
 @layer components {
@@ -75,22 +79,48 @@
   }
 
   .card {
-    @apply bg-dark-700 bg-opacity-60;
+    @apply bg-dark-700;
     @apply p-4 rounded-md;
     @apply flex flex-col items-stretch;
-    @apply transition-all duration-200 ease-in-out;
-    @apply transform;
+    @apply transition-all duration-200 ease-out;
+    @apply overflow-hidden;
+
+    & .card-header {
+      @apply relative overflow-hidden;
+    }
+
+    & .card-cover-image {
+      @apply absolute inset-0 object-cover;
+      @apply -z-10;
+      @apply bg-dark-900 bg-opacity-90;
+      @apply m-0;
+      @apply transform transition-all duration-300 ease-out;
+    }
   }
 
-  a.card {
+  .card.interact {
+    @apply transform;
     &:hover {
-      @apply scale-105 shadow-md bg-opacity-80;
+      @apply shadow-md;
       @apply rounded-sm;
+      @apply brightness-110;
+      @apply ring-1 ring-dark-900;
       color: inherit;
       text-shadow: none;
+
+      & .card-cover-image {
+        @apply scale-110 brightness-50 saturate-50;
+      }
     }
+  }
+
+  .hero {
+    @apply h-30vh;
   }
 }
 
 @layer utilities {
+  .spacer {
+    @apply flex-1;
+  }
 }
