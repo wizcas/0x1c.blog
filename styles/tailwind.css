@@ -11,9 +11,11 @@
   @apply transition-all duration-200 ease-out;
   @apply no-underline;
 
-  @apply text-hi-link hover:text-hi-link-bright;
-  &:hover {
-    filter: drop-shadow(0 0 0.25em currentColor);
+  &:not(.quiet) {
+    @apply text-hi-link hover:text-hi-link-bright;
+    &:hover {
+      filter: drop-shadow(0 0 0.25em currentColor);
+    }
   }
 }
 
@@ -56,9 +58,7 @@
     @apply px-1;
   }
   a {
-    &:not(.card) {
-      @extend %hyperlink;
-    }
+    @extend %hyperlink;
   }
   *[is='icon'],
   .icon {
@@ -68,12 +68,14 @@
 
 @layer components {
   .prose {
+    color: unset;
     @apply text-light-100;
     & :--heading {
       @apply text-light-50;
     }
 
     & a {
+      color: unset;
       @extend %hyperlink;
     }
   }
@@ -82,7 +84,7 @@
     @apply bg-dark-700;
     @apply p-4 rounded-md;
     @apply flex flex-col items-stretch;
-    @apply transition-all duration-200 ease-out;
+    @apply transition-all duration-300 ease-out;
     @apply overflow-hidden;
 
     & .card-header {
@@ -96,20 +98,28 @@
       @apply m-0;
       @apply transform transition-all duration-300 ease-out;
     }
-  }
+    &.interact {
+      @apply transform;
+      &:hover {
+        @apply shadow-md;
+        @apply rounded-sm;
+        @apply brightness-110;
+        @apply ring-1 ring-dark-900;
+        color: inherit;
+        text-shadow: none;
 
-  .card.interact {
-    @apply transform;
-    &:hover {
-      @apply shadow-md;
-      @apply rounded-sm;
-      @apply brightness-110;
-      @apply ring-1 ring-dark-900;
-      color: inherit;
-      text-shadow: none;
-
-      & .card-cover-image {
-        @apply scale-110 brightness-50 saturate-50;
+        & .card-cover-image {
+          @apply scale-110 brightness-50 saturate-50;
+        }
+      }
+      & .opener {
+        & .opener-overlay {
+          @apply transition-all duration-300 ease-out;
+          @apply opacity-0;
+        }
+        &:hover .opener-overlay {
+          @apply opacity-90;
+        }
       }
     }
   }

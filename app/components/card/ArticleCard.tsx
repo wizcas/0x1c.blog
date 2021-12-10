@@ -1,4 +1,5 @@
 import classNames from 'classnames';
+import { Book } from 'react-feather';
 import { Link } from 'remix';
 
 import CardHeader from '~/components/card/CardHeader';
@@ -21,26 +22,43 @@ interface Props {
 export default function ArticleCard({ article, compact, className }: Props) {
   const url = `/articles/${article.slug}`;
   return (
-    <Link className={classNames('card interact', className)} to={url}>
+    <div className={classNames('card interact', className)}>
       <article
         className={classNames('prose h-full', 'flex flex-col items-stretch')}
       >
-        <CardHeader
-          title={article.title}
-          coverUrl={article.cover}
-          compact={compact}
-        />
+        <Link to={url} className="quiet">
+          <CardHeader
+            title={article.title}
+            coverUrl={article.cover}
+            compact={compact}
+          />
+        </Link>
         <div className="space-x-2">
           <DateTime value={article.datetime} />
           {article.topic && <TopicLink topic={article.topic} />}
         </div>
-        <p
+        <Link
           className={classNames(
-            EXCERPT_LINES[compact ? 'compact' : 'normal'](!!article.cover)
+            'quiet my-6 relative',
+            '-mx-4 px-4',
+            EXCERPT_LINES[compact ? 'compact' : 'normal'](!!article.cover),
+            'opener'
           )}
+          to={url}
         >
           {article.excerpt}
-        </p>
+          <div
+            className={classNames(
+              'opener-overlay',
+              'absolute inset-y-0 right-0 w-full',
+              'bg-dark-900',
+              'flex justify-center items-center gap-2 p-4'
+            )}
+          >
+            <Book />
+            Read more
+          </div>
+        </Link>
         <div className="spacer" />
         {article.tags && article.tags.length > 0 && (
           <section data-name="article-tag-list" className="space-x-4 text-sm">
@@ -50,6 +68,6 @@ export default function ArticleCard({ article, compact, className }: Props) {
           </section>
         )}
       </article>
-    </Link>
+    </div>
   );
 }
