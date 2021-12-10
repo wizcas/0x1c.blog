@@ -1,4 +1,5 @@
 import { json, LoaderFunction, useLoaderData } from 'remix';
+import invariant from 'tiny-invariant';
 
 import {
   fetchArticles,
@@ -13,7 +14,8 @@ interface LoaderData {
 
 export const loader: LoaderFunction = async (args) => {
   const articles = await fetchArticles(args);
-  const topicTitle = 'Topic Name';
+  const topicTitle = articles.filter?.tslug;
+  invariant('tslug');
   return json({ articles, topicTitle } as LoaderData);
 };
 export default function TopicIndex() {
@@ -22,7 +24,7 @@ export default function TopicIndex() {
     <>
       <h5>
         Articles in &nbsp;
-        <code className="text-hi-primary">{`//${topicTitle}`}</code>
+        <code className="text-hi-primary">{`//${topicTitle}(todo)`}</code>
       </h5>
       <PagedArticleList {...articles} />
     </>

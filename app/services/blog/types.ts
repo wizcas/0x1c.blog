@@ -29,7 +29,16 @@ export interface Article {
   tags?: Tag[];
 }
 
+export interface ArticlesFilter {
+  cslug: string;
+  tslug?: string;
+  gslugs?: string[];
+  offset?: number;
+  limit: number;
+}
+
 export interface Articles {
   articles: Article[];
   totalPages: number;
+  filter?: ArticlesFilter;
 }
