@@ -20,7 +20,7 @@ interface Props {
   className?: string;
 }
 export default function ArticleCard({ article, compact, className }: Props) {
-  const url = `/articles/${article.slug}`;
+  const url = `/article/${article.slug}`;
   return (
     <div className={classNames('card interact', className)}>
       <article className={classNames('h-full', 'flex flex-col items-stretch')}>
