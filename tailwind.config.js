@@ -11,10 +11,13 @@ function unitRange(values, unit) {
   }, {});
 }
 
-const heightExtension = {
+const heightExtensions = {
   hero: '40vh',
   superhero: '80vh',
   ...unitRange(screenUnits, 'vh'),
+};
+const widthExtensions = {
+  ...unitRange(screenUnits, 'vw'),
 };
 
 module.exports = {
@@ -26,9 +29,12 @@ module.exports = {
       zIndex: {
         '-10': '-10',
       },
-      height: heightExtension,
-      minHeight: heightExtension,
-      maxHeight: heightExtension,
+      height: heightExtensions,
+      minHeight: heightExtensions,
+      maxHeight: heightExtensions,
+      width: widthExtensions,
+      minWidth: widthExtensions,
+      maxWidth: widthExtensions,
     },
     colors: {
       // Build your palette here

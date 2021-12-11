@@ -71,7 +71,12 @@
     @apply backdrop-filter backdrop-blur-md;
     @apply bg-dark-800 bg-opacity-70;
   }
+  .article {
+    @apply leading-normal;
+  }
   .prose {
+    min-width: 0;
+    max-width: 100ch;
     color: unset;
     @apply text-light-100;
     & :--heading {
