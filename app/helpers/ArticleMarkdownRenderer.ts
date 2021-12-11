@@ -10,9 +10,9 @@ export default class ArticleMarkdownRenderer extends Renderer {
     const slug = slugger.slug(text);
     const escaped = text.toLowerCase().replace(/[\s]+/g, '-');
     const href = `#${slug}`;
-    return `<h${level} id="${slug}">
+    return `<h${level}>
     ${text}
-    <a href="${href}" name="${escaped}" class="anchor">
+    <a href="${href}" name="${escaped}" class="anchor" id="${slug}">
     #
     </a>
     </h${level}>`;
