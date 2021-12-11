@@ -15,7 +15,7 @@ export default function CategoryIntroBlock({ category, odd }: Props) {
   const cover3dStyle = {
     transform: `perspective(30rem)
     rotate3d(0.5, ${dir}, 0, 20deg) 
-    translateX(${dir * 1}rem)`,
+    translateX(${dir * 2}rem)`,
   } as CSSProperties;
   return (
     <CategoryContext.Provider value={category}>

@@ -23,9 +23,7 @@ export default function ArticleCard({ article, compact, className }: Props) {
   const url = `/articles/${article.slug}`;
   return (
     <div className={classNames('card interact', className)}>
-      <article
-        className={classNames('prose h-full', 'flex flex-col items-stretch')}
-      >
+      <article className={classNames('h-full', 'flex flex-col items-stretch')}>
         <Link to={url} className="quiet">
           <CardHeader
             title={article.title}

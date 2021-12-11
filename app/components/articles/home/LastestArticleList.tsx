@@ -30,21 +30,20 @@ export default function LatestArticleList({
       >
         Latest
       </h5>
-      <ul className={classNames('grid grid-cols-1 md:grid-cols-3 gap-4')}>
+      <ul className={classNames('grid grid-cols-1 lg:grid-cols-3 gap-4')}>
         {articles?.map((article) => (
           <li>
-            {/* <ArticleIntroCard key={article.slug} article={article} /> */}
-            <ArticleCard article={article} compact className="h-full" />
+            <ArticleCard
+              article={article}
+              compact
+              className="h-full bg-opacity-50 hover:!bg-opacity-60"
+            />
           </li>
         ))}
       </ul>
       <Link
         to={`/category/${category.slug}`}
-        className={classNames(
-          'self-start',
-          align === 'left' ? 'md:self-end' : 'md:self-start',
-          '!text-light-100'
-        )}
+        className={classNames('self-end', '!text-light-100')}
       >
         View more <ChevronsRight className="inline-block" />
       </Link>

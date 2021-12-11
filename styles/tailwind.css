@@ -26,7 +26,7 @@
     font-size: 16px;
     @apply bg-dark-800;
     @apply text-light-100;
-    @apply overflow-x-hidden;
+    /* @apply overflow-x-hidden; */
   }
 
   .page-content {
@@ -67,6 +67,10 @@
 }
 
 @layer components {
+  .glass {
+    @apply backdrop-filter backdrop-blur-md;
+    @apply bg-dark-800 bg-opacity-70;
+  }
   .prose {
     color: unset;
     @apply text-light-100;
@@ -95,7 +99,7 @@
       @apply absolute inset-0 object-cover;
       @apply -z-10;
       @apply bg-dark-900 bg-opacity-90;
-      @apply m-0;
+      @apply m-0 w-full;
       @apply transform transition-all duration-300 ease-out;
     }
     &.interact {
