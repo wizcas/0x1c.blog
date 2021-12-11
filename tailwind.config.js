@@ -35,6 +35,13 @@ module.exports = {
       width: widthExtensions,
       minWidth: widthExtensions,
       maxWidth: widthExtensions,
+      typography: {
+        DEFAULT: {
+          css: {
+            h1: { fontSize: '2rem' },
+          },
+        },
+      },
     },
     colors: {
       // Build your palette here
@@ -46,6 +53,7 @@ module.exports = {
       red: colors.red,
       blue: colors.sky,
       yellow: colors.amber,
+      green: colors.emerald,
       light: {
         50: '#F1F3F4',
         100: '#D5DCDD',

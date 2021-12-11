@@ -7,6 +7,7 @@
 
 /* Custom Definitions */
 @custom-selector :--heading h1, h2, h3, h4, h5, h6;
+
 %hyperlink {
   @apply transition-all duration-200 ease-out;
   @apply no-underline;
@@ -17,6 +18,16 @@
       filter: drop-shadow(0 0 0.25em currentColor);
     }
   }
+}
+
+%em {
+  @apply text-white underline;
+  @apply px-1;
+}
+
+%strong {
+  @apply text-white font-bold;
+  @apply px-1;
 }
 
 /* Tailwind layers */
@@ -54,8 +65,10 @@
     @apply text-base font-semibold;
   }
   em {
-    @apply text-hi-primary not-italic font-semibold;
-    @apply px-1;
+    @extend %em;
+  }
+  strong {
+    @extend %strong;
   }
   a {
     @extend %hyperlink;
@@ -73,28 +86,6 @@
   }
   .article {
     @apply leading-normal;
-  }
-  .prose {
-    min-width: 0;
-    max-width: 100ch;
-    color: unset;
-    @apply text-light-100;
-    & :--heading {
-      @apply text-light-50;
-    }
-
-    & a {
-      color: unset;
-      @extend %hyperlink;
-    }
-
-    & a.anchor {
-      @apply opacity-30;
-      @apply -mt-24 pt-24;
-      &:hover {
-        @apply opacity-80;
-      }
-    }
   }
 
   .card {
@@ -147,6 +138,60 @@
 
   .breadcrumbs {
     @apply flex flex-wrap gap-2 items-center;
+  }
+  .prose {
+    min-width: 0;
+    max-width: 100ch;
+    color: unset;
+    @apply text-light-100;
+
+    & :--heading {
+      @apply text-light-50;
+    }
+
+    & a {
+      color: unset;
+      @extend %hyperlink;
+      @apply px-1;
+    }
+
+    & a.anchor {
+      @apply opacity-30;
+      @apply -mt-24 pt-24;
+      &:hover {
+        @apply opacity-80;
+      }
+    }
+
+    & strong {
+      @apply text-white;
+      @extend %strong;
+    }
+    & blockquote {
+      @apply bg-dark-600 bg-opacity-70;
+      @apply text-light-100;
+      @apply border-yellow-500;
+      @apply py-1;
+      & > p {
+        @apply my-2;
+      }
+    }
+    & code {
+      @apply text-yellow-500 text-base;
+      @apply bg-black bg-opacity-10;
+      @apply rounded-sm;
+      @apply mx-1;
+      &::before,
+      &::after {
+        display: none;
+      }
+    }
+    & ol > li,
+    & ul > li {
+      &::before {
+        @apply text-light-200 text-opacity-60 font-bold;
+      }
+    }
   }
 }
 
