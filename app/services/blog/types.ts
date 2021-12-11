@@ -26,7 +26,9 @@ export interface Article {
   datetime: string;
   cover?: string;
   topic?: Topic;
+  category?: Category;
   tags?: Tag[];
+  markdown?: string;
 }
 
 export interface ArticlesFilter {

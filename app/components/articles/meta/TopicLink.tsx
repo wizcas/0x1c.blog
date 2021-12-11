@@ -11,7 +11,7 @@ export default function TopicLink({ topic }: Props) {
   const cslug = useCategorySlug();
   return (
     <Link to={`/category/${cslug}/topic/${topic.slug}`} className="text-sm">
-      {`// ${topic.title}`}
+      {`#${topic.title}`}
     </Link>
   );
 }
