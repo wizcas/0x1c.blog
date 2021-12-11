@@ -1,24 +1,24 @@
-import fs from 'fs/promises';
-import path from 'path';
-
 import classNames from 'classnames';
+import { useEffect } from 'react';
+import { useRemark } from 'react-remark';
 import { LoaderFunction, useLoaderData } from 'remix';
+import invariant from 'tiny-invariant';
 
 import { loremIpsum } from '~/mocks/lorem';
-
-import Post from '~/../posts/wsl2.mdx';
+import { getArticle, GetArticleReturn } from '~/services/blog/article';
 
 export const loader: LoaderFunction = async ({ params }) => {
-  // const { slug } = params;
-  // console.log({ a });
-  // return a;
-  // const mdxPath = path.join(__dirname, '../posts/wsl2.mdx');
-  // const file = await fs.readFile(mdxPath, 'utf8');
-  // console.log({ post });
-  return null;
+  const { slug } = params;
+  invariant(slug, 'Article slug is reuqired');
+  return getArticle(slug);
 };
 export default function ArticlePage() {
-  // const a = useLoaderData();
+  const { markdown } = useLoaderData<GetArticleReturn>();
+
+  const [post, setPost] = useRemark();
+  useEffect(() => {
+    setPost(markdown);
+  }, [markdown]);
 
   return (
     <main className={classNames('page-content')}>
@@ -28,9 +28,7 @@ export default function ArticlePage() {
         <aside className={classNames('w-64 flex-none hidden lg:block')}>
           <div className={classNames('sticky top-32 my-8')}>TOC</div>
         </aside>
-        <article className="prose">
-          <Post />
-        </article>
+        <article className="prose">{post}</article>
       </div>
     </main>
   );
