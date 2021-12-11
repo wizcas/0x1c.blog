@@ -186,6 +186,10 @@
         display: none;
       }
     }
+
+    & pre > code {
+    }
+
     & ol > li,
     & ul > li {
       &::before {

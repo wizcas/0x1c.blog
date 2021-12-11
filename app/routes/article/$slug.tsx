@@ -1,9 +1,11 @@
 /* eslint-disable react/no-danger */
 import classNames from 'classnames';
+import hljs from 'highlight.js';
+import hljsThemeUrl from 'highlight.js/styles/base16/oceanicnext.css';
 import DOMPurify from 'isomorphic-dompurify';
 import { marked } from 'marked';
 import { useMemo } from 'react';
-import { LoaderFunction, useLoaderData } from 'remix';
+import { LinksFunction, LoaderFunction, useLoaderData } from 'remix';
 import invariant from 'tiny-invariant';
 
 import ArticleHeader from '~/components/articles/post/ArticleHeader';
@@ -18,6 +20,13 @@ export const loader: LoaderFunction = async ({ params }) => {
   return getArticle(slug);
 };
 
+export const links: LinksFunction = () => [
+  {
+    rel: 'stylesheet',
+    href: hljsThemeUrl,
+  },
+];
+
 export default function ArticlePage() {
   const article = useLoaderData<Article>();
   const { markdown = '', category = null } = article;
@@ -26,6 +35,9 @@ export default function ArticlePage() {
     const md = marked(markdown, {
       gfm: true,
       renderer: new ArticleMarkdownRenderer(),
+      highlight: (code, language) => {
+        return hljs.highlight(code, { language }).value;
+      },
     });
     return DOMPurify.sanitize(md);
   }, [markdown]);
