@@ -87,6 +87,14 @@
       color: unset;
       @extend %hyperlink;
     }
+
+    & a.anchor {
+      @apply opacity-30;
+      @apply -mt-24 pt-24;
+      &:hover {
+        @apply opacity-80;
+      }
+    }
   }
 
   .card {

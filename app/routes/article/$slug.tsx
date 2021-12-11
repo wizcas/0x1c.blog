@@ -1,13 +1,14 @@
 /* eslint-disable react/no-danger */
 import classNames from 'classnames';
+import DOMPurify from 'isomorphic-dompurify';
 import { marked } from 'marked';
 import { useMemo } from 'react';
 import { LoaderFunction, useLoaderData } from 'remix';
-import sanitize from 'sanitize-html';
 import invariant from 'tiny-invariant';
 
 import ArticleHeader from '~/components/articles/post/ArticleHeader';
 import { CategoryContext } from '~/contexts/CategoryContext';
+import ArticleMarkdownRenderer from '~/helpers/ArticleMarkdownRenderer';
 import { getArticle } from '~/services/blog/article';
 import type { Article } from '~/services/blog/types';
 
@@ -22,17 +23,11 @@ export default function ArticlePage() {
   const { markdown = '', category = null } = article;
 
   const html = useMemo(() => {
-    return sanitize(
-      marked(markdown, {
-        gfm: true,
-        headerIds: true,
-      }),
-      {
-        allowedAttributes: {
-          '*': ['id'],
-        },
-      }
-    );
+    const md = marked(markdown, {
+      gfm: true,
+      renderer: new ArticleMarkdownRenderer(),
+    });
+    return DOMPurify.sanitize(md);
   }, [markdown]);
 
   return (
@@ -44,7 +39,7 @@ export default function ArticlePage() {
             <div className={classNames('sticky top-32 my-8')}>TOC</div>
           </aside>
           <article
-            className="prose"
+            className="prose prose-sm md:prose"
             dangerouslySetInnerHTML={{ __html: html }}
           />
         </div>
