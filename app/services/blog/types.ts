@@ -29,6 +29,7 @@ export interface Article {
   category?: Category;
   tags?: Tag[];
   markdown?: string;
+  html?: string;
 }
 
 export interface ArticlesFilter {

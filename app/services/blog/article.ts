@@ -3,6 +3,7 @@ import path from 'path';
 
 import frontmatter from 'front-matter';
 
+import { renderMarkdown } from '~/helpers/markdown';
 import { generateArticles, mockArticle } from '~/mocks/articles';
 
 import type { Articles, ArticlesFilter } from './types';
@@ -23,8 +24,11 @@ export async function getArticle(slug: string) {
   const { attributes, body } = frontmatter<{ title: string }>(file);
 
   const article = mockArticle(Date.now().toString());
-  article.markdown = body;
-  article.title = attributes.title;
+  if (attributes?.title) {
+    article.title = attributes.title;
+  }
+  article.html = renderMarkdown(body);
+  delete article.markdown;
 
   return article;
 }

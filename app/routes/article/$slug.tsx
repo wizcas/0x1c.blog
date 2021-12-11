@@ -1,16 +1,12 @@
 /* eslint-disable react/no-danger */
 import classNames from 'classnames';
-import hljs from 'highlight.js';
-import hljsThemeUrl from 'highlight.js/styles/base16/oceanicnext.css';
-import DOMPurify from 'isomorphic-dompurify';
-import { marked } from 'marked';
+import hljsThemeUrl from 'highlight.js/styles/base16/eighties.css';
 import { useMemo } from 'react';
 import { LinksFunction, LoaderFunction, useLoaderData } from 'remix';
 import invariant from 'tiny-invariant';
 
 import ArticleHeader from '~/components/articles/post/ArticleHeader';
 import { CategoryContext } from '~/contexts/CategoryContext';
-import ArticleMarkdownRenderer from '~/helpers/ArticleMarkdownRenderer';
 import { getArticle } from '~/services/blog/article';
 import type { Article } from '~/services/blog/types';
 
@@ -29,18 +25,9 @@ export const links: LinksFunction = () => [
 
 export default function ArticlePage() {
   const article = useLoaderData<Article>();
-  const { markdown = '', category = null } = article;
+  const { html = '', category = null } = article;
 
-  const html = useMemo(() => {
-    const md = marked(markdown, {
-      gfm: true,
-      renderer: new ArticleMarkdownRenderer(),
-      highlight: (code, language) => {
-        return hljs.highlight(code, { language }).value;
-      },
-    });
-    return DOMPurify.sanitize(md);
-  }, [markdown]);
+  const htmlValue = useMemo(() => ({ __html: html }), [html]);
 
   return (
     <CategoryContext.Provider value={category}>
@@ -52,7 +39,7 @@ export default function ArticlePage() {
           </aside>
           <article
             className="prose prose-sm md:prose"
-            dangerouslySetInnerHTML={{ __html: html }}
+            dangerouslySetInnerHTML={htmlValue}
           />
         </div>
       </main>
