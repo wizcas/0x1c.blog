@@ -30,7 +30,7 @@ export interface Article {
   tags?: Tag[];
   markdown?: string;
   html?: string;
-  toc?: Toc;
+  toc?: TocItem[];
 }
 
 export interface ArticlesFilter {
@@ -52,7 +52,4 @@ export interface TocItem {
   href: string;
   level: number;
   children?: TocItem[];
-}
-export interface Toc {
-  items: TocItem[];
 }

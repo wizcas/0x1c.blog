@@ -1,6 +1,6 @@
 import { Parser, Renderer, Slugger } from 'marked';
 
-import type { Toc, TocItem } from '~/services/blog/types';
+import type { TocItem } from '~/services/blog/types';
 
 import { renderCodeBlock } from './codeblock';
 
@@ -12,13 +12,13 @@ export default class ArticleMarkdownRenderer extends Renderer {
   heading(
     text: string,
     level: 1 | 2 | 3 | 4 | 5 | 6,
-    _: string,
+    raw: string,
     slugger: Slugger
   ) {
     const slug = slugger.slug(text);
     const escaped = text.toLowerCase().replace(/[\s]+/g, '-');
     const href = `#${slug}`;
-    this.tocItems.push({ href, text, level });
+    this.tocItems.push({ href, text: raw, level });
     return `<h${level}>
     ${text}
     <a href="${href}" name="${escaped}" class="anchor" id="${slug}">
@@ -63,6 +63,6 @@ export default class ArticleMarkdownRenderer extends Renderer {
       }
       lastItem = item;
     });
-    return { items } as Toc;
+    return items;
   }
 }

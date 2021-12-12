@@ -6,6 +6,7 @@ import { LinksFunction, LoaderFunction, useLoaderData } from 'remix';
 import invariant from 'tiny-invariant';
 
 import ArticleHeader from '~/components/articles/post/ArticleHeader';
+import Toc from '~/components/articles/post/Toc';
 import { CategoryContext } from '~/contexts/CategoryContext';
 import { getArticle } from '~/services/blog/article';
 import type { Article } from '~/services/blog/types';
@@ -36,7 +37,9 @@ export default function ArticlePage() {
         <div className="page-content flex gap-8">
           <aside className={classNames('w-64 flex-none hidden lg:block')}>
             {article.toc && (
-              <div className={classNames('sticky top-32 my-8')}>TOC</div>
+              <div className={classNames('sticky top-32 my-8')}>
+                <Toc toc={article.toc} />
+              </div>
             )}
           </aside>
           <article
