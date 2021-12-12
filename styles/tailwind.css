@@ -95,17 +95,18 @@
     @apply transition-all duration-300 ease-out;
     @apply overflow-hidden;
 
-    & .card-header {
+    .card-header {
       @apply relative overflow-hidden;
     }
 
-    & .card-cover-image {
+    .card-cover-image {
       @apply absolute inset-0 object-cover;
       @apply -z-10;
       @apply bg-dark-900 bg-opacity-90;
       @apply m-0 w-full;
       @apply transition-all duration-300 ease-out;
     }
+
     &.interact {
       @apply transform;
       &:hover {
@@ -120,8 +121,8 @@
           @apply scale-110 brightness-50 saturate-50;
         }
       }
-      & .opener {
-        & .opener-overlay {
+      .opener {
+        .opener-overlay {
           @apply transition-all duration-300 ease-out;
           @apply opacity-0;
         }
@@ -145,17 +146,17 @@
     color: unset;
     @apply text-light-100;
 
-    & :--heading {
+    :--heading {
       @apply text-light-50;
     }
 
-    & a {
+    a {
       color: unset;
       @extend %hyperlink;
       @apply px-1;
     }
 
-    & a.anchor {
+    a.anchor {
       @apply opacity-30;
       @apply -mt-24 pt-24;
       &:hover {
@@ -163,11 +164,11 @@
       }
     }
 
-    & strong {
+    strong {
       @apply text-white;
       @extend %strong;
     }
-    & blockquote {
+    blockquote {
       @apply bg-dark-600 bg-opacity-70;
       @apply text-light-100;
       @apply border-yellow-500;
@@ -176,7 +177,7 @@
         @apply my-2;
       }
     }
-    & code {
+    code {
       @apply text-yellow-500 text-base;
       @apply bg-black bg-opacity-10;
       @apply rounded-sm;
@@ -187,15 +188,15 @@
       }
     }
 
-    & pre {
+    pre {
       @apply relative;
       & > code {
         background: unset;
       }
     }
 
-    & ol > li,
-    & ul > li {
+    ol > li,
+    ul > li {
       &::before {
         @apply text-light-200 text-opacity-60 font-bold;
       }
@@ -207,10 +208,10 @@
     & > pre {
       @apply pt-8;
     }
-  }
-  .lang-hint {
-    @apply absolute top-0 right-0 px-2 rounded-bl-md;
-    @apply text-sm opacity-80;
+    .lang-hint {
+      @apply absolute top-0 right-0 px-2 rounded-bl-md;
+      @apply text-sm opacity-80;
+    }
   }
 }
 
