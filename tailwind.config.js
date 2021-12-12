@@ -21,9 +21,7 @@ const widthExtensions = {
 };
 
 module.exports = {
-  mode: 'jit',
-  purge: ['./app/**/*.{ts,tsx}'],
-  darkMode: false, // or 'media' or 'class'
+  content: ['./app/**/*.{ts,tsx}'],
   theme: {
     extend: {
       zIndex: {
@@ -49,7 +47,7 @@ module.exports = {
       current: 'currentColor',
       white: colors.white,
       black: colors.black,
-      gray: colors.trueGray,
+      gray: colors.neutral,
       red: colors.red,
       blue: colors.sky,
       yellow: colors.amber,
@@ -71,9 +69,6 @@ module.exports = {
         'link-bright': '#A8EAF0',
       },
     },
-  },
-  variants: {
-    extend: {},
   },
   plugins: [
     /***** official plugins *****/

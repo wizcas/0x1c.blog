@@ -42,7 +42,7 @@ export default function CategoryIndex() {
             className={classNames(
               'w-32 h-32',
               'absolute -left-16 -top-16 -z-10',
-              'transform rotate-45'
+              'rotate-45'
             )}
             style={markStyle}
           />

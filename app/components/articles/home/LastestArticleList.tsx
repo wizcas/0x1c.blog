@@ -32,7 +32,7 @@ export default function LatestArticleList({
       </h5>
       <ul className={classNames('grid grid-cols-1 lg:grid-cols-3 gap-4')}>
         {articles?.map((article) => (
-          <li>
+          <li key={article.slug}>
             <ArticleCard
               article={article}
               compact

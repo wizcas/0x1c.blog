@@ -26,7 +26,7 @@ export default function CategoryIntroBlock({ category, odd }: Props) {
       >
         <section
           data-name="category-intro-wrapper"
-          className="page-content transform -translate-y-32"
+          className="page-content -translate-y-32"
         >
           <div
             data-name="category-intro-header"

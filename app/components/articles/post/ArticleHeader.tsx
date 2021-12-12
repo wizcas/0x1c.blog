@@ -16,7 +16,7 @@ const HERO_CLASS = classNames(
 );
 const HERO_FRONTMATTER_CLASS = classNames(
   'bg-dark-900 bg-opacity-70',
-  'backdrop-filter backdrop-blur-sm'
+  'backdrop-blur-sm'
 );
 
 interface Props {
