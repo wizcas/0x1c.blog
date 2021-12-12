@@ -1,5 +1,6 @@
-import hljs from 'highlight.js';
-import { Renderer, Slugger } from 'marked';
+import { Parser, Renderer, Slugger } from 'marked';
+
+type RenderThis = typeof Renderer & { parser: Parser };
 
 export default class ArticleMarkdownRenderer extends Renderer {
   heading(
@@ -19,23 +20,16 @@ export default class ArticleMarkdownRenderer extends Renderer {
     </h${level}>`;
   }
 
-  code = (
+  code(
+    this: RenderThis,
     code: string,
     language: string | undefined,
     isEscaped: boolean
-  ): string => {
-    const pre = super.code(code, language, isEscaped);
+  ): string {
+    const pre = Renderer.prototype.code.call(this, code, language, isEscaped);
     return `<section class="code-block">
     ${pre}
     <div class="lang-hint" data-lang="${language}">${language}</div>
     </section>`;
-    // const hlcode = language ? hljs.highlight(code, { language }).value : code;
-    // const result = `<pre>
-    // <code class="language-${language}">
-    // ${hlcode}
-    // </code>
-    // </pre>`;
-    // return result;
-    // return super.code(code, language, true);
-  };
+  }
 }
