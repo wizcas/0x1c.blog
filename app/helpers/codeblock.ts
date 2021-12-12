@@ -22,7 +22,7 @@ const LANG_NAMES: Record<string, string> = {
 
 export function renderCodeBlock(pre: string, language: string): string {
   const langName = LANG_NAMES[language];
-  return `<section class="code-block">
+  return `<section class="code-block hljs">
     ${pre}
     ${
       langName

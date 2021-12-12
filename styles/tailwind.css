@@ -194,9 +194,11 @@
 
     pre {
       @apply relative;
+      background: unset;
+      color: unset;
       & > code {
-        @apply text-light-200;
         background: unset;
+        color: unset;
       }
     }
 
