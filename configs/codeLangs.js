@@ -1,5 +1,4 @@
-const plugin = require('tailwindcss/plugin');
-const langColors = {
+module.exports = {
   text: {
     'background-color': '#eee',
     color: '#333',
@@ -69,26 +68,3 @@ const langColors = {
     color: 'white',
   },
 };
-
-// module.exports = plugin(function ({ matchUtilities }) {
-//   matchUtilities(
-//     {
-//       codelang: (value) => {
-//         if (typeof value === 'object') return value;
-//         return langStyles[value];
-//       },
-//     },
-//     { values: langStyles }
-//   );
-// });
-
-const langClasses = Object.keys(langColors).reduce((acc, key) => {
-  const cls = `.lang-hint[data-lang=${key}]`;
-  acc[cls] = langColors[key];
-  return acc;
-}, {});
-console.log({ langClasses });
-
-module.exports = plugin(function ({ addComponents }) {
-  addComponents(langClasses);
-});

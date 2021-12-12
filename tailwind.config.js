@@ -77,6 +77,6 @@ module.exports = {
     require('@tailwindcss/aspect-ratio'),
     require('@tailwindcss/typography'),
     /**** Custom plugins ****/
-    require('./plugins/codelangs'),
+    require('./plugins/codeLangs'),
   ],
 };

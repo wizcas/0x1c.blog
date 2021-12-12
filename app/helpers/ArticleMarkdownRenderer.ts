@@ -1,5 +1,7 @@
 import { Parser, Renderer, Slugger } from 'marked';
 
+import { renderCodeBlock } from './codeblock';
+
 type RenderThis = typeof Renderer & { parser: Parser };
 
 export default class ArticleMarkdownRenderer extends Renderer {
@@ -26,10 +28,10 @@ export default class ArticleMarkdownRenderer extends Renderer {
     language: string | undefined,
     isEscaped: boolean
   ): string {
-    const pre = Renderer.prototype.code.call(this, code, language, isEscaped);
-    return `<section class="code-block">
-    ${pre}
-    <div class="lang-hint" data-lang="${language}">${language}</div>
-    </section>`;
+    language = language || 'plaintext';
+    return renderCodeBlock(
+      Renderer.prototype.code.call(this, code, language, isEscaped),
+      language
+    );
   }
 }
