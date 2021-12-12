@@ -16,12 +16,13 @@
     @apply text-hi-link hover:text-hi-link-bright;
     &:hover {
       filter: drop-shadow(0 0 0.25em currentColor);
+      @apply decoration-2;
     }
   }
 }
 
 %em {
-  @apply text-white underline;
+  @apply text-white;
   @apply px-1;
 }
 
@@ -150,15 +151,17 @@
       @apply text-light-50;
     }
 
-    a {
+    a:not(.anchor) {
       color: unset;
       @extend %hyperlink;
-      @apply px-1;
+      @apply px-1 !text-white;
+      @apply underline decoration-solid decoration-hi-link underline-offset-4 decoration-1;
     }
 
     a.anchor {
       @apply opacity-30;
       @apply -mt-24 pt-24;
+      @apply no-underline;
       &:hover {
         @apply opacity-80;
       }
@@ -178,7 +181,7 @@
       }
     }
     code {
-      @apply text-yellow-500 text-base;
+      @apply text-hi-primary text-base;
       @apply bg-black bg-opacity-10;
       @apply rounded-sm;
       @apply mx-1;
@@ -191,6 +194,7 @@
     pre {
       @apply relative;
       & > code {
+        @apply text-light-200;
         background: unset;
       }
     }
