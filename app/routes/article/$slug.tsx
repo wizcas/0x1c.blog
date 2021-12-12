@@ -35,7 +35,9 @@ export default function ArticlePage() {
         <ArticleHeader article={article} />
         <div className="page-content flex gap-8">
           <aside className={classNames('w-64 flex-none hidden lg:block')}>
-            <div className={classNames('sticky top-32 my-8')}>TOC</div>
+            {article.toc && (
+              <div className={classNames('sticky top-32 my-8')}>TOC</div>
+            )}
           </aside>
           <article
             className="prose prose-sm md:prose"

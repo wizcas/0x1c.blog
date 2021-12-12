@@ -27,7 +27,9 @@ export async function getArticle(slug: string) {
   if (attributes?.title) {
     article.title = attributes.title;
   }
-  article.html = renderMarkdown(body);
+  const { html, toc } = renderMarkdown(body);
+  article.html = html;
+  article.toc = toc;
   delete article.markdown;
 
   return article;
