@@ -76,5 +76,7 @@ module.exports = {
     require('@tailwindcss/line-clamp'),
     require('@tailwindcss/aspect-ratio'),
     require('@tailwindcss/typography'),
+    /**** Custom plugins ****/
+    require('./plugins/codelangs'),
   ],
 };

@@ -43,7 +43,9 @@ export default function CategoryIntroBlock({ category, odd }: Props) {
               className="prose max-w-none grid grid-rows-2 flex-1 py-2"
             >
               <h1 className="self-end whitespace-nowrap">{category.title}</h1>
-              <div className="mt-8 line-clamp-3">{category.description}</div>
+              <div className="mt-8 line-clamp-3 cbcbcb">
+                {category.description}
+              </div>
             </div>
             {category.coverUrl && (
               <img

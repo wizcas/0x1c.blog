@@ -187,7 +187,11 @@
       }
     }
 
-    & pre > code {
+    & pre {
+      @apply relative;
+      & > code {
+        background: unset;
+      }
     }
 
     & ol > li,
@@ -196,6 +200,17 @@
         @apply text-light-200 text-opacity-60 font-bold;
       }
     }
+  }
+
+  .code-block {
+    @apply relative;
+    & > pre {
+      @apply pt-8;
+    }
+  }
+  .lang-hint {
+    @apply absolute top-0 right-0 px-2 rounded-bl-md;
+    @apply text-sm opacity-80;
   }
 }
 

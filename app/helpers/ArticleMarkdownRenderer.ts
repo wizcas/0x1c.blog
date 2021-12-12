@@ -1,3 +1,4 @@
+import hljs from 'highlight.js';
 import { Renderer, Slugger } from 'marked';
 
 export default class ArticleMarkdownRenderer extends Renderer {
@@ -17,4 +18,24 @@ export default class ArticleMarkdownRenderer extends Renderer {
     </a>
     </h${level}>`;
   }
+
+  code = (
+    code: string,
+    language: string | undefined,
+    isEscaped: boolean
+  ): string => {
+    const pre = super.code(code, language, isEscaped);
+    return `<section class="code-block">
+    ${pre}
+    <div class="lang-hint" data-lang="${language}">${language}</div>
+    </section>`;
+    // const hlcode = language ? hljs.highlight(code, { language }).value : code;
+    // const result = `<pre>
+    // <code class="language-${language}">
+    // ${hlcode}
+    // </code>
+    // </pre>`;
+    // return result;
+    // return super.code(code, language, true);
+  };
 }
