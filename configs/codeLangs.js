@@ -1,4 +1,4 @@
-module.exports = {
+const langColors = {
   text: {
     'background-color': '#eee',
     color: '#333',
@@ -68,3 +68,5 @@ module.exports = {
     color: 'white',
   },
 };
+langColors['c++'] = langColors.cpp;
+module.exports = langColors;
