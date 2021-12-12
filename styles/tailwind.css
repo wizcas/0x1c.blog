@@ -159,11 +159,12 @@
     }
 
     a.anchor {
+      @apply text-light-200;
       @apply opacity-30;
       @apply -mt-24 pt-24;
       @apply no-underline;
       &:hover {
-        @apply opacity-80;
+        @apply opacity-60;
       }
     }
 

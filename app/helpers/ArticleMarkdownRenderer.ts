@@ -1,4 +1,6 @@
+import flattenDeep from 'lodash/flattenDeep';
 import { Parser, Renderer, Slugger } from 'marked';
+import pinyin from 'pinyin';
 
 import type { TocItem } from '~/services/blog/types';
 
@@ -15,7 +17,10 @@ export default class ArticleMarkdownRenderer extends Renderer {
     raw: string,
     slugger: Slugger
   ) {
-    const slug = slugger.slug(text);
+    const py = pinyin(slugger.slug(text), {
+      style: pinyin.STYLE_NORMAL,
+    });
+    const slug = flattenDeep(py).join('-');
     const escaped = text.toLowerCase().replace(/[\s]+/g, '-');
     const href = `#${slug}`;
     this.tocItems.push({ href, text: raw, level });

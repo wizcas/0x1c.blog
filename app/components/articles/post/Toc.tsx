@@ -26,7 +26,7 @@ function TocList({ items, level }: { items: TocItem[]; level: number }) {
             className={classNames(
               'quiet',
               'pl-[var(--offset)] py-1 inline-block',
-              'border-l-4 border-transparent hover:border-hi-link pl-2'
+              'border-l-4 border-transparent hover:border-hi-link'
             )}
             style={
               {
