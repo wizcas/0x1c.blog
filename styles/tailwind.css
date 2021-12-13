@@ -199,6 +199,7 @@
       & > code {
         background: unset;
         color: unset;
+        @apply m-0;
       }
     }
 

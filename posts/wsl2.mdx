@@ -23,6 +23,28 @@ draft: false
 
 Let's see...
 
+```ts
+const X = '1';
+export async function getArticle(slug: string) {
+  console.log('getting article', slug);
+  const mdxPath = path.join(__dirname, '../posts/wsl2.mdx');
+
+  const file = await fs.readFile(mdxPath, 'utf8');
+  const { attributes, body } = frontmatter<{ title: string }>(file);
+
+  const article = mockArticle(Date.now().toString());
+  if (attributes?.title) {
+    article.title = attributes.title;
+  }
+  const { html, toc } = renderMarkdown(body);
+  article.html = html;
+  article.toc = toc;
+  delete article.markdown;
+
+  return article;
+}
+```
+
 # 为什么要升级到 WSL2
 
 用过 WSL 第一代的朋友一定都遇到过一些比较蛋疼兼容性的问题，这些问题是由于 WSL 并不“完整”导致的。说到底
