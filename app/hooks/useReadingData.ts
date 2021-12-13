@@ -50,7 +50,9 @@ export default function useReadingData<TElement extends HTMLElement>(
   useEffect(() => {
     function fn() {
       const ratio = headingActiveRatio ?? 0;
-      const threshold = window.innerHeight * ratio;
+      const pageViewportHeight =
+        window.innerHeight - 96; /* minus site header's height */
+      const threshold = pageViewportHeight * (1 - ratio);
       const mark = window.scrollY + threshold;
 
       function findActiveHeadingId(): string {

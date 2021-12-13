@@ -33,7 +33,7 @@ export default function ArticlePage() {
   const htmlValue = useMemo(() => ({ __html: html }), [html]);
 
   const ref = useRef<HTMLDivElement>(null);
-  const readingData = useReadingData({ ref, headingActiveRatio: 0.5 }, [html]);
+  const readingData = useReadingData({ ref, headingActiveRatio: 0.8 }, [html]);
 
   return (
     <CategoryContext.Provider value={category}>

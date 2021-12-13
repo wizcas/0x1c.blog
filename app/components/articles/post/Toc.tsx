@@ -29,9 +29,10 @@ function TocList({ items, level }: { items: TocItem[]; level: number }) {
             className={classNames(
               'quiet',
               'pl-[var(--offset)] py-1 inline-block',
-              'border-l-4 border-transparent hover:border-hi-link',
+              'border-l-4 border-hi-link border-opacity-0 hover:border-opacity-50',
+              'transition-all duration-200',
               {
-                'font-semibold text-light-50 border-hi-link':
+                'font-semibold text-light-50 !border-opacity-100':
                   item.id === readingData.activeHeadingId,
               }
             )}
