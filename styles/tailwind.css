@@ -176,7 +176,7 @@
       @apply bg-dark-600 bg-opacity-70;
       @apply text-light-100;
       @apply border-yellow-500;
-      @apply py-1;
+      @apply py-1 px-1 sm:px-3;
       & > p {
         @apply my-2;
       }
