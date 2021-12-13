@@ -23,7 +23,7 @@ export default class ArticleMarkdownRenderer extends Renderer {
     const slug = flattenDeep(py).join('-');
     const escaped = text.toLowerCase().replace(/[\s]+/g, '-');
     const href = `#${slug}`;
-    this.tocItems.push({ href, text: raw, level });
+    this.tocItems.push({ id: slug, text: raw, level });
     return `<h${level}>
     ${text}
     <a href="${href}" name="${escaped}" class="anchor" id="${slug}">

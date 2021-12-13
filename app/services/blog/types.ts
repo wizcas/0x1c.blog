@@ -49,7 +49,7 @@ export interface Articles {
 
 export interface TocItem {
   text: string;
-  href: string;
+  id: string;
   level: number;
   children?: TocItem[];
 }

@@ -1,8 +1,10 @@
 import classNames from 'classnames';
-import { CSSProperties } from 'react';
+import { CSSProperties, useContext } from 'react';
 import { Link } from 'remix';
 
 import type { TocItem } from '~/services/blog/types';
+
+import { ReadingContext } from './ReadingContext';
 
 interface Props {
   toc: TocItem[];
@@ -17,16 +19,21 @@ export default function Toc({ toc, className }: Props) {
 }
 
 function TocList({ items, level }: { items: TocItem[]; level: number }) {
+  const readingData = useContext(ReadingContext);
   return (
     <ul>
       {items.map((item) => (
-        <li key={item.href}>
+        <li key={item.id}>
           <Link
-            to={item.href}
+            to={`#${item.id}`}
             className={classNames(
               'quiet',
               'pl-[var(--offset)] py-1 inline-block',
-              'border-l-4 border-transparent hover:border-hi-link'
+              'border-l-4 border-transparent hover:border-hi-link',
+              {
+                'font-semibold text-light-50 border-hi-link':
+                  item.id === readingData.activeHeadingId,
+              }
             )}
             style={
               {
