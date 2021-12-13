@@ -1,17 +1,15 @@
 /* eslint-disable react/no-danger */
 import classNames from 'classnames';
 import hljsThemeUrl from 'highlight.js/styles/base16/eighties.css';
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useMemo, useRef } from 'react';
 import { LinksFunction, LoaderFunction, useLoaderData } from 'remix';
 import invariant from 'tiny-invariant';
 
 import ArticleHeader from '~/components/articles/post/ArticleHeader';
-import {
-  ReadingContext,
-  ReadingData,
-} from '~/components/articles/post/ReadingContext';
+import { ReadingContext } from '~/components/articles/post/ReadingContext';
 import Toc from '~/components/articles/post/Toc';
 import { CategoryContext } from '~/contexts/CategoryContext';
+import useReadingData from '~/hooks/useReadingData';
 import { getArticle } from '~/services/blog/article';
 import type { Article } from '~/services/blog/types';
 
@@ -28,11 +26,6 @@ export const links: LinksFunction = () => [
   },
 ];
 
-interface HeadingTop {
-  id: string;
-  top: number;
-}
-
 export default function ArticlePage() {
   const article = useLoaderData<Article>();
   const { html = '', category = null } = article;
@@ -40,47 +33,7 @@ export default function ArticlePage() {
   const htmlValue = useMemo(() => ({ __html: html }), [html]);
 
   const ref = useRef<HTMLDivElement>(null);
-  const [headingTops, setHeadingTops] = useState<HeadingTop[]>([]);
-  const [readingData, setReadingData] = useState<ReadingData>({
-    activeHeadingId: article.toc?.[0].id,
-  });
-
-  useEffect(() => {
-    if (!ref.current) return;
-    const root = ref.current;
-    const tops: HeadingTop[] = [];
-    root.querySelectorAll('h1,h2,h3,h4,h5,h6').forEach((value) => {
-      const el = value as HTMLElement;
-      const anchor = el.querySelector('a') as HTMLAnchorElement;
-      tops.push({ id: anchor.id, top: el.offsetTop });
-    });
-    setHeadingTops(tops);
-  }, [html]);
-
-  useEffect(() => {
-    function f() {
-      const ratio = 0.5;
-      const threshold = window.innerHeight * ratio;
-      const mark = window.scrollY + threshold;
-
-      function findActiveHeadingId(): string {
-        for (let i = headingTops.length - 1; i >= 0; i--) {
-          const headingTop = headingTops[i];
-          if (headingTop.top <= mark) {
-            return headingTop.id;
-          }
-        }
-        return headingTops[0]?.id;
-      }
-
-      setReadingData({ activeHeadingId: findActiveHeadingId() });
-    }
-    window.addEventListener('scroll', f);
-    f();
-    return () => {
-      window.removeEventListener('scroll', f);
-    };
-  }, [headingTops]);
+  const readingData = useReadingData({ ref, headingActiveRatio: 0.5 }, [html]);
 
   return (
     <CategoryContext.Provider value={category}>
