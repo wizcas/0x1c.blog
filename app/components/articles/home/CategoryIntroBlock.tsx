@@ -15,7 +15,7 @@ export default function CategoryIntroBlock({ category, odd }: Props) {
   const cover3dStyle = {
     transform: `perspective(30rem)
     rotate3d(0.5, ${dir}, 0, 20deg) 
-    translateX(${dir * 1}rem)`,
+    translateX(${dir * 2}rem)`,
   } as CSSProperties;
   return (
     <CategoryContext.Provider value={category}>
@@ -26,7 +26,7 @@ export default function CategoryIntroBlock({ category, odd }: Props) {
       >
         <section
           data-name="category-intro-wrapper"
-          className="page-content transform -translate-y-32"
+          className="page-content -translate-y-32"
         >
           <div
             data-name="category-intro-header"
@@ -43,7 +43,9 @@ export default function CategoryIntroBlock({ category, odd }: Props) {
               className="prose max-w-none grid grid-rows-2 flex-1 py-2"
             >
               <h1 className="self-end whitespace-nowrap">{category.title}</h1>
-              <div className="mt-8 line-clamp-3">{category.description}</div>
+              <div className="mt-8 line-clamp-3 cbcbcb">
+                {category.description}
+              </div>
             </div>
             {category.coverUrl && (
               <img
@@ -52,6 +54,7 @@ export default function CategoryIntroBlock({ category, odd }: Props) {
                 alt=""
                 className={classNames(
                   'h-10vh md:h-20vh lg:h-30vh max-h-96 rounded-md',
+                  'aspect-[4/3] lg:aspect-[16/10] object-cover',
                   'hidden md:block',
                   'flex-initial self-center'
                 )}

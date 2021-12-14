@@ -20,12 +20,10 @@ interface Props {
   className?: string;
 }
 export default function ArticleCard({ article, compact, className }: Props) {
-  const url = `/articles/${article.slug}`;
+  const url = `/article/${article.slug}`;
   return (
     <div className={classNames('card interact', className)}>
-      <article
-        className={classNames('prose h-full', 'flex flex-col items-stretch')}
-      >
+      <article className={classNames('h-full', 'flex flex-col items-stretch')}>
         <Link to={url} className="quiet">
           <CardHeader
             title={article.title}
@@ -33,7 +31,7 @@ export default function ArticleCard({ article, compact, className }: Props) {
             compact={compact}
           />
         </Link>
-        <div className="space-x-2">
+        <div className="flex items-center gap-2">
           <DateTime value={article.datetime} />
           {article.topic && <TopicLink topic={article.topic} />}
         </div>
@@ -51,7 +49,7 @@ export default function ArticleCard({ article, compact, className }: Props) {
             className={classNames(
               'opener-overlay',
               'absolute inset-y-0 right-0 w-full',
-              'bg-dark-900',
+              'bg-gray-900',
               'flex justify-center items-center gap-2 p-4'
             )}
           >

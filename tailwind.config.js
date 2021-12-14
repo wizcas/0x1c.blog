@@ -11,24 +11,35 @@ function unitRange(values, unit) {
   }, {});
 }
 
-const heightExtension = {
+const heightExtensions = {
   hero: '40vh',
   superhero: '80vh',
   ...unitRange(screenUnits, 'vh'),
 };
+const widthExtensions = {
+  ...unitRange(screenUnits, 'vw'),
+};
 
 module.exports = {
-  mode: 'jit',
-  purge: ['./app/**/*.{ts,tsx}'],
-  darkMode: false, // or 'media' or 'class'
+  content: ['./app/**/*.{ts,tsx}'],
   theme: {
     extend: {
       zIndex: {
         '-10': '-10',
       },
-      height: heightExtension,
-      minHeight: heightExtension,
-      maxHeight: heightExtension,
+      height: heightExtensions,
+      minHeight: heightExtensions,
+      maxHeight: heightExtensions,
+      width: widthExtensions,
+      minWidth: widthExtensions,
+      maxWidth: widthExtensions,
+      typography: {
+        DEFAULT: {
+          css: {
+            h1: { fontSize: '2rem' },
+          },
+        },
+      },
     },
     colors: {
       // Build your palette here
@@ -36,36 +47,21 @@ module.exports = {
       current: 'currentColor',
       white: colors.white,
       black: colors.black,
-      gray: colors.trueGray,
+      gray: colors.stone,
       red: colors.red,
       blue: colors.sky,
       yellow: colors.amber,
-      light: {
-        50: '#F1F3F4',
-        100: '#D5DCDD',
-        200: '#ABB9BA',
-      },
-      dark: {
-        600: '#36494D',
-        700: '#273538',
-        800: '#243033',
-        900: '#1D2729',
-      },
-      hi: {
-        primary: '#EB6D71',
-        link: '#52D5E0',
-        'link-bright': '#A8EAF0',
-      },
+      green: colors.emerald,
+      primary: { ...colors.rose, 400: '#EB6D71' },
+      accent: colors.emerald,
     },
-  },
-  variants: {
-    extend: {},
   },
   plugins: [
     /***** official plugins *****/
     require('@tailwindcss/forms'),
     require('@tailwindcss/line-clamp'),
-    require('@tailwindcss/aspect-ratio'),
     require('@tailwindcss/typography'),
+    /**** Custom plugins ****/
+    require('./plugins/codeLangs'),
   ],
 };

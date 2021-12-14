@@ -4,7 +4,7 @@ import type { Article } from '~/services/blog/types';
 
 import { loremIpsum } from './lorem';
 
-function mockArticle(id: string) {
+export function mockArticle(id: string) {
   const hasCover = Math.random() > 0.3;
   return {
     title: 'Mock Article Is Useful',
@@ -12,14 +12,10 @@ function mockArticle(id: string) {
     datetime: dayjs().toISOString(),
     excerpt: loremIpsum(5),
     content: loremIpsum(20),
+    category: { slug: 'coding-career', title: 'Coding Career' },
     topic: {
       title: 'Pop my eyeballs',
       slug: 'pop-eyes',
-      category: {
-        title: 'Coding Career',
-        slug: 'coding-career',
-        color: '#0049B2',
-      },
     },
     tags: [
       { label: 'eye', slug: 'eye' },

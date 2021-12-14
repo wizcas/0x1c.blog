@@ -26,7 +26,11 @@ export interface Article {
   datetime: string;
   cover?: string;
   topic?: Topic;
+  category?: Category;
   tags?: Tag[];
+  markdown?: string;
+  html?: string;
+  toc?: TocItem[];
 }
 
 export interface ArticlesFilter {
@@ -41,4 +45,11 @@ export interface Articles {
   articles: Article[];
   totalPages: number;
   filter?: ArticlesFilter;
+}
+
+export interface TocItem {
+  text: string;
+  id: string;
+  level: number;
+  children?: TocItem[];
 }

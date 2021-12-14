@@ -107,7 +107,7 @@ function PageLink({ children, to, disabled, active }: PageLinkProps) {
       className={classNames(
         'flex flex-col items-stretch justify-center text-center',
         'w-6 h-8 leading-8',
-        active && 'bg-dark-700'
+        active && 'bg-gray-700'
       )}
     >
       {disabled || active ? (
@@ -115,7 +115,7 @@ function PageLink({ children, to, disabled, active }: PageLinkProps) {
           className={classNames(
             'cursor-default',
             disabled && 'opacity-30',
-            active && 'text-hi-primary font-semibold'
+            active && 'text-primary-400 font-semibold'
           )}
         >
           {children}
@@ -123,7 +123,7 @@ function PageLink({ children, to, disabled, active }: PageLinkProps) {
       ) : (
         <Link
           to={url}
-          className={classNames('!text-light-100 hover:!text-hi-primary')}
+          className={classNames('!text-gray-200 hover:!text-primary-400')}
         >
           {children}
         </Link>
