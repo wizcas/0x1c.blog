@@ -1,3 +1,7 @@
+import { i } from '~/helpers/i18n';
+
+import ErrorDisplay from '../error/ErrorDisplay';
+
 import { Document } from './Document';
 import { Layout } from './Layout';
 
@@ -7,15 +11,16 @@ export function ErrorBoundary({ error }: { error: Error }) {
   return (
     <Document title="Error!">
       <Layout>
-        <div>
-          <h1>There was an error</h1>
-          <p>{error.message}</p>
-          <hr />
-          <p>
-            Hey, developer, you should replace this with what you want your
-            users to see.
-          </p>
-        </div>
+        <ErrorDisplay
+          title={i('出错了')}
+          description={
+            <p>
+              不，这不是你的错。
+              <br />
+              错误信息已经收集，我将尽快解决。
+            </p>
+          }
+        />
       </Layout>
     </Document>
   );

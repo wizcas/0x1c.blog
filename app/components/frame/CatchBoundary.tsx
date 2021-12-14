@@ -1,5 +1,9 @@
 import { useCatch } from 'remix';
 
+import { i } from '~/helpers/i18n';
+
+import ErrorDisplay from '../error/ErrorDisplay';
+
 import { Document } from './Document';
 import { Layout } from './Layout';
 
@@ -10,17 +14,10 @@ export function CatchBoundary() {
   let message;
   switch (caught.status) {
     case 401:
-      message = (
-        <p>
-          Oops! Looks like you tried to visit a page that you do not have access
-          to.
-        </p>
-      );
+      message = <p>{i('您没有权限访问此页面。')}</p>;
       break;
     case 404:
-      message = (
-        <p>Oops! Looks like you tried to visit a page that does not exist.</p>
-      );
+      message = <p>{i('挺好的页面，啪，没啦。')}</p>;
       break;
 
     default:
@@ -30,10 +27,7 @@ export function CatchBoundary() {
   return (
     <Document title={`${caught.status} ${caught.statusText}`}>
       <Layout>
-        <h1>
-          {caught.status}: {caught.statusText}
-        </h1>
-        {message}
+        <ErrorDisplay title={caught.status} description={message} />
       </Layout>
     </Document>
   );

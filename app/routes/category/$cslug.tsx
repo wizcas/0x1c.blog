@@ -63,7 +63,7 @@ export default function CategoryIndex() {
           </h2>
           <p className="my-4">{category.description}</p>
         </header>
-        <section className="mb-16 space-y-8">
+        <section className="space-y-8">
           <Outlet />
         </section>
       </main>

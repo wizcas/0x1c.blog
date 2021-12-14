@@ -11,7 +11,7 @@ export const meta: MetaFunction = () => {
 
 export default function About() {
   return (
-    <main className="page-content mb-12">
+    <main className="page-content">
       <article className="prose">
         <h1>Me</h1>
         <p>
