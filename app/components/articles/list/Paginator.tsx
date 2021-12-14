@@ -123,7 +123,7 @@ function PageLink({ children, to, disabled, active }: PageLinkProps) {
       ) : (
         <Link
           to={url}
-          className={classNames('!text-gray-100 hover:!text-primary-400')}
+          className={classNames('!text-gray-200 hover:!text-primary-400')}
         >
           {children}
         </Link>

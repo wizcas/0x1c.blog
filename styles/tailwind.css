@@ -37,7 +37,7 @@
   body {
     font-size: 16px;
     @apply bg-gray-800;
-    @apply text-gray-100;
+    @apply text-gray-200;
     /* @apply overflow-x-hidden; */
   }
 
@@ -145,7 +145,7 @@
     min-width: 0;
     max-width: 100ch;
     color: unset;
-    @apply text-gray-100;
+    @apply text-gray-200;
 
     :--heading {
       @apply text-gray-50;
@@ -159,7 +159,7 @@
     }
 
     a.anchor {
-      @apply text-gray-200;
+      @apply text-gray-400;
       @apply opacity-30;
       @apply -mt-24 pt-24;
       @apply no-underline;
@@ -174,7 +174,7 @@
     }
     blockquote {
       @apply bg-gray-600 bg-opacity-70;
-      @apply text-gray-100;
+      @apply text-gray-200;
       @apply border-yellow-500;
       @apply py-1 px-1 sm:px-3;
       & > p {
@@ -206,7 +206,7 @@
     ol > li,
     ul > li {
       &::before {
-        @apply text-gray-200 text-opacity-60 font-bold;
+        @apply text-gray-400 text-opacity-60 font-bold;
       }
     }
   }

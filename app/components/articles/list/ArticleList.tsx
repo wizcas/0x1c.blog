@@ -38,7 +38,7 @@ interface ArticleListProps {
 export function ArticleList({ articles }: ArticleListProps) {
   const hasArticle = articles.length > 0;
   if (!hasArticle) {
-    return <div className="text-sm self-center text-gray-200">No articles</div>;
+    return <div className="text-sm self-center text-gray-400">No articles</div>;
   }
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">

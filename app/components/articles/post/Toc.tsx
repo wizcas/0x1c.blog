@@ -12,7 +12,7 @@ interface Props {
 }
 export default function Toc({ toc, className }: Props) {
   return (
-    <div className={classNames('text-sm text-gray-200', className)}>
+    <div className={classNames('text-sm text-gray-400', className)}>
       <TocList items={toc} level={1} />
     </div>
   );
