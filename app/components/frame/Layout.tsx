@@ -5,9 +5,9 @@ import Header from './Header';
 
 export function Layout({ children }: { children: ReactNode }) {
   return (
-    <div className="app">
+    <div className="flex flex-col items-stretch min-h-screen">
       <Header />
-      <div className="pt-24">{children}</div>
+      <div className="flex-1 pt-12 md:pt-20">{children}</div>
       <Footer />
     </div>
   );
