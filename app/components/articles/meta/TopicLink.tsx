@@ -1,3 +1,4 @@
+import { Bookmark } from 'react-feather';
 import { Link } from 'remix';
 
 import { useCategorySlug } from '~/contexts/CategoryContext';
@@ -10,8 +11,11 @@ interface Props {
 export default function TopicLink({ topic }: Props) {
   const cslug = useCategorySlug();
   return (
-    <Link to={`/category/${cslug}/topic/${topic.slug}`} className="text-sm">
-      {`#${topic.title}`}
-    </Link>
+    <span className="inline-flex items-center gap-1">
+      <Bookmark size={16} />
+      <Link to={`/category/${cslug}/topic/${topic.slug}`} className="text-sm">
+        {topic.title}
+      </Link>
+    </span>
   );
 }

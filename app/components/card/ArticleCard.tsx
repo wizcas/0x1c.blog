@@ -31,7 +31,7 @@ export default function ArticleCard({ article, compact, className }: Props) {
             compact={compact}
           />
         </Link>
-        <div className="space-x-2">
+        <div className="flex items-center gap-2">
           <DateTime value={article.datetime} />
           {article.topic && <TopicLink topic={article.topic} />}
         </div>

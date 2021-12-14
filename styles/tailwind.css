@@ -98,6 +98,7 @@
 
     .card-header {
       @apply relative overflow-hidden;
+      @apply mb-2;
     }
 
     .card-cover-image {
