@@ -65,7 +65,6 @@ module.exports = {
     /***** official plugins *****/
     require('@tailwindcss/forms'),
     require('@tailwindcss/line-clamp'),
-    require('@tailwindcss/aspect-ratio'),
     require('@tailwindcss/typography'),
     /**** Custom plugins ****/
     require('./plugins/codeLangs'),

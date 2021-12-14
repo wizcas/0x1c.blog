@@ -111,7 +111,7 @@
     &.interact {
       @apply transform;
       &:hover {
-        @apply shadow-md;
+        @apply shadow-xl shadow-gray-900/30;
         @apply rounded-sm;
         @apply brightness-110;
         @apply ring-1 ring-gray-900;

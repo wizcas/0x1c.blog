@@ -54,6 +54,7 @@ export default function CategoryIntroBlock({ category, odd }: Props) {
                 alt=""
                 className={classNames(
                   'h-10vh md:h-20vh lg:h-30vh max-h-96 rounded-md',
+                  'aspect-[4/3] lg:aspect-[16/10] object-cover',
                   'hidden md:block',
                   'flex-initial self-center'
                 )}
