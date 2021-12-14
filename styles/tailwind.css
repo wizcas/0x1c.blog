@@ -156,7 +156,7 @@
       color: unset;
       @extend %hyperlink;
       @apply px-1 !text-white;
-      @apply underline decoration-solid decoration-accent-400 underline-offset-4 decoration-1;
+      @apply underline decoration-solid decoration-primary-400 underline-offset-4 decoration-1;
     }
 
     a.anchor {
@@ -183,7 +183,7 @@
       }
     }
     code {
-      @apply text-primary-400 text-base;
+      @apply text-accent-400 text-base;
       @apply bg-black bg-opacity-10;
       @apply rounded-sm;
       @apply mx-1;

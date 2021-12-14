@@ -54,11 +54,6 @@ module.exports = {
       green: colors.emerald,
       primary: { ...colors.rose, 400: '#EB6D71' },
       accent: colors.emerald,
-      hi: {
-        primary: '#EB6D71',
-        link: '#52D5E0',
-        'link-bright': '#A8EAF0',
-      },
     },
   },
   plugins: [

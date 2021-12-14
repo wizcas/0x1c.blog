@@ -29,7 +29,7 @@ function TocList({ items, level }: { items: TocItem[]; level: number }) {
             className={classNames(
               'quiet',
               'pl-[var(--offset)] py-1 inline-block',
-              'border-l-4 border-accent-400 border-opacity-0 hover:border-opacity-50',
+              'border-l-4 border-primary-400 border-opacity-0 hover:border-opacity-50',
               'transition-all duration-200',
               {
                 'font-semibold text-gray-50 !border-opacity-100':
