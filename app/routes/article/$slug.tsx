@@ -2,7 +2,12 @@
 import classNames from 'classnames';
 import hljsThemeUrl from 'highlight.js/styles/base16/eighties.css';
 import { useMemo, useRef } from 'react';
-import { LinksFunction, LoaderFunction, useLoaderData } from 'remix';
+import {
+  LinksFunction,
+  LoaderFunction,
+  MetaFunction,
+  useLoaderData,
+} from 'remix';
 import invariant from 'tiny-invariant';
 
 import ArticleHeader from '~/components/articles/post/ArticleHeader';
@@ -25,6 +30,14 @@ export const links: LinksFunction = () => [
     href: hljsThemeUrl,
   },
 ];
+
+export const meta: MetaFunction = ({ data }: { data: Article }) => {
+  const { title, excerpt } = data;
+  return {
+    title: `${title} - 0x1C.dev`,
+    description: excerpt,
+  };
+};
 
 export default function ArticlePage() {
   const article = useLoaderData<Article>();

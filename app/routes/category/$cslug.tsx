@@ -7,10 +7,12 @@ import {
   useLoaderData,
   Outlet,
   Link,
+  MetaFunction,
 } from 'remix';
 import invariant from 'tiny-invariant';
 
 import { CategoryContext } from '~/contexts/CategoryContext';
+import { i } from '~/helpers/i18n';
 import { getCategory } from '~/services/blog/category';
 import type { Category } from '~/services/blog/types';
 
@@ -22,6 +24,14 @@ export const loader: LoaderFunction = async ({ params }) => {
     return redirect('/');
   }
   return json(category);
+};
+
+export const meta: MetaFunction = ({ data }: { data: Category }) => {
+  const { title } = data;
+  return {
+    title: `${title} - 0x1C.dev`,
+    description: title + i('栏目下的文章列表'),
+  };
 };
 
 export default function CategoryIndex() {

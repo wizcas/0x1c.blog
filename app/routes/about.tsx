@@ -1,3 +1,14 @@
+import { MetaFunction } from 'remix';
+
+import { i } from '~/helpers/i18n';
+
+export const meta: MetaFunction = () => {
+  return {
+    title: `${i('关于')} - 0x1C.dev`,
+    description: i('陈小一 Wizcas Chen 的个人博客、技术文章、作品展示'),
+  };
+};
+
 export default function About() {
   return (
     <main className="page-content mb-12">
