@@ -25,7 +25,7 @@ export default function TagsIndex() {
     <>
       <h5>
         Articles in &nbsp;
-        <code className="text-hi-primary">{`#${tagLabels.join(
+        <code className="text-primary-400">{`#${tagLabels.join(
           ', '
         )}(todo)`}</code>
       </h5>

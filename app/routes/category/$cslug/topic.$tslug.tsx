@@ -24,7 +24,7 @@ export default function TopicIndex() {
     <>
       <h5>
         Articles in &nbsp;
-        <code className="text-hi-primary">{`//${topicTitle}(todo)`}</code>
+        <code className="text-primary-400">{`//${topicTitle}(todo)`}</code>
       </h5>
       <PagedArticleList {...articles} />
     </>

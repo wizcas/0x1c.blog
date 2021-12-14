@@ -49,7 +49,7 @@ export default function ArticleCard({ article, compact, className }: Props) {
             className={classNames(
               'opener-overlay',
               'absolute inset-y-0 right-0 w-full',
-              'bg-dark-900',
+              'bg-gray-900',
               'flex justify-center items-center gap-2 p-4'
             )}
           >

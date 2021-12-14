@@ -12,7 +12,7 @@ interface Props {
 }
 export default function Toc({ toc, className }: Props) {
   return (
-    <div className={classNames('text-sm text-light-200', className)}>
+    <div className={classNames('text-sm text-gray-200', className)}>
       <TocList items={toc} level={1} />
     </div>
   );
@@ -32,7 +32,7 @@ function TocList({ items, level }: { items: TocItem[]; level: number }) {
               'border-l-4 border-accent-400 border-opacity-0 hover:border-opacity-50',
               'transition-all duration-200',
               {
-                'font-semibold text-light-50 !border-opacity-100':
+                'font-semibold text-gray-50 !border-opacity-100':
                   item.id === readingData.activeHeadingId,
               }
             )}

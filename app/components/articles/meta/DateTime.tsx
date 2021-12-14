@@ -23,7 +23,7 @@ export default function DateTime({ value, format = 'date', className }: Props) {
   }, [value, format]);
 
   return (
-    <span className={classNames('text-sm text-light-200', className)}>
+    <span className={classNames('text-sm text-gray-200', className)}>
       {valueString}
     </span>
   );

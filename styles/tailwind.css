@@ -13,9 +13,9 @@
   @apply no-underline;
 
   &:not(.quiet) {
-    @apply text-accent-400 hover:text-hi-link-bright;
+    @apply text-accent-400 hover:text-accent-200;
     &:hover {
-      filter: drop-shadow(0 0 0.25em currentColor);
+      filter: drop-shadow(0 0 2px currentColor);
       @apply decoration-2;
     }
   }
@@ -36,8 +36,8 @@
   html,
   body {
     font-size: 16px;
-    @apply bg-dark-800;
-    @apply text-light-100;
+    @apply bg-gray-800;
+    @apply text-gray-100;
     /* @apply overflow-x-hidden; */
   }
 
@@ -45,7 +45,7 @@
     @apply container mx-auto px-4 sm:px-2;
   }
   :--heading {
-    @apply text-light-50;
+    @apply text-gray-50;
   }
   h1 {
     @apply text-4xl font-extrabold;
@@ -83,14 +83,14 @@
 @layer components {
   .glass {
     @apply backdrop-blur-md;
-    @apply bg-dark-800 bg-opacity-70;
+    @apply bg-gray-800 bg-opacity-70;
   }
   .article {
     @apply leading-normal;
   }
 
   .card {
-    @apply bg-dark-700;
+    @apply bg-gray-700;
     @apply p-4 rounded-md;
     @apply flex flex-col items-stretch;
     @apply transition-all duration-300 ease-out;
@@ -103,7 +103,7 @@
     .card-cover-image {
       @apply absolute inset-0 object-cover;
       @apply -z-10;
-      @apply bg-dark-900 bg-opacity-90;
+      @apply bg-gray-900 bg-opacity-90;
       @apply m-0 w-full;
       @apply transition-all duration-300 ease-out;
     }
@@ -114,7 +114,7 @@
         @apply shadow-md;
         @apply rounded-sm;
         @apply brightness-110;
-        @apply ring-1 ring-dark-900;
+        @apply ring-1 ring-gray-900;
         color: inherit;
         text-shadow: none;
 
@@ -145,10 +145,10 @@
     min-width: 0;
     max-width: 100ch;
     color: unset;
-    @apply text-light-100;
+    @apply text-gray-100;
 
     :--heading {
-      @apply text-light-50;
+      @apply text-gray-50;
     }
 
     a:not(.anchor) {
@@ -159,7 +159,7 @@
     }
 
     a.anchor {
-      @apply text-light-200;
+      @apply text-gray-200;
       @apply opacity-30;
       @apply -mt-24 pt-24;
       @apply no-underline;
@@ -173,8 +173,8 @@
       @extend %strong;
     }
     blockquote {
-      @apply bg-dark-600 bg-opacity-70;
-      @apply text-light-100;
+      @apply bg-gray-600 bg-opacity-70;
+      @apply text-gray-100;
       @apply border-yellow-500;
       @apply py-1 px-1 sm:px-3;
       & > p {
@@ -182,7 +182,7 @@
       }
     }
     code {
-      @apply text-hi-primary text-base;
+      @apply text-primary-400 text-base;
       @apply bg-black bg-opacity-10;
       @apply rounded-sm;
       @apply mx-1;
@@ -206,7 +206,7 @@
     ol > li,
     ul > li {
       &::before {
-        @apply text-light-200 text-opacity-60 font-bold;
+        @apply text-gray-200 text-opacity-60 font-bold;
       }
     }
   }
@@ -215,7 +215,7 @@
     @apply relative;
     & > pre {
       @apply pt-8 pb-6;
-      @apply border-dark-600 border-solid border-2;
+      @apply border-gray-600 border-solid border-2;
     }
     .lang-hint {
       @apply absolute top-0 right-0 px-2 py-1 rounded-bl-md;

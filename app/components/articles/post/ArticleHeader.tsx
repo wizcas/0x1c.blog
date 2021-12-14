@@ -15,7 +15,7 @@ const HERO_CLASS = classNames(
   'bg-no-repeat bg-cover bg-center'
 );
 const HERO_FRONTMATTER_CLASS = classNames(
-  'bg-dark-900 bg-opacity-70',
+  'bg-gray-900 bg-opacity-70',
   'backdrop-blur-sm'
 );
 

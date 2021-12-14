@@ -43,7 +43,7 @@ export default function LatestArticleList({
       </ul>
       <Link
         to={`/category/${category.slug}`}
-        className={classNames('self-end', '!text-light-100')}
+        className={classNames('self-end', '!text-gray-100')}
       >
         View more <ChevronsRight className="inline-block" />
       </Link>

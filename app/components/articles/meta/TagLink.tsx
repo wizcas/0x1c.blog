@@ -12,7 +12,7 @@ export default function TagLink({ tag }: Props) {
   return (
     <Link
       to={`/category/${cslug}/tags/${tag.slug}`}
-      className="space-x-1 text-sm !text-light-200 hover:!text-hi-primary"
+      className="space-x-1 text-sm !text-gray-200 hover:!text-primary-400"
     >
       <TagIcon className="icon" size="12" />
       <span>{tag.label}</span>

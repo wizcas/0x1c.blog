@@ -47,7 +47,7 @@ export default function CategoryIndex() {
             style={markStyle}
           />
           <h2>
-            <Link to="." className="!text-light-50">
+            <Link to="." className="!text-gray-50">
               {category.title}
             </Link>
           </h2>
