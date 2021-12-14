@@ -13,7 +13,7 @@
   @apply no-underline;
 
   &:not(.quiet) {
-    @apply text-hi-link hover:text-hi-link-bright;
+    @apply text-accent-400 hover:text-hi-link-bright;
     &:hover {
       filter: drop-shadow(0 0 0.25em currentColor);
       @apply decoration-2;
@@ -155,7 +155,7 @@
       color: unset;
       @extend %hyperlink;
       @apply px-1 !text-white;
-      @apply underline decoration-solid decoration-hi-link underline-offset-4 decoration-1;
+      @apply underline decoration-solid decoration-accent-400 underline-offset-4 decoration-1;
     }
 
     a.anchor {

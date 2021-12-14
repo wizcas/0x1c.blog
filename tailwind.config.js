@@ -67,6 +67,7 @@ module.exports = {
       dark: colors.stone,
       light: colors.zinc,
       accent: colors.emerald,
+      normal: colors.stone,
       hi: {
         primary: '#EB6D71',
         link: '#52D5E0',
