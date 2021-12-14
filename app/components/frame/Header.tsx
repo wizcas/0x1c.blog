@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import { Link } from 'remix';
 
 import Logo from '~/components/branding/Logo';
+import { i } from '~/helpers/i18n';
 
 const HEADER_CLASS = classNames(
   'glass',
@@ -17,8 +18,8 @@ export default function Header() {
           <Logo className="!h-4 md:!h-8 !gap-2 md:!gap-4" />
         </Link>
         <nav className="space-x-4">
-          <Link to="/">Articles</Link>
-          <Link to="/about">About</Link>
+          <Link to="/">{i('博客')}</Link>
+          <Link to="/about">{i('关于')}</Link>
         </nav>
       </div>
     </header>

@@ -51,7 +51,7 @@ export default function ArticlePage() {
   return (
     <CategoryContext.Provider value={category}>
       <ReadingContext.Provider value={readingData}>
-        <main>
+        <main className="mb-12">
           <ArticleHeader article={article} />
           <div className="page-content flex gap-8">
             <aside className={classNames('w-64 flex-none hidden lg:block')}>

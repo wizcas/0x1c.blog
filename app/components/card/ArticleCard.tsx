@@ -3,6 +3,7 @@ import { Book } from 'react-feather';
 import { Link } from 'remix';
 
 import CardHeader from '~/components/card/CardHeader';
+import { i } from '~/helpers/i18n';
 import type { Article } from '~/services/blog/types';
 
 import DateTime from '../articles/meta/DateTime';
@@ -54,7 +55,7 @@ export default function ArticleCard({ article, compact, className }: Props) {
             )}
           >
             <Book />
-            Read more
+            {i('继续阅读')}
           </div>
         </Link>
         <div className="spacer" />

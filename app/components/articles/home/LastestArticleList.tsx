@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import { ChevronsRight } from 'react-feather';
 import { Link } from 'remix';
 
+import { i } from '~/helpers/i18n';
 import type { Article, Category } from '~/services/blog/types';
 
 import ArticleCard from '../../card/ArticleCard';
@@ -28,7 +29,7 @@ export default function LatestArticleList({
           align === 'left' ? 'md:self-start' : 'md:self-end'
         )}
       >
-        Latest
+        {i('最新文章')}
       </h5>
       <ul className={classNames('grid grid-cols-1 lg:grid-cols-3 gap-4')}>
         {articles?.map((article) => (
@@ -45,7 +46,7 @@ export default function LatestArticleList({
         to={`/category/${category.slug}`}
         className={classNames('self-end', '!text-gray-200')}
       >
-        View more <ChevronsRight className="inline-block" />
+        {i('阅读更多')} <ChevronsRight className="inline-block" />
       </Link>
     </div>
   );
