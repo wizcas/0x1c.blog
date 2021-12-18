@@ -16,8 +16,8 @@ export async function getArticles(filter: ArticlesFilter) {
   } as Articles;
 }
 
-export async function getArticle(slug: string) {
-  console.log('getting article', slug);
+export async function getArticle(id: string) {
+  console.log('getting article', id);
   const mdxPath = path.join(__dirname, '../posts/wsl2.mdx');
 
   const file = await fs.readFile(mdxPath, 'utf8');

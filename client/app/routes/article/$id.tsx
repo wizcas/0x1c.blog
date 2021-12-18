@@ -19,9 +19,9 @@ import { getArticle } from '~/services/blog/article';
 import type { Article } from '~/services/blog/types';
 
 export const loader: LoaderFunction = async ({ params }) => {
-  const { slug } = params;
-  invariant(slug, 'Article slug is required');
-  return getArticle(slug);
+  const { id } = params;
+  invariant(id, 'Article ID is required');
+  return getArticle(id);
 };
 
 export const links: LinksFunction = () => [

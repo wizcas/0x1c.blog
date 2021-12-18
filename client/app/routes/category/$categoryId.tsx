@@ -17,9 +17,9 @@ import { getCategory } from '~/services/blog/category';
 import type { Category } from '~/services/blog/types';
 
 export const loader: LoaderFunction = async ({ params }) => {
-  const { cslug } = params;
-  invariant(cslug, 'Category slug is required');
-  const category = await getCategory(cslug);
+  const { categoryId } = params;
+  invariant(categoryId, 'Category ID is required');
+  const category = await getCategory(categoryId);
   if (!category) {
     return redirect('/');
   }

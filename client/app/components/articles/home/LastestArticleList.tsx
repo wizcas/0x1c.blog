@@ -33,7 +33,7 @@ export default function LatestArticleList({
       </h5>
       <ul className={classNames('grid grid-cols-1 lg:grid-cols-3 gap-4')}>
         {articles?.map((article) => (
-          <li key={article.slug}>
+          <li key={article.id}>
             <ArticleCard
               article={article}
               compact
@@ -43,7 +43,7 @@ export default function LatestArticleList({
         ))}
       </ul>
       <Link
-        to={`/category/${category.slug}`}
+        to={`/category/${category.id}`}
         className={classNames('self-end', '!text-gray-200')}
       >
         {i('阅读更多')} <ChevronsRight className="inline-block" />

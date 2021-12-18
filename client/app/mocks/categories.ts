@@ -6,7 +6,7 @@ import { loremIpsum } from './lorem';
 export const CATEGORIES: Category[] = [
   {
     title: 'Coding Career',
-    slug: 'coding-career',
+    id: 'coding-career',
     description: loremIpsum(5),
     color: '#0049B2',
     coverUrl:
@@ -15,7 +15,7 @@ export const CATEGORIES: Category[] = [
   },
   {
     title: 'Game Making',
-    slug: 'game-making',
+    id: 'game-making',
     description: loremIpsum(5),
     color: '#1C1A17',
     coverUrl:
@@ -24,7 +24,7 @@ export const CATEGORIES: Category[] = [
   },
   {
     title: 'Bits & Pieces',
-    slug: 'bits-pieces',
+    id: 'bits-pieces',
     description: loremIpsum(5),
     color: '#A3293D',
     coverUrl:

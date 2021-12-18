@@ -62,7 +62,7 @@ export default function ArticleHeader({ article }: Props) {
             )}
           >
             {tags.map((tag) => (
-              <TagLink key={tag.slug} tag={tag} />
+              <TagLink key={tag.id} tag={tag} />
             ))}
           </section>
         )}

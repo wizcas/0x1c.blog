@@ -21,7 +21,7 @@ interface Props {
   className?: string;
 }
 export default function ArticleCard({ article, compact, className }: Props) {
-  const url = `/article/${article.slug}`;
+  const url = `/article/${article.id}`;
   return (
     <div className={classNames('card interact', className)}>
       <article className={classNames('h-full', 'flex flex-col items-stretch')}>
@@ -62,7 +62,7 @@ export default function ArticleCard({ article, compact, className }: Props) {
         {article.tags && article.tags.length > 0 && (
           <section data-name="article-tag-list" className="space-x-4 text-sm">
             {article.tags.map((tag) => (
-              <TagLink key={tag.slug} tag={tag} />
+              <TagLink key={tag.id} tag={tag} />
             ))}
           </section>
         )}

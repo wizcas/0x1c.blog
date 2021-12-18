@@ -9,36 +9,34 @@ import { i } from '~/helpers/i18n';
 import type { Articles } from '~/services/blog/types';
 
 interface LoaderData {
+  topicTitle: string;
   articles: Articles;
-  tagLabels: string[];
 }
 
 export const loader: LoaderFunction = async (args) => {
   const articles = await fetchArticles(args);
-  const tagLabels = articles.filter?.gslugs;
-  invariant('tagLabels');
-  return json({ articles, tagLabels } as LoaderData);
+  const topicTitle = articles.filter?.topicId;
+  invariant(topicTitle);
+  return json({ articles, topicTitle } as LoaderData);
 };
 
 export const meta: MetaFunction = ({ data }: { data: LoaderData }) => {
-  const title = data.tagLabels.join(',');
+  const title = data.topicTitle;
   return {
     title: `${title} - 0x1C.dev`,
-    description: title + i('标签下的文章列表'),
+    description: title + i('话题下的文章列表'),
   };
 };
 
-export default function TagsIndex() {
-  const { tagLabels, articles } = useLoaderData<LoaderData>() || [];
+export default function TopicIndex() {
+  const { topicTitle, articles } = useLoaderData<LoaderData>() || [];
   return (
     <>
       <h5>
         Articles in &nbsp;
-        <code className="text-primary-400">{`#${tagLabels.join(
-          ', '
-        )}(todo)`}</code>
+        <code className="text-primary-400">{`//${topicTitle}(todo)`}</code>
       </h5>
-      <PagedArticleList {...articles} />;
+      <PagedArticleList {...articles} />
     </>
   );
 }

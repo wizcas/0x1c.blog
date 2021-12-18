@@ -1,6 +1,6 @@
 export interface Category {
+  id: string;
   title: string;
-  slug: string;
   color: string;
   description?: string;
   coverUrl?: string;
@@ -8,19 +8,19 @@ export interface Category {
 }
 
 export interface Topic {
-  slug: string;
+  id: string;
   title: string;
   category: Category;
 }
 
 export interface Tag {
-  slug: string;
+  id: string;
   label: string;
 }
 
 export interface Article {
   title: string;
-  slug: string;
+  id: string;
   excerpt: string;
   content: string;
   datetime: string;
@@ -34,9 +34,9 @@ export interface Article {
 }
 
 export interface ArticlesFilter {
-  cslug: string;
-  tslug?: string;
-  gslugs?: string[];
+  categoryId: string;
+  topicId?: string;
+  tagIds?: string[];
   offset?: number;
   limit: number;
 }

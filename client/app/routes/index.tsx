@@ -3,6 +3,7 @@ import { json, MetaFunction, useLoaderData } from 'remix';
 import CategoryIntroBlock from '~/components/articles/home/CategoryIntroBlock';
 import { i } from '~/helpers/i18n';
 import { getCategories } from '~/services/blog/category';
+import { Category } from '~/services/blog/types';
 
 // https://remix.run/api/conventions#meta
 export const meta: MetaFunction = () => {
@@ -11,14 +12,6 @@ export const meta: MetaFunction = () => {
     description: i('陈小一 Wizcas Chen 的个人博客、技术文章、作品展示'),
   };
 };
-
-interface Category {
-  title: string;
-  slug: string;
-  description: string;
-  color: string;
-  coverUrl?: string;
-}
 
 export const loader = () => {
   return json(getCategories());
@@ -32,7 +25,7 @@ export default function Index() {
       <div className="h-52" />
       {categories.map((category, index) => (
         <CategoryIntroBlock
-          key={category.slug}
+          key={category.id}
           category={category}
           odd={index % 2 !== 0}
         />
