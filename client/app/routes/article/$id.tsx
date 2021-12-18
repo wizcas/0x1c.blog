@@ -14,6 +14,7 @@ import ArticleHeader from '~/components/articles/post/ArticleHeader';
 import { ReadingContext } from '~/components/articles/post/ReadingContext';
 import Toc from '~/components/articles/post/Toc';
 import { CategoryContext } from '~/contexts/CategoryContext';
+import { genMeta } from '~/helpers/pageMeta';
 import useReadingData from '~/hooks/useReadingData';
 import { getArticle } from '~/services/blog/article';
 import type { Article } from '~/services/blog/models';
@@ -35,10 +36,10 @@ export const links: LinksFunction = () => [
 
 export const meta: MetaFunction = ({ data }: { data: Article }) => {
   const { title = '', excerpt = '' } = data || {};
-  return {
-    title: `${title} - 0x1C.dev`,
+  return genMeta({
+    title,
     description: excerpt,
-  };
+  });
 };
 
 export default function ArticlePage() {

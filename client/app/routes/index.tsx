@@ -1,16 +1,13 @@
 import { json, MetaFunction, useLoaderData } from 'remix';
 
 import CategoryIntroBlock from '~/components/articles/home/CategoryIntroBlock';
-import { i } from '~/helpers/i18n';
+import { genMeta } from '~/helpers/pageMeta';
 import { getCategories } from '~/services/blog/category';
 import type { Category } from '~/services/blog/models';
 
 // https://remix.run/api/conventions#meta
 export const meta: MetaFunction = () => {
-  return {
-    title: '0x1C.dev',
-    description: i('陈小一 Wizcas Chen 的个人博客、技术文章、作品展示'),
-  };
+  return genMeta();
 };
 
 export const loader = async () => {

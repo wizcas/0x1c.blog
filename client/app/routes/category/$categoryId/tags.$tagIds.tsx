@@ -5,6 +5,7 @@ import {
   PagedArticleList,
 } from '~/components/articles/list/ArticleList';
 import { i } from '~/helpers/i18n';
+import { genMeta } from '~/helpers/pageMeta';
 import type { Articles } from '~/services/blog/models';
 
 interface LoaderData {
@@ -20,10 +21,10 @@ export const loader: LoaderFunction = async (args) => {
 
 export const meta: MetaFunction = ({ data }: { data: LoaderData }) => {
   const title = data?.tagLabels?.join(',') || '';
-  return {
-    title: `${title} - 0x1C.dev`,
+  return genMeta({
+    title,
     description: title + i('标签下的文章列表'),
-  };
+  });
 };
 
 export default function TagsIndex() {
