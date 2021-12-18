@@ -62,10 +62,10 @@ export default function Editor({
       {!disabled ? (
         <div ref={wrapperRef}>
           <Toolbar>
-            <ToolbarButton onClick={toggleStyle}>
+            <ToolbarButton type="button" onClick={toggleStyle}>
               {previewStyle === 'vertical' ? 'Tab mode' : 'Side-by-side'}
             </ToolbarButton>
-            <ToolbarButton onClick={toggleFullscreen}>
+            <ToolbarButton type="button" onClick={toggleFullscreen}>
               {isFullscreen ? 'Normal' : 'Full screen'}
             </ToolbarButton>
           </Toolbar>
