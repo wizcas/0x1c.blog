@@ -1,11 +1,11 @@
 _type: export
 __export_format: 4
-__export_date: 2021-12-17T21:01:59.490Z
+__export_date: 2021-12-18T09:38:59.450Z
 __export_source: insomnia.desktop.app:v2021.6.0
 resources:
   - _id: req_60c70a618dd64d1dbd5dc2ad856be24c
     parentId: fld_17d26436c4184c71be678fe5a62083b7
-    modified: 1639774502517
+    modified: 1639820279013
     created: 1639772646996
     url: "{{ _.gql }}"
     name: Categories
@@ -13,10 +13,10 @@ resources:
     method: POST
     body:
       mimeType: application/graphql
-      text: '{"query":"query {\n  categories {\n    data {\n      id\n      attributes
-        {\n        title\n        slug\n        cover {\n          data
-        {\n            attributes
-        {\n              url\n              previewUrl\n            }\n          }\n        }\n        themeColor\n        description\n      }\n    }\n  }\n}"}'
+      text: '{"query":"query {\n\tcategories {\n\t\tdata {\n\t\t\tid\n\t\t\tattributes
+        {\n\t\t\t\ttitle\n\t\t\t\tcover {\n\t\t\t\t\tdata
+        {\n\t\t\t\t\t\tattributes
+        {\n\t\t\t\t\t\t\turl\n\t\t\t\t\t\t\tpreviewUrl\n\t\t\t\t\t\t}\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t\tthemeColor\n\t\t\t\tdescription\n\t\t\t}\n\t\t}\n\t}\n}\n"}'
     parameters: []
     headers:
       - name: Content-Type
@@ -52,7 +52,7 @@ resources:
     _type: workspace
   - _id: req_320c651e3f844b579b7de99c1e52e5db
     parentId: fld_17d26436c4184c71be678fe5a62083b7
-    modified: 1639774833804
+    modified: 1639820277062
     created: 1639772897129
     url: "{{ _.gql }}"
     name: Topics
@@ -60,13 +60,11 @@ resources:
     method: POST
     body:
       mimeType: application/graphql
-      text: '{"query":"query {\n  topics(\n    filters: {\n      category:
-        {\n        slug: {\n          eq:
-        \"coding-notes\"\n        }\n      }\n    }\n  ) {\n    data
-        {\n      id\n      attributes
-        {\n        title\n        slug\n        category {\n          data
-        {\n            attributes
-        {\n              slug\n            }\n          }\n        }\n      }\n    }\n  }\n}"}'
+      text: '{"query":"query ($categoryId: ID!) {\n\ttopics(filters: { category: { id:
+        { eq: $categoryId } } }) {\n\t\tdata {\n\t\t\tid\n\t\t\tattributes
+        {\n\t\t\t\ttitle\n\t\t\t\tcategory {\n\t\t\t\t\tdata
+        {\n\t\t\t\t\t\tattributes
+        {\n\t\t\t\t\t\t\tslug\n\t\t\t\t\t\t}\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n}\n","variables":{"categoryId":1}}'
     parameters: []
     headers:
       - name: Content-Type
@@ -84,7 +82,7 @@ resources:
     _type: request
   - _id: req_0b331c4815144d8f9b4b0153dfce5fb2
     parentId: fld_17d26436c4184c71be678fe5a62083b7
-    modified: 1639773056197
+    modified: 1639820274324
     created: 1639772916512
     url: "{{ _.gql }}"
     name: Tags
@@ -92,13 +90,11 @@ resources:
     method: POST
     body:
       mimeType: application/graphql
-      text: '{"query":"query {\n  tags(\n    filters: {\n      category:
-        {\n        slug: {\n          eq:
-        \"coding-notes\"\n        }\n      }\n    }\n  ) {\n    data
-        {\n      id\n      attributes
-        {\n        label\n        slug\n        category {\n          data
-        {\n            attributes
-        {\n              slug\n            }\n          }\n        }\n      }\n    }\n  }\n}"}'
+      text: '{"query":"query ($categoryId: ID!) {\n\ttags(filters: { category: { id: {
+        eq: $categoryId } } }) {\n\t\tdata {\n\t\t\tid\n\t\t\tattributes
+        {\n\t\t\t\tlabel\n\t\t\t\tcategory {\n\t\t\t\t\tdata
+        {\n\t\t\t\t\t\tattributes
+        {\n\t\t\t\t\t\t\tslug\n\t\t\t\t\t\t}\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n}\n","variables":{"categoryId":1}}'
     parameters: []
     headers:
       - name: Content-Type
@@ -116,7 +112,7 @@ resources:
     _type: request
   - _id: req_66f51749ceeb4f85adcf7a045ad6ae8b
     parentId: fld_17d26436c4184c71be678fe5a62083b7
-    modified: 1639773946620
+    modified: 1639820271161
     created: 1639773064975
     url: "{{ _.gql }}"
     name: LatestArticlesByCategory
@@ -128,8 +124,8 @@ resources:
         \"updatedAt:desc\"\n\t\tpagination: { limit: 3 }\n\t\tfilters: {
         category: { id: { eq: $categoryId } } }\n\t) {\n\t\tdata
         {\n\t\t\tid\n\t\t\tattributes
-        {\n\t\t\t\ttitle\n\t\t\t\tslug\n\t\t\t\texcerpt\n\t\t\t\tcover
-        {\n\t\t\t\t\tdata {\n\t\t\t\t\t\tattributes
+        {\n\t\t\t\ttitle\n\t\t\t\texcerpt\n\t\t\t\tcover {\n\t\t\t\t\tdata
+        {\n\t\t\t\t\t\tattributes
         {\n\t\t\t\t\t\t\turl\n\t\t\t\t\t\t\tpreviewUrl\n\t\t\t\t\t\t}\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t\tupdatedAt\n\t\t\t\ttopic
         {\n\t\t\t\t\tdata {\n\t\t\t\t\t\tattributes
         {\n\t\t\t\t\t\t\ttitle\n\t\t\t\t\t\t\tslug\n\t\t\t\t\t\t}\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t\ttags
@@ -152,7 +148,7 @@ resources:
     _type: request
   - _id: req_f6df9bb06bd44b3d8e477b9a502888f3
     parentId: fld_17d26436c4184c71be678fe5a62083b7
-    modified: 1639774472938
+    modified: 1639820289669
     created: 1639773857290
     url: "{{ _.gql }}"
     name: ArticlesByCategory
@@ -166,8 +162,8 @@ resources:
         $categoryId } } }\n\t) {\n\t\tmeta {\n\t\t\tpagination
         {\n\t\t\t\ttotal\n\t\t\t\tpage\n\t\t\t\tpageSize\n\t\t\t\tpageCount\n\t\t\t}\n\t\t}\n\t\tdata
         {\n\t\t\tid\n\t\t\tattributes
-        {\n\t\t\t\ttitle\n\t\t\t\tslug\n\t\t\t\texcerpt\n\t\t\t\tcover
-        {\n\t\t\t\t\tdata {\n\t\t\t\t\t\tattributes
+        {\n\t\t\t\ttitle\n\t\t\t\texcerpt\n\t\t\t\tcover {\n\t\t\t\t\tdata
+        {\n\t\t\t\t\t\tattributes
         {\n\t\t\t\t\t\t\turl\n\t\t\t\t\t\t\tpreviewUrl\n\t\t\t\t\t\t}\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t\tupdatedAt\n\t\t\t\ttopic
         {\n\t\t\t\t\tdata {\n\t\t\t\t\t\tattributes
         {\n\t\t\t\t\t\t\ttitle\n\t\t\t\t\t\t\tslug\n\t\t\t\t\t\t}\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t\ttags
@@ -190,7 +186,7 @@ resources:
     _type: request
   - _id: req_dfc67b2304e0408faaa71fb9817399da
     parentId: fld_17d26436c4184c71be678fe5a62083b7
-    modified: 1639774482861
+    modified: 1639820292505
     created: 1639774015855
     url: "{{ _.gql }}"
     name: ArticleById
@@ -200,8 +196,8 @@ resources:
       mimeType: application/graphql
       text: '{"query":"query ($articleId: ID!) {\n\tarticle(id: $articleId)
         {\n\t\tdata {\n\t\t\tid\n\t\t\tattributes
-        {\n\t\t\t\ttitle\n\t\t\t\tslug\n\t\t\t\tupdatedAt\n\t\t\t\tcover
-        {\n\t\t\t\t\tdata {\n\t\t\t\t\t\tattributes
+        {\n\t\t\t\ttitle\n\t\t\t\tupdatedAt\n\t\t\t\tcover {\n\t\t\t\t\tdata
+        {\n\t\t\t\t\t\tattributes
         {\n\t\t\t\t\t\t\turl\n\t\t\t\t\t\t\tpreviewUrl\n\t\t\t\t\t\t}\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t\tcategory
         {\n\t\t\t\t\tdata {\n\t\t\t\t\t\tattributes
         {\n\t\t\t\t\t\t\ttitle\n\t\t\t\t\t\t\tslug\n\t\t\t\t\t\t}\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t\ttopic
