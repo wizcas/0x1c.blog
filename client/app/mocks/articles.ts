@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 
-import type { Article } from '~/services/blog/types';
+import type { Article } from '~/services/blog/models';
 
 import { loremIpsum } from './lorem';
 

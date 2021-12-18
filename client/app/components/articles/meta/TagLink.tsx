@@ -2,7 +2,7 @@ import { Tag as TagIcon } from 'react-feather';
 import { Link } from 'remix';
 
 import { useCategoryId } from '~/contexts/CategoryContext';
-import type { Tag } from '~/services/blog/types';
+import type { Tag } from '~/services/blog/models';
 
 interface Props {
   tag: Tag;

@@ -1,7 +1,7 @@
 import { createContext, useContext } from 'react';
 import invariant from 'tiny-invariant';
 
-import { Category } from '~/services/blog/types';
+import type { Category } from '~/services/blog/models';
 
 export const CategoryContext = createContext<Category | null>(null);
 

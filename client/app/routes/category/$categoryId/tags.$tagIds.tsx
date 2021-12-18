@@ -6,7 +6,7 @@ import {
   PagedArticleList,
 } from '~/components/articles/list/ArticleList';
 import { i } from '~/helpers/i18n';
-import type { Articles } from '~/services/blog/types';
+import type { Articles } from '~/services/blog/models';
 
 interface LoaderData {
   articles: Articles;

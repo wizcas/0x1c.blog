@@ -4,7 +4,7 @@ import {
   articlesLoader,
   PagedArticleList,
 } from '~/components/articles/list/ArticleList';
-import type { Articles } from '~/services/blog/types';
+import type { Articles } from '~/services/blog/models';
 
 export const loader = articlesLoader;
 

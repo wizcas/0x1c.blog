@@ -3,7 +3,7 @@ import { json, MetaFunction, useLoaderData } from 'remix';
 import CategoryIntroBlock from '~/components/articles/home/CategoryIntroBlock';
 import { i } from '~/helpers/i18n';
 import { getCategories } from '~/services/blog/category';
-import { Category } from '~/services/blog/types';
+import type { Category } from '~/services/blog/models';
 
 // https://remix.run/api/conventions#meta
 export const meta: MetaFunction = () => {

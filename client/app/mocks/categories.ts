@@ -1,4 +1,4 @@
-import type { Category } from '~/services/blog/types';
+import type { Category } from '~/services/blog/models';
 
 import { generateArticles } from './articles';
 import { loremIpsum } from './lorem';

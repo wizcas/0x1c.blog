@@ -14,7 +14,7 @@ import invariant from 'tiny-invariant';
 import { CategoryContext } from '~/contexts/CategoryContext';
 import { i } from '~/helpers/i18n';
 import { getCategory } from '~/services/blog/category';
-import type { Category } from '~/services/blog/types';
+import type { Category } from '~/services/blog/models';
 
 export const loader: LoaderFunction = async ({ params }) => {
   const { categoryId } = params;

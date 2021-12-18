@@ -2,7 +2,7 @@ import { Bookmark } from 'react-feather';
 import { Link } from 'remix';
 
 import { useCategoryId } from '~/contexts/CategoryContext';
-import type { Topic } from '~/services/blog/types';
+import type { Topic } from '~/services/blog/models';
 
 interface Props {
   topic: Topic;

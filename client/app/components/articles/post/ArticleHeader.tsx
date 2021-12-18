@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import { CSSProperties, useMemo } from 'react';
 import invariant from 'tiny-invariant';
 
-import { Article } from '~/services/blog/types';
+import type { Article } from '~/services/blog/models';
 
 import CategoryLink from '../meta/CategoryLink';
 import DateTime from '../meta/DateTime';

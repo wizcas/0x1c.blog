@@ -2,7 +2,7 @@ import { json, LoaderFunction } from 'remix';
 import invariant from 'tiny-invariant';
 
 import { getArticles } from '~/services/blog/article';
-import type { Article } from '~/services/blog/types';
+import type { Article } from '~/services/blog/models';
 
 import ArticleCard from '../../card/ArticleCard';
 

@@ -3,7 +3,7 @@ import { ChevronsRight } from 'react-feather';
 import { Link } from 'remix';
 
 import { i } from '~/helpers/i18n';
-import type { Article, Category } from '~/services/blog/types';
+import type { Article, Category } from '~/services/blog/models';
 
 import ArticleCard from '../../card/ArticleCard';
 

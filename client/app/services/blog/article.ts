@@ -6,7 +6,7 @@ import frontmatter from 'front-matter';
 import { renderMarkdown } from '~/helpers/markdown';
 import { generateArticles, mockArticle } from '~/mocks/articles';
 
-import type { Articles, ArticlesFilter } from './types';
+import type { Articles, ArticlesFilter } from './models';
 
 export async function getArticles(filter: ArticlesFilter) {
   return {

@@ -2,7 +2,7 @@ import { BookOpen } from 'react-feather';
 import { Link } from 'remix';
 
 import { useCategoryId } from '~/contexts/CategoryContext';
-import type { Category } from '~/services/blog/types';
+import type { Category } from '~/services/blog/models';
 
 interface Props {
   category: Category;

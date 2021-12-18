@@ -4,7 +4,7 @@ import { Link } from 'remix';
 
 import CardHeader from '~/components/card/CardHeader';
 import { i } from '~/helpers/i18n';
-import type { Article } from '~/services/blog/types';
+import type { Article } from '~/services/blog/models';
 
 import DateTime from '../articles/meta/DateTime';
 import TagLink from '../articles/meta/TagLink';

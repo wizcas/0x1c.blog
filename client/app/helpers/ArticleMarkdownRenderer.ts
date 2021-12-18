@@ -2,7 +2,7 @@ import flattenDeep from 'lodash/flattenDeep';
 import { Parser, Renderer, Slugger } from 'marked';
 import pinyin from 'pinyin';
 
-import type { TocItem } from '~/services/blog/types';
+import type { TocItem } from '~/services/blog/models';
 
 import { renderCodeBlock } from './codeblock';
 

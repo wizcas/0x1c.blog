@@ -16,7 +16,7 @@ import Toc from '~/components/articles/post/Toc';
 import { CategoryContext } from '~/contexts/CategoryContext';
 import useReadingData from '~/hooks/useReadingData';
 import { getArticle } from '~/services/blog/article';
-import type { Article } from '~/services/blog/types';
+import type { Article } from '~/services/blog/models';
 
 export const loader: LoaderFunction = async ({ params }) => {
   const { id } = params;

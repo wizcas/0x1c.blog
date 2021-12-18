@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import { CSSProperties } from 'react';
 
 import { CategoryContext } from '~/contexts/CategoryContext';
-import type { Category } from '~/services/blog/types';
+import type { Category } from '~/services/blog/models';
 
 import LatestArticleList from './LastestArticleList';
 
