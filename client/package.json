@@ -29,6 +29,8 @@
     "classnames": "^2.3.1",
     "dayjs": "^1.10.7",
     "front-matter": "^4.0.2",
+    "graphql": "^16.2.0",
+    "graphql-request": "^3.7.0",
     "highlight.js": "^11.3.1",
     "isomorphic-dompurify": "^0.17.0",
     "lodash": "^4.17.21",
