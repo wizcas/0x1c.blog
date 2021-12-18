@@ -1,11 +1,7 @@
-import fs from 'fs/promises';
-import path from 'path';
-
-import frontmatter from 'front-matter';
 import invariant from 'tiny-invariant';
 
 import { renderMarkdown } from '~/helpers/markdown';
-import { generateArticles, mockArticle } from '~/mocks/articles';
+import { generateArticles } from '~/mocks/articles';
 
 import {
   gqlClient,
@@ -26,8 +22,6 @@ export async function getArticles(filter: ArticlesFilter) {
 }
 
 export async function getArticle(id: string) {
-  // const { attributes, body } = frontmatter<{ title: string }>(file);
-  // const article = mockArticle(Date.now().toString());
   const response = await gqlClient.request<
     QueryArticleResponse,
     QueryArticleVariable
