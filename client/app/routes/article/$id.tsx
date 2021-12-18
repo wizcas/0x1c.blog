@@ -3,25 +3,28 @@ import classNames from 'classnames';
 import hljsThemeUrl from 'highlight.js/styles/base16/eighties.css';
 import { useMemo, useRef } from 'react';
 import {
+  json,
   LinksFunction,
   LoaderFunction,
   MetaFunction,
   useLoaderData,
 } from 'remix';
-import invariant from 'tiny-invariant';
 
 import ArticleHeader from '~/components/articles/post/ArticleHeader';
 import { ReadingContext } from '~/components/articles/post/ReadingContext';
 import Toc from '~/components/articles/post/Toc';
 import { CategoryContext } from '~/contexts/CategoryContext';
+import { genMeta } from '~/helpers/pageMeta';
 import useReadingData from '~/hooks/useReadingData';
 import { getArticle } from '~/services/blog/article';
-import type { Article } from '~/services/blog/types';
+import type { Article } from '~/services/blog/models';
 
 export const loader: LoaderFunction = async ({ params }) => {
-  const { slug } = params;
-  invariant(slug, 'Article slug is required');
-  return getArticle(slug);
+  const { id } = params;
+  if (!id) {
+    throw json('Article ID is required', { status: 400 });
+  }
+  return getArticle(id);
 };
 
 export const links: LinksFunction = () => [
@@ -32,11 +35,11 @@ export const links: LinksFunction = () => [
 ];
 
 export const meta: MetaFunction = ({ data }: { data: Article }) => {
-  const { title, excerpt } = data;
-  return {
-    title: `${title} - 0x1C.dev`,
+  const { title = '', excerpt = '' } = data || {};
+  return genMeta({
+    title,
     description: excerpt,
-  };
+  });
 };
 
 export default function ArticlePage() {

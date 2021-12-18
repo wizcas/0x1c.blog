@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import { CSSProperties, useMemo } from 'react';
 import invariant from 'tiny-invariant';
 
-import { Article } from '~/services/blog/types';
+import type { Article } from '~/services/blog/models';
 
 import CategoryLink from '../meta/CategoryLink';
 import DateTime from '../meta/DateTime';
@@ -31,7 +31,7 @@ export default function ArticleHeader({ article }: Props) {
   const coverStyle = useMemo(
     () =>
       ({
-        backgroundImage: `url(${cover})`,
+        backgroundImage: `url(${cover?.url})`,
       } as CSSProperties),
     [cover]
   );
@@ -62,7 +62,7 @@ export default function ArticleHeader({ article }: Props) {
             )}
           >
             {tags.map((tag) => (
-              <TagLink key={tag.slug} tag={tag} />
+              <TagLink key={tag.id} tag={tag} />
             ))}
           </section>
         )}

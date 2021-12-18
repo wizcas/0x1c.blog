@@ -1,50 +1,52 @@
+import type { ImageAsset } from '~/components/presentation/Image';
+
 export interface Category {
+  id: string;
   title: string;
-  slug: string;
-  color: string;
+  themeColor: string;
   description?: string;
-  coverUrl?: string;
+  cover?: ImageAsset;
   articles?: Article[];
 }
 
 export interface Topic {
-  slug: string;
+  id: string;
   title: string;
-  category: Category;
+  category?: Category;
 }
 
 export interface Tag {
-  slug: string;
+  id: string;
   label: string;
+  category?: Category;
 }
 
 export interface Article {
   title: string;
-  slug: string;
+  id: string;
   excerpt: string;
   content: string;
   datetime: string;
-  cover?: string;
+  cover?: ImageAsset;
   topic?: Topic;
   category?: Category;
   tags?: Tag[];
-  markdown?: string;
   html?: string;
   toc?: TocItem[];
 }
 
 export interface ArticlesFilter {
-  cslug: string;
-  tslug?: string;
-  gslugs?: string[];
+  categoryId: string;
+  topicId?: string;
+  tagIds?: string[];
   offset?: number;
   limit: number;
 }
 
 export interface Articles {
   articles: Article[];
-  totalPages: number;
-  filter?: ArticlesFilter;
+  pageCount: number;
+  total: number;
 }
 
 export interface TocItem {

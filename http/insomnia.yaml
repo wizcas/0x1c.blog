@@ -1,0 +1,275 @@
+_type: export
+__export_format: 4
+__export_date: 2021-12-18T09:38:59.450Z
+__export_source: insomnia.desktop.app:v2021.6.0
+resources:
+  - _id: req_60c70a618dd64d1dbd5dc2ad856be24c
+    parentId: fld_17d26436c4184c71be678fe5a62083b7
+    modified: 1639820279013
+    created: 1639772646996
+    url: "{{ _.gql }}"
+    name: Categories
+    description: ""
+    method: POST
+    body:
+      mimeType: application/graphql
+      text: '{"query":"query {\n\tcategories {\n\t\tdata {\n\t\t\tid\n\t\t\tattributes
+        {\n\t\t\t\ttitle\n\t\t\t\tcover {\n\t\t\t\t\tdata
+        {\n\t\t\t\t\t\tattributes
+        {\n\t\t\t\t\t\t\turl\n\t\t\t\t\t\t\tpreviewUrl\n\t\t\t\t\t\t}\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t\tthemeColor\n\t\t\t\tdescription\n\t\t\t}\n\t\t}\n\t}\n}\n"}'
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_5a13ed9dbf7e4a7b8bb001a0c166822a
+    authentication: {}
+    metaSortKey: -1639098791844.5
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_17d26436c4184c71be678fe5a62083b7
+    parentId: wrk_37ed5a7f5aea45959c21d906173d721e
+    modified: 1639771785614
+    created: 1639771650673
+    name: Visitor
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1639771650673
+    _type: request_group
+  - _id: wrk_37ed5a7f5aea45959c21d906173d721e
+    parentId: null
+    modified: 1639771645346
+    created: 1639771645346
+    name: 0x1c.blog
+    description: ""
+    scope: collection
+    _type: workspace
+  - _id: req_320c651e3f844b579b7de99c1e52e5db
+    parentId: fld_17d26436c4184c71be678fe5a62083b7
+    modified: 1639820277062
+    created: 1639772897129
+    url: "{{ _.gql }}"
+    name: Topics
+    description: ""
+    method: POST
+    body:
+      mimeType: application/graphql
+      text: '{"query":"query ($categoryId: ID!) {\n\ttopics(filters: { category: { id:
+        { eq: $categoryId } } }) {\n\t\tdata {\n\t\t\tid\n\t\t\tattributes
+        {\n\t\t\t\ttitle\n\t\t\t\tcategory {\n\t\t\t\t\tdata
+        {\n\t\t\t\t\t\tattributes
+        {\n\t\t\t\t\t\t\tslug\n\t\t\t\t\t\t}\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n}\n","variables":{"categoryId":1}}'
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_5a13ed9dbf7e4a7b8bb001a0c166822a
+    authentication: {}
+    metaSortKey: -1638089359757.75
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_0b331c4815144d8f9b4b0153dfce5fb2
+    parentId: fld_17d26436c4184c71be678fe5a62083b7
+    modified: 1639820274324
+    created: 1639772916512
+    url: "{{ _.gql }}"
+    name: Tags
+    description: ""
+    method: POST
+    body:
+      mimeType: application/graphql
+      text: '{"query":"query ($categoryId: ID!) {\n\ttags(filters: { category: { id: {
+        eq: $categoryId } } }) {\n\t\tdata {\n\t\t\tid\n\t\t\tattributes
+        {\n\t\t\t\tlabel\n\t\t\t\tcategory {\n\t\t\t\t\tdata
+        {\n\t\t\t\t\t\tattributes
+        {\n\t\t\t\t\t\t\tslug\n\t\t\t\t\t\t}\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n}\n","variables":{"categoryId":1}}'
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_5a13ed9dbf7e4a7b8bb001a0c166822a
+    authentication: {}
+    metaSortKey: -1637584643714.375
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_66f51749ceeb4f85adcf7a045ad6ae8b
+    parentId: fld_17d26436c4184c71be678fe5a62083b7
+    modified: 1639820271161
+    created: 1639773064975
+    url: "{{ _.gql }}"
+    name: LatestArticlesByCategory
+    description: ""
+    method: POST
+    body:
+      mimeType: application/graphql
+      text: '{"query":"query ($categoryId: ID!) {\n\tarticles(\n\t\tsort:
+        \"updatedAt:desc\"\n\t\tpagination: { limit: 3 }\n\t\tfilters: {
+        category: { id: { eq: $categoryId } } }\n\t) {\n\t\tdata
+        {\n\t\t\tid\n\t\t\tattributes
+        {\n\t\t\t\ttitle\n\t\t\t\texcerpt\n\t\t\t\tcover {\n\t\t\t\t\tdata
+        {\n\t\t\t\t\t\tattributes
+        {\n\t\t\t\t\t\t\turl\n\t\t\t\t\t\t\tpreviewUrl\n\t\t\t\t\t\t}\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t\tupdatedAt\n\t\t\t\ttopic
+        {\n\t\t\t\t\tdata {\n\t\t\t\t\t\tattributes
+        {\n\t\t\t\t\t\t\ttitle\n\t\t\t\t\t\t\tslug\n\t\t\t\t\t\t}\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t\ttags
+        {\n\t\t\t\t\tdata {\n\t\t\t\t\t\tattributes
+        {\n\t\t\t\t\t\t\tlabel\n\t\t\t\t\t\t\tslug\n\t\t\t\t\t\t}\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n}\n","variables":{"categoryId":1}}'
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_5a13ed9dbf7e4a7b8bb001a0c166822a
+    authentication: {}
+    metaSortKey: -1637332285692.6875
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_f6df9bb06bd44b3d8e477b9a502888f3
+    parentId: fld_17d26436c4184c71be678fe5a62083b7
+    modified: 1639820289669
+    created: 1639773857290
+    url: "{{ _.gql }}"
+    name: ArticlesByCategory
+    description: ""
+    method: POST
+    body:
+      mimeType: application/graphql
+      text: '{"query":"query ($categoryId: ID!, $page: Int, $pageSize: Int)
+        {\n\tarticles(\n\t\tsort: \"updatedAt:desc\"\n\t\tpagination: { page:
+        $page, pageSize: $pageSize }\n\t\tfilters: { category: { id: { eq:
+        $categoryId } } }\n\t) {\n\t\tmeta {\n\t\t\tpagination
+        {\n\t\t\t\ttotal\n\t\t\t\tpage\n\t\t\t\tpageSize\n\t\t\t\tpageCount\n\t\t\t}\n\t\t}\n\t\tdata
+        {\n\t\t\tid\n\t\t\tattributes
+        {\n\t\t\t\ttitle\n\t\t\t\texcerpt\n\t\t\t\tcover {\n\t\t\t\t\tdata
+        {\n\t\t\t\t\t\tattributes
+        {\n\t\t\t\t\t\t\turl\n\t\t\t\t\t\t\tpreviewUrl\n\t\t\t\t\t\t}\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t\tupdatedAt\n\t\t\t\ttopic
+        {\n\t\t\t\t\tdata {\n\t\t\t\t\t\tattributes
+        {\n\t\t\t\t\t\t\ttitle\n\t\t\t\t\t\t\tslug\n\t\t\t\t\t\t}\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t\ttags
+        {\n\t\t\t\t\tdata {\n\t\t\t\t\t\tattributes
+        {\n\t\t\t\t\t\t\tlabel\n\t\t\t\t\t\t\tslug\n\t\t\t\t\t\t}\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n}\n","variables":{"categoryId":1,"page":1,"pageSize":12}}'
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_5a13ed9dbf7e4a7b8bb001a0c166822a
+    authentication: {}
+    metaSortKey: -1637206106681.8438
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_dfc67b2304e0408faaa71fb9817399da
+    parentId: fld_17d26436c4184c71be678fe5a62083b7
+    modified: 1639820292505
+    created: 1639774015855
+    url: "{{ _.gql }}"
+    name: ArticleById
+    description: ""
+    method: POST
+    body:
+      mimeType: application/graphql
+      text: '{"query":"query ($articleId: ID!) {\n\tarticle(id: $articleId)
+        {\n\t\tdata {\n\t\t\tid\n\t\t\tattributes
+        {\n\t\t\t\ttitle\n\t\t\t\tupdatedAt\n\t\t\t\tcover {\n\t\t\t\t\tdata
+        {\n\t\t\t\t\t\tattributes
+        {\n\t\t\t\t\t\t\turl\n\t\t\t\t\t\t\tpreviewUrl\n\t\t\t\t\t\t}\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t\tcategory
+        {\n\t\t\t\t\tdata {\n\t\t\t\t\t\tattributes
+        {\n\t\t\t\t\t\t\ttitle\n\t\t\t\t\t\t\tslug\n\t\t\t\t\t\t}\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t\ttopic
+        {\n\t\t\t\t\tdata {\n\t\t\t\t\t\tattributes
+        {\n\t\t\t\t\t\t\ttitle\n\t\t\t\t\t\t\tslug\n\t\t\t\t\t\t}\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t\ttags
+        {\n\t\t\t\t\tdata {\n\t\t\t\t\t\tattributes
+        {\n\t\t\t\t\t\t\tlabel\n\t\t\t\t\t\t\tslug\n\t\t\t\t\t\t}\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t\tcontent\n\t\t\t}\n\t\t}\n\t}\n}\n","variables":{"articleId":1}}'
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_5a13ed9dbf7e4a7b8bb001a0c166822a
+    authentication: {}
+    metaSortKey: -1637143017176.4219
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: env_496cc703565cc6d29444193630f9fc2bb91df192
+    parentId: wrk_37ed5a7f5aea45959c21d906173d721e
+    modified: 1639771653536
+    created: 1639771645353
+    name: Base Environment
+    data: {}
+    dataPropertyOrder: {}
+    color: null
+    isPrivate: false
+    metaSortKey: 1639771645353
+    _type: environment
+  - _id: jar_496cc703565cc6d29444193630f9fc2bb91df192
+    parentId: wrk_37ed5a7f5aea45959c21d906173d721e
+    modified: 1639771645354
+    created: 1639771645354
+    name: Default Jar
+    cookies: []
+    _type: cookie_jar
+  - _id: spc_39173afaad2c44aca049384dc2b0b2a3
+    parentId: wrk_37ed5a7f5aea45959c21d906173d721e
+    modified: 1639771645347
+    created: 1639771645347
+    fileName: 0x1c.blog
+    contents: ""
+    contentType: yaml
+    _type: api_spec
+  - _id: env_1171b87f964a41ee9a6e981825e21efa
+    parentId: env_496cc703565cc6d29444193630f9fc2bb91df192
+    modified: 1639772659596
+    created: 1639771656960
+    name: local
+    data:
+      api: http://localhost:3080/api
+      gql: http://localhost:3080/graphql
+    dataPropertyOrder:
+      "&":
+        - api
+        - gql
+    color: null
+    isPrivate: false
+    metaSortKey: 1639771656960
+    _type: environment
+  - _id: env_f5f36c31d0244af6bc64edf002456e82
+    parentId: env_496cc703565cc6d29444193630f9fc2bb91df192
+    modified: 1639771668473
+    created: 1639771658000
+    name: deployed
+    data: {}
+    dataPropertyOrder: {}
+    color: null
+    isPrivate: false
+    metaSortKey: 1639771658000
+    _type: environment

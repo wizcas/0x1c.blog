@@ -9,17 +9,19 @@ import {
   Link,
   MetaFunction,
 } from 'remix';
-import invariant from 'tiny-invariant';
 
 import { CategoryContext } from '~/contexts/CategoryContext';
 import { i } from '~/helpers/i18n';
+import { genMeta } from '~/helpers/pageMeta';
 import { getCategory } from '~/services/blog/category';
-import type { Category } from '~/services/blog/types';
+import type { Category } from '~/services/blog/models';
 
 export const loader: LoaderFunction = async ({ params }) => {
-  const { cslug } = params;
-  invariant(cslug, 'Category slug is required');
-  const category = await getCategory(cslug);
+  const { categoryId } = params;
+  if (!categoryId) {
+    throw json('Category ID is required', { status: 400 });
+  }
+  const category = await getCategory(categoryId);
   if (!category) {
     return redirect('/');
   }
@@ -27,11 +29,11 @@ export const loader: LoaderFunction = async ({ params }) => {
 };
 
 export const meta: MetaFunction = ({ data }: { data: Category }) => {
-  const { title } = data;
-  return {
-    title: `${title} - 0x1C.dev`,
+  const { title = '' } = data || {};
+  return genMeta({
+    title,
     description: title + i('栏目下的文章列表'),
-  };
+  });
 };
 
 export default function CategoryIndex() {
@@ -39,9 +41,9 @@ export default function CategoryIndex() {
   const markStyle = useMemo(
     () =>
       ({
-        backgroundColor: category.color,
+        backgroundColor: category.themeColor,
       } as CSSProperties),
-    [category.color]
+    [category.themeColor]
   );
 
   return (

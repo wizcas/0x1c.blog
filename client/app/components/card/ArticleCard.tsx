@@ -4,7 +4,7 @@ import { Link } from 'remix';
 
 import CardHeader from '~/components/card/CardHeader';
 import { i } from '~/helpers/i18n';
-import type { Article } from '~/services/blog/types';
+import type { Article } from '~/services/blog/models';
 
 import DateTime from '../articles/meta/DateTime';
 import TagLink from '../articles/meta/TagLink';
@@ -21,14 +21,14 @@ interface Props {
   className?: string;
 }
 export default function ArticleCard({ article, compact, className }: Props) {
-  const url = `/article/${article.slug}`;
+  const url = `/article/${article.id}`;
   return (
     <div className={classNames('card interact', className)}>
       <article className={classNames('h-full', 'flex flex-col items-stretch')}>
         <Link to={url} className="quiet">
           <CardHeader
             title={article.title}
-            coverUrl={article.cover}
+            cover={article.cover}
             compact={compact}
           />
         </Link>
@@ -62,7 +62,7 @@ export default function ArticleCard({ article, compact, className }: Props) {
         {article.tags && article.tags.length > 0 && (
           <section data-name="article-tag-list" className="space-x-4 text-sm">
             {article.tags.map((tag) => (
-              <TagLink key={tag.slug} tag={tag} />
+              <TagLink key={tag.id} tag={tag} />
             ))}
           </section>
         )}

@@ -1,17 +1,17 @@
 import { Tag as TagIcon } from 'react-feather';
 import { Link } from 'remix';
 
-import { useCategorySlug } from '~/contexts/CategoryContext';
-import type { Tag } from '~/services/blog/types';
+import { useCategoryId } from '~/contexts/CategoryContext';
+import type { Tag } from '~/services/blog/models';
 
 interface Props {
   tag: Tag;
 }
 export default function TagLink({ tag }: Props) {
-  const cslug = useCategorySlug();
+  const categoryId = useCategoryId();
   return (
     <Link
-      to={`/category/${cslug}/tags/${tag.slug}`}
+      to={`/category/${categoryId}/tags/${tag.id}`}
       className="space-x-1 text-sm !text-gray-400 hover:!text-primary-400"
     >
       <TagIcon className="icon" size="12" />

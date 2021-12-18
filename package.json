@@ -11,6 +11,9 @@
   "scripts": {
     "prepare": "husky install",
     "dev:client": "cd client && npm run dev",
-    "dev:strapi": "cd strapi && yarn develop"
+    "dev:server": "cd strapi && yarn develop"
+  },
+  "dependencies": {
+    "dotenv": "^10.0.0"
   }
 }

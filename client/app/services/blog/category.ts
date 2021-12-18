@@ -1,9 +1,29 @@
-import { CATEGORIES } from '~/mocks/categories';
+import { json } from 'remix';
 
-export function getCategories() {
-  return CATEGORIES;
+import {
+  gqlClient,
+  queryCategories,
+  QueryCategoriesResponse,
+  queryCategoriesWithArticles,
+  queryCategory,
+  QueryCategoryResponse,
+  QueryCategoryVariable,
+  toCategoryModel,
+} from './strapi';
+
+export async function getCategories(withArticles = true) {
+  const response = await gqlClient.request<QueryCategoriesResponse>(
+    withArticles ? queryCategoriesWithArticles : queryCategories
+  );
+  return response.categories.data.map(toCategoryModel);
 }
 
-export async function getCategory(slug: string) {
-  return CATEGORIES.find((c) => c.slug === slug);
+export async function getCategory(categoryId: string) {
+  const response = await gqlClient.request<
+    QueryCategoryResponse,
+    QueryCategoryVariable
+  >(queryCategory, { categoryId });
+  const { data } = response.category;
+  if (!data) throw json('Category not found', { status: 404 });
+  return toCategoryModel(data);
 }

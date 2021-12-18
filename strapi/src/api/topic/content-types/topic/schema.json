@@ -16,17 +16,6 @@
     }
   },
   "attributes": {
-    "slug": {
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      },
-      "type": "string",
-      "regex": "^[a-zA-Z0-9-]+$",
-      "unique": true,
-      "required": true
-    },
     "title": {
       "pluginOptions": {
         "i18n": {

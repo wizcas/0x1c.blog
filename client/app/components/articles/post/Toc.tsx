@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import { CSSProperties, useContext } from 'react';
 import { Link } from 'remix';
 
-import type { TocItem } from '~/services/blog/types';
+import type { TocItem } from '~/services/blog/models';
 
 import { ReadingContext } from './ReadingContext';
 
