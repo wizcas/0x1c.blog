@@ -46,7 +46,7 @@ export function toCategoryModel(entity: Entity<CategoryAttributes>): Category {
     description: attributes.description,
     cover: toImageAsset(attributes.cover?.data),
     themeColor: attributes.themeColor ?? '',
-    articles: attributes.articles.data.map((article) =>
+    articles: attributes.articles?.data.map((article) =>
       toArticleModel(article)
     ),
   };
@@ -54,12 +54,14 @@ export function toCategoryModel(entity: Entity<CategoryAttributes>): Category {
 
 export function toArticleModel(entity: Entity<ArticleAttributes>): Article {
   const { data, attributes } = parseEntity<Article, ArticleAttributes>(entity);
+  console.log('data\n--------', data, attributes);
   return {
     ...data,
     title: attributes.title,
     excerpt: attributes.excerpt || '',
     cover: toImageAsset(attributes.cover?.data),
     datetime: attributes.updatedAt,
+    content: attributes.content || '',
     category:
       attributes.category && attributes.category.data
         ? toCategoryModel(attributes.category.data)

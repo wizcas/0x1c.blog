@@ -2,9 +2,18 @@ import fs from 'fs/promises';
 import path from 'path';
 
 import frontmatter from 'front-matter';
+import invariant from 'tiny-invariant';
 
 import { renderMarkdown } from '~/helpers/markdown';
 import { generateArticles, mockArticle } from '~/mocks/articles';
+
+import {
+  gqlClient,
+  queryArticle,
+  QueryArticleResponse,
+  QueryArticleVariable,
+  toArticleModel,
+} from './strapi';
 
 import type { Articles, ArticlesFilter } from './models';
 
@@ -17,17 +26,16 @@ export async function getArticles(filter: ArticlesFilter) {
 }
 
 export async function getArticle(id: string) {
-  console.log('getting article', id);
-  const mdxPath = path.join(__dirname, '../posts/wsl2.mdx');
-
-  const file = await fs.readFile(mdxPath, 'utf8');
-  const { attributes, body } = frontmatter<{ title: string }>(file);
-
-  const article = mockArticle(Date.now().toString());
-  if (attributes?.title) {
-    article.title = attributes.title;
-  }
-  const { html, toc } = renderMarkdown(body);
+  // const { attributes, body } = frontmatter<{ title: string }>(file);
+  // const article = mockArticle(Date.now().toString());
+  const response = await gqlClient.request<
+    QueryArticleResponse,
+    QueryArticleVariable
+  >(queryArticle, { id });
+  const { data } = response.article;
+  invariant(data, 'article not found');
+  const article = toArticleModel(data);
+  const { html, toc } = renderMarkdown(article.content);
   article.html = html;
   article.toc = toc;
   delete article.markdown;

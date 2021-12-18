@@ -34,7 +34,7 @@ export interface CategoryAttributes {
   description?: string;
   topics?: Collection<TopicAttributes>;
   tags?: Collection<TagAttributes>;
-  articles: Collection<ArticleAttributes>;
+  articles?: Collection<ArticleAttributes>;
 }
 
 export interface TopicAttributes {

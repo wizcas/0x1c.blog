@@ -1,7 +1,12 @@
 import { gql } from 'graphql-request';
 
 import type { ID } from './generalTypes';
-import type { CategoryAttributes, Collection } from './responseData';
+import type {
+  CategoryAttributes,
+  Collection,
+  ArticleAttributes,
+  Singular,
+} from './responseData';
 
 export interface QueryCategoriesResponse {
   categories: Collection<CategoryAttributes>;
@@ -199,6 +204,7 @@ export const queryArticles = gql`
 `;
 
 export type QueryArticleVariable = { id: ID };
+export type QueryArticleResponse = { article: Singular<ArticleAttributes> };
 export const queryArticle = gql`
   query ($id: ID!) {
     article(id: $id) {
