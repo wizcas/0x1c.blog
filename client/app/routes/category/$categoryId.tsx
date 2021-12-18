@@ -39,9 +39,9 @@ export default function CategoryIndex() {
   const markStyle = useMemo(
     () =>
       ({
-        backgroundColor: category.color,
+        backgroundColor: category.themeColor,
       } as CSSProperties),
-    [category.color]
+    [category.themeColor]
   );
 
   return (

@@ -31,7 +31,7 @@ export default function ArticleHeader({ article }: Props) {
   const coverStyle = useMemo(
     () =>
       ({
-        backgroundImage: `url(${cover})`,
+        backgroundImage: `url(${cover?.url})`,
       } as CSSProperties),
     [cover]
   );

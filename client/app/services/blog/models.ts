@@ -1,9 +1,11 @@
+import type { ImageAsset } from '~/components/presentation/Image';
+
 export interface Category {
   id: string;
   title: string;
-  color: string;
+  themeColor: string;
   description?: string;
-  coverUrl?: string;
+  cover?: ImageAsset;
   articles?: Article[];
 }
 
@@ -25,7 +27,7 @@ export interface Article {
   excerpt: string;
   content: string;
   datetime: string;
-  cover?: string;
+  cover?: ImageAsset;
   topic?: Topic;
   category?: Category;
   tags?: Tag[];

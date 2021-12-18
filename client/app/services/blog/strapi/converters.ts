@@ -1,5 +1,8 @@
+import type { ImageAsset } from '~/components/presentation/Image';
+
 import type {
   ArticleAttributes,
+  AssetAttributes,
   CategoryAttributes,
   Entity,
   TagAttributes,
@@ -7,11 +10,22 @@ import type {
 } from '.';
 import type { Article, Category, Tag, Topic } from '../models';
 
-function getRemoteUrl(url: string | undefined | null) {
+function getUrl(url: string | undefined | null) {
   if (!url) return '';
   if (url.startsWith('http')) return url;
 
   return `${process.env.SERVER_BASE}${url}`;
+}
+
+function toImageAsset(
+  entity: Entity<AssetAttributes> | null | undefined
+): ImageAsset | undefined {
+  if (!entity) return undefined;
+  const { url, previewUrl } = entity.attributes;
+  return {
+    url: getUrl(url),
+    previewUrl: getUrl(previewUrl),
+  };
 }
 
 function parseEntity<TData, TAttributes>(
@@ -30,8 +44,8 @@ export function toCategoryModel(entity: Entity<CategoryAttributes>): Category {
     ...data,
     title: attributes.title,
     description: attributes.description,
-    coverUrl: getRemoteUrl(attributes.cover?.data?.attributes.url ?? ''),
-    color: attributes.themeColor ?? '',
+    cover: toImageAsset(attributes.cover?.data),
+    themeColor: attributes.themeColor ?? '',
     articles: attributes.articles.data.map((article) =>
       toArticleModel(article)
     ),
@@ -44,7 +58,7 @@ export function toArticleModel(entity: Entity<ArticleAttributes>): Article {
     ...data,
     title: attributes.title,
     excerpt: attributes.excerpt || '',
-    cover: getRemoteUrl(attributes.cover?.data?.attributes.url),
+    cover: toImageAsset(attributes.cover?.data),
     datetime: attributes.updatedAt,
     category:
       attributes.category && attributes.category.data

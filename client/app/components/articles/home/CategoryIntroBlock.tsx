@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import { CSSProperties } from 'react';
 
+import Image from '~/components/presentation/Image';
 import { CategoryContext } from '~/contexts/CategoryContext';
 import type { Category } from '~/services/blog/models';
 
@@ -22,7 +23,7 @@ export default function CategoryIntroBlock({ category, odd }: Props) {
       <div
         data-name="category-intro-block"
         className="relative min-h-superhero w-full"
-        style={{ backgroundColor: category.color }}
+        style={{ backgroundColor: category.themeColor }}
       >
         <section
           data-name="category-intro-wrapper"
@@ -47,10 +48,10 @@ export default function CategoryIntroBlock({ category, odd }: Props) {
                 {category.description}
               </div>
             </div>
-            {category.coverUrl && (
-              <img
+            {category.cover && (
+              <Image
                 data-name="category-intro-cover"
-                src={category.coverUrl}
+                asset={category.cover}
                 alt=""
                 className={classNames(
                   'h-10vh md:h-20vh lg:h-30vh max-h-96 rounded-md',

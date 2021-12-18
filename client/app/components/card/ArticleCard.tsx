@@ -28,7 +28,7 @@ export default function ArticleCard({ article, compact, className }: Props) {
         <Link to={url} className="quiet">
           <CardHeader
             title={article.title}
-            coverUrl={article.cover}
+            cover={article.cover}
             compact={compact}
           />
         </Link>
