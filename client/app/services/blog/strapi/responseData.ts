@@ -53,7 +53,7 @@ export interface ArticleAttributes {
   title: string;
   updatedAt: string;
   excerpt?: string;
-  cover?: AssetAttributes;
+  cover?: Singular<AssetAttributes>;
   content?: string;
   // relationships
   category?: Singular<CategoryAttributes>;

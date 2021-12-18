@@ -10,12 +10,13 @@ export interface Category {
 export interface Topic {
   id: string;
   title: string;
-  category: Category;
+  category?: Category;
 }
 
 export interface Tag {
   id: string;
   label: string;
+  category?: Category;
 }
 
 export interface Article {

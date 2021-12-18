@@ -13,7 +13,7 @@
     "build": "npm run build:css && remix build",
     "build:css": "NODE_ENV=production tailwindcss --postcss -i ./styles/tailwind.css -o ./app/tailwind.css --minify",
     "dev": "pm2-dev pm2.config.js",
-    "dev:remix": "remix dev",
+    "dev:remix": "node -r dotenv/config node_modules/.bin/remix dev",
     "dev:css": "tailwindcss --postcss -i ./styles/tailwind.css -o ./app/tailwind.css --watch",
     "postinstall": "remix setup node",
     "start": "remix-serve build",
