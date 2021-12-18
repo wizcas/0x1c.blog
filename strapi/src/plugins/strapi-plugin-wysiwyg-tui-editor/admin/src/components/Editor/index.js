@@ -6,6 +6,7 @@ import {
 } from '@toast-ui/react-editor';
 import '@toast-ui/editor/dist/toastui-editor.css';
 import { useFullscreen, useToggle, useWindowSize } from 'react-use';
+import { prefixFileUrlWithBackendUrl, useLibrary } from '@strapi/helper-plugin';
 
 const BREAKPOINT = 1440;
 
@@ -28,6 +29,9 @@ export default function Editor({
   const [previewStyle, setPreviewStyle] = useState(
     preferredPreviewStyle(width)
   );
+  const { components } = useLibrary();
+  const MediaLibDialog = components['media-library'];
+  const [showMediaLib, toggleMediaLib] = useToggle(false);
   const [showFullscreen, toggleFullscreen] = useToggle(false);
   const isFullscreen = useFullscreen(wrapperRef, showFullscreen, {
     onClose: () => toggleFullscreen(false),
@@ -49,6 +53,27 @@ export default function Editor({
     const md = instance.getMarkdown();
     onChange({ target: { name, value: md } });
   }
+  function handleSelectAssets(files) {
+    const instance = editorRef.current?.getInstance();
+    if (!instance) {
+      console.error('editor instance not found');
+      return;
+    }
+    const formattedFiles = files.map((f) => ({
+      alt: f.alternativeText || f.name,
+      url: prefixFileUrlWithBackendUrl(f.url),
+      mime: f.mime,
+    }));
+
+    // insertFile(editorRef, formattedFiles);
+    formattedFiles.forEach(({ url, alt }) => {
+      instance.exec('addImage', {
+        imageUrl: url,
+        alt: alt,
+      });
+    });
+    toggleMediaLib(false);
+  }
 
   return (
     <div>
@@ -68,6 +93,9 @@ export default function Editor({
             <ToolbarButton type="button" onClick={toggleFullscreen}>
               {isFullscreen ? 'Normal' : 'Full screen'}
             </ToolbarButton>
+            <ToolbarButton type="button" onClick={toggleMediaLib}>
+              MediaLib
+            </ToolbarButton>
           </Toolbar>
           <TuiEditor
             ref={editorRef}
@@ -81,6 +109,14 @@ export default function Editor({
         </div>
       ) : (
         <TuiViewer initialValue={value} />
+      )}
+      {showMediaLib && (
+        <ModalLayer>
+          <MediaLibDialog
+            onClose={toggleMediaLib}
+            onSelectAssets={handleSelectAssets}
+          />
+        </ModalLayer>
       )}
     </div>
   );
@@ -116,4 +152,8 @@ const ToolbarButton = styled.button`
   font-size: 0.75rem;
   padding: 0.5em 1em;
   border: 1px solid ccc;
+`;
+
+const ModalLayer = styled.div`
+  z-index: 100;
 `;
