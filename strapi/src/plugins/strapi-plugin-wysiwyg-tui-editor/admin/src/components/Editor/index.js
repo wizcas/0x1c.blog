@@ -1,10 +1,17 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import {
   Editor as TuiEditor,
   Viewer as TuiViewer,
 } from '@toast-ui/react-editor';
 import '@toast-ui/editor/dist/toastui-editor.css';
+import { useFullscreen, useToggle, useWindowSize } from 'react-use';
+
+const BREAKPOINT = 1440;
+
+function preferredPreviewStyle(width) {
+  return width >= BREAKPOINT ? 'vertical' : 'tab';
+}
 
 export default function Editor({
   onChange,
@@ -15,11 +22,23 @@ export default function Editor({
   labelAction,
   disabled,
 }) {
-  const [previewStyle, setPreviewStyle] = useState('vertical');
+  const wrapperRef = useRef(null);
   const editorRef = useRef(null);
-  function onToggleStyle() {
+  const { width } = useWindowSize();
+  const [previewStyle, setPreviewStyle] = useState(
+    preferredPreviewStyle(width)
+  );
+  const [showFullscreen, toggleFullscreen] = useToggle(false);
+  const isFullscreen = useFullscreen(wrapperRef, showFullscreen, {
+    onClose: () => toggleFullscreen(false),
+  });
+
+  useEffect(() => {
+    setPreviewStyle(preferredPreviewStyle(width));
+  }, [width]);
+
+  function toggleStyle() {
     setPreviewStyle((style) => (style === 'vertical' ? 'tab' : 'vertical'));
-    console.log(strapi);
   }
   function onEditorChange() {
     const instance = editorRef.current?.getInstance();
@@ -30,6 +49,7 @@ export default function Editor({
     const md = instance.getMarkdown();
     onChange({ target: { name, value: md } });
   }
+
   return (
     <div>
       <Header>
@@ -40,10 +60,13 @@ export default function Editor({
         {labelAction}
       </Header>
       {!disabled ? (
-        <>
+        <div ref={wrapperRef}>
           <Toolbar>
-            <ToolbarButton onClick={onToggleStyle}>
-              {previewStyle === 'vertical' ? 'Tab Style' : 'Vertical Style'}
+            <ToolbarButton onClick={toggleStyle}>
+              {previewStyle === 'vertical' ? 'Tab mode' : 'Side-by-side'}
+            </ToolbarButton>
+            <ToolbarButton onClick={toggleFullscreen}>
+              {isFullscreen ? 'Normal' : 'Full screen'}
             </ToolbarButton>
           </Toolbar>
           <TuiEditor
@@ -55,7 +78,7 @@ export default function Editor({
             previewStyle={previewStyle}
             onChange={onEditorChange}
           />
-        </>
+        </div>
       ) : (
         <TuiViewer initialValue={value} />
       )}
