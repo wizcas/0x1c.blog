@@ -31,7 +31,6 @@ export interface Article {
   topic?: Topic;
   category?: Category;
   tags?: Tag[];
-  markdown?: string;
   html?: string;
   toc?: TocItem[];
 }
@@ -46,8 +45,8 @@ export interface ArticlesFilter {
 
 export interface Articles {
   articles: Article[];
-  totalPages: number;
-  filter?: ArticlesFilter;
+  pageCount: number;
+  total: number;
 }
 
 export interface TocItem {

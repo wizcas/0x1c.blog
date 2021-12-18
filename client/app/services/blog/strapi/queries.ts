@@ -6,6 +6,7 @@ import type {
   Collection,
   ArticleAttributes,
   Singular,
+  TopicAttributes,
 } from './responseData';
 
 export interface QueryCategoriesResponse {
@@ -132,44 +133,15 @@ export const queryCategory = gql`
   }
 `;
 
-export type QueryTopicsVariable = { categoryId: ID };
-export const queryTopics = gql`
-  query TopicsByCategory($categoryId: ID!) {
-    topics(filters: { category: { id: { eq: $categoryId } } }) {
+export type QueryTopicVariable = { topicId: ID };
+export type QueryTopicResponse = { topic: Singular<TopicAttributes> };
+export const queryTopic = gql`
+  query Topic($topicId: ID!) {
+    topic(id: $topicId) {
       data {
         id
         attributes {
           title
-          category {
-            data {
-              id
-              attributes {
-                title
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-`;
-
-export type QueryTagsVariable = { categoryId: ID };
-export const queryTags = gql`
-  query TagsByCategory($categoryId: ID!) {
-    tags(filters: { category: { id: { eq: $categoryId } } }) {
-      data {
-        id
-        attributes {
-          label
-          category {
-            data {
-              id
-              attributes {
-                title
-              }
-            }
-          }
         }
       }
     }

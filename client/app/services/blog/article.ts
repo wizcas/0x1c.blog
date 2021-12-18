@@ -23,8 +23,8 @@ export async function getArticles(filter: ArticlesFilter) {
   const { data, meta } = response.articles;
   return {
     articles: data.map(toArticleModel),
-    totalPages: meta?.pagination.pageCount,
-    ...filter,
+    pageCount: meta?.pagination.pageCount ?? 0,
+    total: meta?.pagination.total ?? 0,
   } as Articles;
 }
 
@@ -41,7 +41,5 @@ export async function getArticle(id: string) {
   const { html, toc } = renderMarkdown(article.content);
   article.html = html;
   article.toc = toc;
-  delete article.markdown;
-
   return article;
 }

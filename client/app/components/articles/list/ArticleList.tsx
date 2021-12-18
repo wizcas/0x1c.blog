@@ -51,17 +51,17 @@ export function ArticleList({ articles }: ArticleListProps) {
 }
 
 interface PagedArticleListProps extends ArticleListProps {
-  totalPages: number;
+  pageCount: number;
 }
 
 export function PagedArticleList({
-  totalPages,
+  pageCount,
   ...rest
 }: PagedArticleListProps) {
   return (
     <div className="space-y-8">
       <ArticleList {...rest} />
-      <Paginator total={totalPages} auto />
+      <Paginator total={pageCount} auto />
     </div>
   );
 }
