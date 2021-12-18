@@ -3,12 +3,12 @@ import classNames from 'classnames';
 import hljsThemeUrl from 'highlight.js/styles/base16/eighties.css';
 import { useMemo, useRef } from 'react';
 import {
+  json,
   LinksFunction,
   LoaderFunction,
   MetaFunction,
   useLoaderData,
 } from 'remix';
-import invariant from 'tiny-invariant';
 
 import ArticleHeader from '~/components/articles/post/ArticleHeader';
 import { ReadingContext } from '~/components/articles/post/ReadingContext';
@@ -20,7 +20,9 @@ import type { Article } from '~/services/blog/models';
 
 export const loader: LoaderFunction = async ({ params }) => {
   const { id } = params;
-  invariant(id, 'Article ID is required');
+  if (!id) {
+    throw json('Article ID is required', { status: 400 });
+  }
   return getArticle(id);
 };
 
@@ -32,7 +34,7 @@ export const links: LinksFunction = () => [
 ];
 
 export const meta: MetaFunction = ({ data }: { data: Article }) => {
-  const { title, excerpt } = data;
+  const { title = '', excerpt = '' } = data || {};
   return {
     title: `${title} - 0x1C.dev`,
     description: excerpt,

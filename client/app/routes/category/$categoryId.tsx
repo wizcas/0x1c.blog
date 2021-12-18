@@ -9,7 +9,6 @@ import {
   Link,
   MetaFunction,
 } from 'remix';
-import invariant from 'tiny-invariant';
 
 import { CategoryContext } from '~/contexts/CategoryContext';
 import { i } from '~/helpers/i18n';
@@ -18,7 +17,9 @@ import type { Category } from '~/services/blog/models';
 
 export const loader: LoaderFunction = async ({ params }) => {
   const { categoryId } = params;
-  invariant(categoryId, 'Category ID is required');
+  if (!categoryId) {
+    throw json('Category ID is required', { status: 400 });
+  }
   const category = await getCategory(categoryId);
   if (!category) {
     return redirect('/');
@@ -27,7 +28,7 @@ export const loader: LoaderFunction = async ({ params }) => {
 };
 
 export const meta: MetaFunction = ({ data }: { data: Category }) => {
-  const { title } = data;
+  const { title = '' } = data || {};
   return {
     title: `${title} - 0x1C.dev`,
     description: title + i('栏目下的文章列表'),

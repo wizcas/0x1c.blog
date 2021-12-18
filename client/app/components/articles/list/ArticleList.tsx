@@ -1,5 +1,4 @@
 import { json, LoaderFunction } from 'remix';
-import invariant from 'tiny-invariant';
 
 import { getArticles } from '~/services/blog/article';
 import type { Article } from '~/services/blog/models';
@@ -15,9 +14,11 @@ export async function fetchArticles({
   request,
 }: Parameters<LoaderFunction>[0]) {
   const { categoryId, topicId, tagIds } = params;
+  if (!categoryId) {
+    throw json('categoryId is required', { status: 400 });
+  }
   const { search } = new URL(request.url);
   const page = parsePage(search) || 1;
-  invariant(categoryId, 'Category ID is required');
   return getArticles({
     limit: PAGE_SIZE,
     offset: (page - 1) * PAGE_SIZE,

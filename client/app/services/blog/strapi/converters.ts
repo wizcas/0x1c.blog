@@ -54,7 +54,6 @@ export function toCategoryModel(entity: Entity<CategoryAttributes>): Category {
 
 export function toArticleModel(entity: Entity<ArticleAttributes>): Article {
   const { data, attributes } = parseEntity<Article, ArticleAttributes>(entity);
-  console.log('data\n--------', data, attributes);
   return {
     ...data,
     title: attributes.title,

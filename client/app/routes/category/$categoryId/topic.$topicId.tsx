@@ -1,5 +1,4 @@
 import { json, LoaderFunction, MetaFunction, useLoaderData } from 'remix';
-import invariant from 'tiny-invariant';
 
 import {
   fetchArticles,
@@ -15,13 +14,12 @@ interface LoaderData {
 
 export const loader: LoaderFunction = async (args) => {
   const articles = await fetchArticles(args);
-  const topicTitle = articles.filter?.topicId;
-  invariant(topicTitle);
+  const topicTitle = articles.filter?.topicId || 'N/A';
   return json({ articles, topicTitle } as LoaderData);
 };
 
 export const meta: MetaFunction = ({ data }: { data: LoaderData }) => {
-  const title = data.topicTitle;
+  const title = data?.topicTitle || '';
   return {
     title: `${title} - 0x1C.dev`,
     description: title + i('话题下的文章列表'),

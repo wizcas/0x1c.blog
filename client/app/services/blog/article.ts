@@ -1,12 +1,14 @@
-import invariant from 'tiny-invariant';
+import { json } from 'remix';
 
 import { renderMarkdown } from '~/helpers/markdown';
-import { generateArticles } from '~/mocks/articles';
 
 import {
   gqlClient,
   queryArticle,
   QueryArticleResponse,
+  queryArticles,
+  QueryArticlesResponse,
+  QueryArticlesVariable,
   QueryArticleVariable,
   toArticleModel,
 } from './strapi';
@@ -14,10 +16,15 @@ import {
 import type { Articles, ArticlesFilter } from './models';
 
 export async function getArticles(filter: ArticlesFilter) {
+  const response = await gqlClient.request<
+    QueryArticlesResponse,
+    QueryArticlesVariable
+  >(queryArticles, { ...filter });
+  const { data, meta } = response.articles;
   return {
-    articles: generateArticles(5),
-    totalPages: 10,
-    filter,
+    articles: data.map(toArticleModel),
+    totalPages: meta?.pagination.pageCount,
+    ...filter,
   } as Articles;
 }
 
@@ -27,7 +34,9 @@ export async function getArticle(id: string) {
     QueryArticleVariable
   >(queryArticle, { id });
   const { data } = response.article;
-  invariant(data, 'article not found');
+  if (!data) {
+    throw json('Article not found', { status: 404 });
+  }
   const article = toArticleModel(data);
   const { html, toc } = renderMarkdown(article.content);
   article.html = html;

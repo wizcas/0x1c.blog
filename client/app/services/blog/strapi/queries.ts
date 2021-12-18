@@ -91,6 +91,47 @@ export const queryCategoriesWithArticles = gql`
   }
 `;
 
+export type QueryCategoryVariable = { categoryId: ID };
+export type QueryCategoryResponse = { category: Singular<CategoryAttributes> };
+export const queryCategory = gql`
+  query Category($categoryId: ID!) {
+    category(id: $categoryId) {
+      data {
+        id
+        attributes {
+          title
+          cover {
+            data {
+              attributes {
+                url
+                previewUrl
+              }
+            }
+          }
+          themeColor
+          description
+          topics {
+            data {
+              id
+              attributes {
+                title
+              }
+            }
+          }
+          tags {
+            data {
+              id
+              attributes {
+                label
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
 export type QueryTopicsVariable = { categoryId: ID };
 export const queryTopics = gql`
   query TopicsByCategory($categoryId: ID!) {
@@ -141,6 +182,9 @@ export type QueryArticlesVariable = {
   tagIds?: ID[];
   page?: number;
   pageSize?: number;
+};
+export type QueryArticlesResponse = {
+  articles: Collection<ArticleAttributes>;
 };
 export const queryArticles = gql`
   query ArticlesByFilters(
