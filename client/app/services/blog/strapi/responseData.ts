@@ -8,12 +8,12 @@ export interface Singular<TAttributes> {
   data: Entity<TAttributes> | null;
 }
 
-interface Entity<TAttributes> {
+export interface Entity<TAttributes> {
   id?: ID;
   attributes: TAttributes;
 }
 
-interface CollectionMeta {
+export interface CollectionMeta {
   pagination: {
     total: number;
     pageCount: number;
@@ -22,7 +22,7 @@ interface CollectionMeta {
   };
 }
 
-interface AssetAttributes {
+export interface AssetAttributes {
   url: string;
   previewUrl?: string;
 }

@@ -13,8 +13,8 @@ export const meta: MetaFunction = () => {
   };
 };
 
-export const loader = () => {
-  return json(getCategories());
+export const loader = async () => {
+  return json(await getCategories());
 };
 
 // https://remix.run/guides/routing#index-routes
