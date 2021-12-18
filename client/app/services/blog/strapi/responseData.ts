@@ -1,14 +1,19 @@
 import type { ID } from './generalTypes';
 
-interface EntityData<TData> {
-  data: {
-    id: ID;
-    attributes: TData;
-  };
-  meta?: EntityMeta;
+export interface Collection<TAttributes> {
+  data: Entity<TAttributes>[];
+  meta?: CollectionMeta;
+}
+export interface Singular<TAttributes> {
+  data: Entity<TAttributes> | null;
 }
 
-interface EntityMeta {
+interface Entity<TAttributes> {
+  id?: ID;
+  attributes: TAttributes;
+}
+
+interface CollectionMeta {
   pagination: {
     total: number;
     pageCount: number;
@@ -17,42 +22,41 @@ interface EntityMeta {
   };
 }
 
-interface Asset {
-  data?: {
-    attributes: {
-      url: string;
-      previewUrl?: string;
-    };
-  };
+interface AssetAttributes {
+  url: string;
+  previewUrl?: string;
 }
 
-export type CategoryData = EntityData<{
+export interface CategoryAttributes {
   title: string;
-  cover?: Asset;
+  cover?: Singular<AssetAttributes>;
   themeColor?: string;
   description?: string;
-  topics?: TopicData[];
-  tags?: TagData[];
-}>;
+  topics?: Collection<TopicAttributes>;
+  tags?: Collection<TagAttributes>;
+  articles: Collection<ArticleAttributes>;
+}
 
-export type TopicData = EntityData<{
+export interface TopicAttributes {
   title: string;
-  category?: CategoryData;
-}>;
+  // relationships
+  category?: Singular<CategoryAttributes>;
+}
 
-export type TagData = EntityData<{
+export interface TagAttributes {
   label: string;
-  category?: CategoryData;
-}>;
+  // relationships
+  category?: Singular<CategoryAttributes>;
+}
 
-export type ArticleData = EntityData<{
+export interface ArticleAttributes {
   title: string;
   updatedAt: string;
   excerpt?: string;
-  cover?: Asset;
+  cover?: AssetAttributes;
   content?: string;
   // relationships
-  category?: CategoryData;
-  topic?: TopicData;
-  tags?: TagData[];
-}>;
+  category?: Singular<CategoryAttributes>;
+  topic?: Singular<TopicAttributes>;
+  tags?: Collection<TagAttributes>;
+}
