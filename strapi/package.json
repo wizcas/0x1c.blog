@@ -11,11 +11,13 @@
   },
   "devDependencies": {},
   "dependencies": {
+    "@strapi/helper-plugin": "^4.0.0",
     "@strapi/plugin-graphql": "4.0.0",
     "@strapi/plugin-i18n": "4.0.0",
     "@strapi/plugin-users-permissions": "4.0.0",
     "@strapi/strapi": "4.0.0",
-    "sqlite3": "5.0.2"
+    "sqlite3": "5.0.2",
+    "strapi-plugin-wysiwyg-tui-editor": "^1.0.1"
   },
   "author": {
     "name": "A Strapi developer"
