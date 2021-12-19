@@ -7,6 +7,7 @@ import type {
   ArticleAttributes,
   Singular,
   TopicAttributes,
+  TagAttributes,
 } from './responseData';
 
 export interface QueryCategoriesResponse {
@@ -111,22 +112,6 @@ export const queryCategory = gql`
           }
           themeColor
           description
-          topics {
-            data {
-              id
-              attributes {
-                title
-              }
-            }
-          }
-          tags {
-            data {
-              id
-              attributes {
-                label
-              }
-            }
-          }
         }
       }
     }
@@ -142,6 +127,21 @@ export const queryTopic = gql`
         id
         attributes {
           title
+        }
+      }
+    }
+  }
+`;
+
+export type QueryTagsByIdsVariable = { tagIds: ID[] };
+export type QueryTagsResponse = { tags: Collection<TagAttributes> };
+export const queryTagsByIds = gql`
+  query TagsByIds($tagIds: [ID]!) {
+    tags(filters: { id: { in: $tagIds } }) {
+      data {
+        id
+        attributes {
+          label
         }
       }
     }

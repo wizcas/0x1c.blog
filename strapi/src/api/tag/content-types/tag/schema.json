@@ -31,12 +31,6 @@
       "relation": "manyToMany",
       "target": "api::article.article",
       "mappedBy": "tags"
-    },
-    "category": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::category.category",
-      "inversedBy": "tags"
     }
   }
 }

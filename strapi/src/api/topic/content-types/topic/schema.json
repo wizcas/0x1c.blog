@@ -32,12 +32,6 @@
       "relation": "oneToMany",
       "target": "api::article.article",
       "mappedBy": "topic"
-    },
-    "category": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "api::category.category",
-      "inversedBy": "topics"
     }
   }
 }

@@ -2,6 +2,7 @@ import { json, LoaderFunction } from 'remix';
 
 import { getArticles } from '~/services/blog/article';
 import type { Article } from '~/services/blog/models';
+import { parseTagIds } from '~/services/blog/tag';
 
 import ArticleCard from '../../card/ArticleCard';
 
@@ -19,17 +20,18 @@ export async function fetchArticles({
   }
   const { search } = new URL(request.url);
   const page = parsePage(search) || 1;
-  return getArticles({
+  const filter = {
     limit: PAGE_SIZE,
     offset: (page - 1) * PAGE_SIZE,
     categoryId,
     topicId,
-    tagIds: tagIds?.split('+'),
-  });
+    tagIds: parseTagIds(tagIds),
+  };
+  return { articles: await getArticles(filter), filter };
 }
 
 export const articlesLoader: LoaderFunction = async (args) => {
-  return json(await fetchArticles(args));
+  return json((await fetchArticles(args)).articles);
 };
 
 interface ArticleListProps {

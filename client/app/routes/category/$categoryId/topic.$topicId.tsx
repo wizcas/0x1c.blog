@@ -1,3 +1,4 @@
+import { Bookmark } from 'react-feather';
 import { json, LoaderFunction, MetaFunction, useLoaderData } from 'remix';
 
 import {
@@ -20,7 +21,7 @@ export const loader: LoaderFunction = async (args) => {
     throw json('topicId is required', { status: 400 });
   }
   const { title: topicTitle } = await getTopic(topicId);
-  const articles = await fetchArticles(args);
+  const { articles } = await fetchArticles(args);
   return json({ articles, topicTitle } as LoaderData);
 };
 
@@ -37,7 +38,8 @@ export default function TopicIndex() {
   return (
     <>
       <h5 className="space-x-2">
-        <span className="text-yellow-400">{`//${topicTitle}`}</span>
+        <Bookmark className="inline-block" />
+        <span className="text-yellow-400">{`${topicTitle}`}</span>
         <span>{i('话题下的文章')}</span>
       </h5>
       <PagedArticleList {...articles} />
