@@ -6,9 +6,23 @@ import {
 } from '@strapi/design-system/ModalLayout';
 import { Typography } from '@strapi/design-system/Typography';
 
-export default function Flyout({ isOpen, onClose, header, children, name }) {
+const BODY_STYLE = {
+  maxHeight: `calc(100vh - 4rem)`,
+};
+export default function Flyout({
+  isOpen,
+  onClose,
+  header,
+  children,
+  name,
+  style,
+}) {
   return isOpen ? (
-    <ModalLayout onClose={onClose} labelledBy={`${name}-flyout-title`}>
+    <ModalLayout
+      onClose={onClose}
+      labelledBy={`${name}-flyout-title`}
+      style={style}
+    >
       <ModalHeader>
         <Typography
           fontWeight="bold"
@@ -19,7 +33,7 @@ export default function Flyout({ isOpen, onClose, header, children, name }) {
           {header}
         </Typography>
       </ModalHeader>
-      <ModalBody>{children}</ModalBody>
+      <ModalBody style={BODY_STYLE}>{children}</ModalBody>
     </ModalLayout>
   ) : null;
 }

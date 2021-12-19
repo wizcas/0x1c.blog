@@ -1,9 +1,13 @@
 import React, { useMemo } from 'react';
 import styled from 'styled-components';
 import { useIntl } from 'react-intl';
-import { useToggle } from 'react-use';
+import { useToggle, useWindowSize } from 'react-use';
 import TuiEditor from './TuiEditor';
 import Flyout from './Flyout';
+
+const FLYOUT_STYLE = {
+  width: 'calc(100vw - 8rem)',
+};
 
 export default function Editor({
   onChange,
@@ -16,6 +20,9 @@ export default function Editor({
 }) {
   const { formatMessage } = useIntl();
   const [showFlyout, toggleFlyout] = useToggle(false);
+  const { height } = useWindowSize();
+
+  const flyoutEditorHeight = `${height - 200}px`;
 
   const title = (
     <FieldLabel id={(showFlyout && `${name}-flyout-title`) || undefined}>
@@ -30,6 +37,7 @@ export default function Editor({
         value={value}
         onChange={onChange}
         disabled={disabled}
+        height={showFlyout ? flyoutEditorHeight : undefined}
         onFlyout={!showFlyout && (() => toggleFlyout(true))}
       />
     ),
@@ -48,6 +56,7 @@ export default function Editor({
             isOpen={showFlyout}
             onClose={() => toggleFlyout(false)}
             header={title}
+            style={FLYOUT_STYLE}
           >
             {editor}
           </Flyout>

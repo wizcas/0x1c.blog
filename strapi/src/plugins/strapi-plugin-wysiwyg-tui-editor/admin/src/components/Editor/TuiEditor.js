@@ -17,6 +17,7 @@ export default function TuiEditor({
   onChange,
   disabled,
   onFlyout,
+  height = '600px',
 }) {
   const editorRef = useRef(null);
   const [showMediaLib, toggleMediaLib] = useToggle(false);
@@ -70,7 +71,7 @@ export default function TuiEditor({
         usageStatistics={false}
         initialEditType="markdown"
         initialValue={value}
-        height="600px"
+        height={height}
         previewStyle={previewStyle}
         onChange={handleDocChange}
       />
