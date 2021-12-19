@@ -3,7 +3,7 @@ import { Editor, Viewer } from '@toast-ui/react-editor';
 import '@toast-ui/editor/dist/toastui-editor.css';
 
 export default forwardRef(function TuiEditor(
-  { name, value, previewStyle, onChange, disabled, onFlyout, height = '600px' },
+  { name, value, onChange, disabled, onFlyout, height = '600px', ...props },
   editorRef
 ) {
   const isFlyout = !onFlyout;
@@ -32,8 +32,8 @@ export default forwardRef(function TuiEditor(
         initialEditType="markdown"
         initialValue={value}
         height={height}
-        previewStyle={previewStyle}
         onChange={handleDocChange}
+        {...props}
       />
     </div>
   ) : (

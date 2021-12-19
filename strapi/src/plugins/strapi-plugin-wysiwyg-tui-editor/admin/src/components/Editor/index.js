@@ -58,7 +58,7 @@ export default function Editor({
         onFlyout={!showFlyout && (() => toggleFlyout(true))}
       />
     ),
-    [showFlyout, name, value, onChange, disabled, toggleFlyout]
+    [showFlyout, name, value, onChange, disabled, toggleFlyout, previewStyle]
   );
   return (
     <div>
@@ -69,7 +69,7 @@ export default function Editor({
         </Header>
         <Toolbar
           previewStyle={previewStyle}
-          onChangeLayout={toggleStyle}
+          onChangePreviewStyle={toggleStyle}
           onAddMedia={() => toggleMediaLib(true)}
           onExpand={() => toggleFlyout(true)}
         />

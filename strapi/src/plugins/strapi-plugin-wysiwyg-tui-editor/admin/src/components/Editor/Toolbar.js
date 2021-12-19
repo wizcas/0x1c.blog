@@ -7,7 +7,7 @@ import ExpandIcon from '@strapi/icons/Expand';
 
 export default function Toolbar({
   previewStyle,
-  onChangeLayout,
+  onChangePreviewStyle,
   onAddMedia,
   onExpand,
 }) {
@@ -15,7 +15,7 @@ export default function Toolbar({
     <ToolbarLayout>
       <Button
         type="button"
-        onClick={onChangeLayout}
+        onClick={onChangePreviewStyle}
         startIcon={<SwitchIcon />}
         variant="secondary"
       >
