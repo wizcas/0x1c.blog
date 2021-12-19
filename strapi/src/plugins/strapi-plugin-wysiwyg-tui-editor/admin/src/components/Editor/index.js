@@ -1,6 +1,9 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import styled from 'styled-components';
+import { useIntl } from 'react-intl';
+import { useToggle } from 'react-use';
 import TuiEditor from './TuiEditor';
+import Flyout from './Flyout';
 
 export default function Editor({
   onChange,
@@ -11,21 +14,47 @@ export default function Editor({
   labelAction,
   disabled,
 }) {
-  return (
-    <div>
-      <Header>
-        <FieldLabel>
-          {intlLabel.defaultMessage}
-          {required && <Required>*</Required>}
-        </FieldLabel>
-        {labelAction}
-      </Header>
+  const { formatMessage } = useIntl();
+  const [showFlyout, toggleFlyout] = useToggle(false);
+
+  const title = (
+    <FieldLabel id={(showFlyout && `${name}-flyout-title`) || undefined}>
+      <label>{formatMessage(intlLabel)}</label>
+      {required && <Required>*</Required>}
+    </FieldLabel>
+  );
+  const editor = useMemo(
+    () => (
       <TuiEditor
         name={name}
         value={value}
         onChange={onChange}
         disabled={disabled}
+        onFlyout={!showFlyout && (() => toggleFlyout(true))}
       />
+    ),
+    [showFlyout, name, value, onChange, disabled, toggleFlyout]
+  );
+  return (
+    <div>
+      <Header>
+        {title}
+        {labelAction}
+      </Header>
+      {showFlyout ? (
+        <FlyoutWrapper>
+          <Flyout
+            name={name}
+            isOpen={showFlyout}
+            onClose={() => toggleFlyout(false)}
+            header={title}
+          >
+            {editor}
+          </Flyout>
+        </FlyoutWrapper>
+      ) : (
+        editor
+      )}
     </div>
   );
 }
@@ -47,4 +76,7 @@ const Header = styled.div`
 const Required = styled.span`
   color: #d02b20;
   font-size: 0.875rem;
+`;
+const FlyoutWrapper = styled.div`
+  z-index: 50;
 `;

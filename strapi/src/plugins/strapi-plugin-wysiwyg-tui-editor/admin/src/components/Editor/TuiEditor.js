@@ -11,13 +11,27 @@ function preferredPreviewStyle(width) {
   return width >= BREAKPOINT ? 'vertical' : 'tab';
 }
 
-export default function TuiEditor({ name, value, onChange, disabled }) {
+export default function TuiEditor({
+  name,
+  value,
+  onChange,
+  disabled,
+  onFlyout,
+}) {
   const editorRef = useRef(null);
   const [showMediaLib, toggleMediaLib] = useToggle(false);
   const { width } = useWindowSize();
   const [previewStyle, setPreviewStyle] = useState(
     preferredPreviewStyle(width)
   );
+
+  const isFlyout = !onFlyout;
+
+  useEffect(() => {
+    if (isFlyout) {
+      editorRef.current?.getInstance().focus();
+    }
+  }, [isFlyout]);
 
   useEffect(() => {
     setPreviewStyle(preferredPreviewStyle(width));
@@ -45,6 +59,11 @@ export default function TuiEditor({ name, value, onChange, disabled }) {
         <ToolbarButton type="button" onClick={toggleMediaLib}>
           MediaLib
         </ToolbarButton>
+        {onFlyout && (
+          <ToolbarButton type="button" onClick={onFlyout}>
+            Expand
+          </ToolbarButton>
+        )}
       </Toolbar>
       <Editor
         ref={editorRef}
