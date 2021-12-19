@@ -3,6 +3,10 @@ import { useToggle, useWindowSize } from 'react-use';
 import styled from 'styled-components';
 import { Editor, Viewer } from '@toast-ui/react-editor';
 import '@toast-ui/editor/dist/toastui-editor.css';
+import { Button } from '@strapi/design-system/Button';
+import SwitchIcon from '@strapi/icons/Layout';
+import MediaIcon from '@strapi/icons/PicturePlus';
+import ExpandIcon from '@strapi/icons/Expand';
 import MediaLib from './MediaLib';
 
 const BREAKPOINT = 1440;
@@ -54,16 +58,31 @@ export default function TuiEditor({
   return !disabled ? (
     <div>
       <Toolbar>
-        <ToolbarButton type="button" onClick={toggleStyle}>
-          {previewStyle === 'vertical' ? 'Tab mode' : 'Side-by-side'}
-        </ToolbarButton>
-        <ToolbarButton type="button" onClick={toggleMediaLib}>
-          MediaLib
-        </ToolbarButton>
+        <Button
+          type="button"
+          onClick={toggleStyle}
+          startIcon={<SwitchIcon />}
+          variant="tertiary"
+        >
+          {previewStyle === 'vertical' ? 'Tabbed preview' : 'Sided preview'}
+        </Button>
+        <Button
+          type="button"
+          startIcon={<MediaIcon />}
+          onClick={toggleMediaLib}
+          variant="tertiary"
+        >
+          Add media
+        </Button>
         {onFlyout && (
-          <ToolbarButton type="button" onClick={onFlyout}>
+          <Button
+            type="button"
+            onClick={onFlyout}
+            startIcon={<ExpandIcon />}
+            variant="tertiary"
+          >
             Expand
-          </ToolbarButton>
+          </Button>
         )}
       </Toolbar>
       <Editor
@@ -90,11 +109,7 @@ const Toolbar = styled.div`
   display: flex;
   flex-direction: row;
   margin: 0.5rem 0;
-`;
-
-const ToolbarButton = styled.button`
-  background: #f5f5f5;
-  font-size: 0.75rem;
-  padding: 0.5em 1em;
-  border: 1px solid ccc;
+  & > *:not(:first-child) {
+    margin-left: 0.25rem;
+  }
 `;
