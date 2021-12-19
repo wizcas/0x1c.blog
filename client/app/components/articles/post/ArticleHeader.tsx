@@ -1,6 +1,5 @@
 import classNames from 'classnames';
 import { CSSProperties, useMemo } from 'react';
-import invariant from 'tiny-invariant';
 
 import type { Article } from '~/services/blog/models';
 
@@ -25,8 +24,6 @@ interface Props {
 
 export default function ArticleHeader({ article }: Props) {
   const { title, datetime, cover, category, topic, tags } = article;
-  invariant(category);
-  invariant(topic);
 
   const coverStyle = useMemo(
     () =>
@@ -47,8 +44,8 @@ export default function ArticleHeader({ article }: Props) {
           <h1 className="my-4 text-2xl">{title}</h1>
           <section className="breadcrumbs">
             <DateTime value={datetime} />
-            <CategoryLink category={category} />
-            <TopicLink topic={topic} />
+            {category && <CategoryLink category={category} />}
+            {topic && <TopicLink topic={topic} />}
           </section>
         </div>
         {tags && (
