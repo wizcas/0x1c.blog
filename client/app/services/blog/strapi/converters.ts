@@ -1,4 +1,5 @@
 import type { ImageAsset } from '~/components/presentation/Image';
+import { getServerUrl } from '~/helpers/url';
 
 import type {
   ArticleAttributes,
@@ -10,21 +11,14 @@ import type {
 } from '.';
 import type { Article, Category, Tag, Topic } from '../models';
 
-function getUrl(url: string | undefined | null) {
-  if (!url) return '';
-  if (url.startsWith('http')) return url;
-
-  return `${process.env.SERVER_BASE}${url}`;
-}
-
 function toImageAsset(
   entity: Entity<AssetAttributes> | null | undefined
 ): ImageAsset | undefined {
   if (!entity) return undefined;
   const { url, previewUrl } = entity.attributes;
   return {
-    url: getUrl(url),
-    previewUrl: getUrl(previewUrl),
+    url: getServerUrl(url),
+    previewUrl: getServerUrl(previewUrl),
   };
 }
 
