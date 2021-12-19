@@ -6,7 +6,7 @@ import {
 } from '@toast-ui/react-editor';
 import '@toast-ui/editor/dist/toastui-editor.css';
 import { useFullscreen, useToggle, useWindowSize } from 'react-use';
-import { prefixFileUrlWithBackendUrl, useLibrary } from '@strapi/helper-plugin';
+import MediaLib from './MediaLib';
 
 const BREAKPOINT = 1440;
 
@@ -29,8 +29,6 @@ export default function Editor({
   const [previewStyle, setPreviewStyle] = useState(
     preferredPreviewStyle(width)
   );
-  const { components } = useLibrary();
-  const MediaLibDialog = components['media-library'];
   const [showMediaLib, toggleMediaLib] = useToggle(false);
   const [showFullscreen, toggleFullscreen] = useToggle(false);
   const isFullscreen = useFullscreen(wrapperRef, showFullscreen, {
@@ -44,7 +42,7 @@ export default function Editor({
   function toggleStyle() {
     setPreviewStyle((style) => (style === 'vertical' ? 'tab' : 'vertical'));
   }
-  function onEditorChange() {
+  function onValueChange() {
     const instance = editorRef.current?.getInstance();
     if (!instance) {
       console.error('editor instance not found');
@@ -52,27 +50,6 @@ export default function Editor({
     }
     const md = instance.getMarkdown();
     onChange({ target: { name, value: md } });
-  }
-  function handleSelectAssets(files) {
-    const instance = editorRef.current?.getInstance();
-    if (!instance) {
-      console.error('editor instance not found');
-      return;
-    }
-    const formattedFiles = files.map((f) => ({
-      alt: f.alternativeText || f.name,
-      url: prefixFileUrlWithBackendUrl(f.url),
-      mime: f.mime,
-    }));
-
-    // insertFile(editorRef, formattedFiles);
-    formattedFiles.forEach(({ url, alt }) => {
-      instance.exec('addImage', {
-        imageUrl: url,
-        alt: alt,
-      });
-    });
-    toggleMediaLib(false);
   }
 
   return (
@@ -104,20 +81,17 @@ export default function Editor({
             initialValue={value}
             height="600px"
             previewStyle={previewStyle}
-            onChange={onEditorChange}
+            onChange={onValueChange}
           />
         </div>
       ) : (
         <TuiViewer initialValue={value} />
       )}
-      {showMediaLib && (
-        <ModalLayer>
-          <MediaLibDialog
-            onClose={toggleMediaLib}
-            onSelectAssets={handleSelectAssets}
-          />
-        </ModalLayer>
-      )}
+      <MediaLib
+        isOpen={showMediaLib}
+        onClose={() => toggleMediaLib(false)}
+        editor={editorRef.current?.getInstance()}
+      />
     </div>
   );
 }
@@ -152,8 +126,4 @@ const ToolbarButton = styled.button`
   font-size: 0.75rem;
   padding: 0.5em 1em;
   border: 1px solid ccc;
-`;
-
-const ModalLayer = styled.div`
-  z-index: 100;
 `;
