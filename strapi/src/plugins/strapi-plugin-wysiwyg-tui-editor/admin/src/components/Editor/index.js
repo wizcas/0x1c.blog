@@ -1,9 +1,12 @@
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { useIntl } from 'react-intl';
 import { useToggle, useWindowSize } from 'react-use';
+import { getPreferredPreviewStyle } from '../../utils/previewStyle';
+import MediaLib from './MediaLib';
 import TuiEditor from './TuiEditor';
 import Flyout from './Flyout';
+import Toolbar from './Toolbar';
 
 const FLYOUT_STYLE = {
   width: 'calc(100vw - 8rem)',
@@ -18,11 +21,23 @@ export default function Editor({
   labelAction,
   disabled,
 }) {
+  const editorRef = useRef(null);
   const { formatMessage } = useIntl();
+  const { width, height } = useWindowSize();
   const [showFlyout, toggleFlyout] = useToggle(false);
-  const { height } = useWindowSize();
-
+  const [showMediaLib, toggleMediaLib] = useToggle(false);
+  const [previewStyle, setPreviewStyle] = useState(
+    getPreferredPreviewStyle(width)
+  );
   const flyoutEditorHeight = `${height - 200}px`;
+
+  useEffect(() => {
+    setPreviewStyle(getPreferredPreviewStyle(width));
+  }, [width]);
+
+  function toggleStyle() {
+    setPreviewStyle((style) => (style === 'vertical' ? 'tab' : 'vertical'));
+  }
 
   const title = (
     <FieldLabel id={(showFlyout && `${name}-flyout-title`) || undefined}>
@@ -33,8 +48,10 @@ export default function Editor({
   const editor = useMemo(
     () => (
       <TuiEditor
+        ref={editorRef}
         name={name}
         value={value}
+        previewStyle={previewStyle}
         onChange={onChange}
         disabled={disabled}
         height={showFlyout ? flyoutEditorHeight : undefined}
@@ -45,10 +62,18 @@ export default function Editor({
   );
   return (
     <div>
-      <Header>
-        {title}
-        {labelAction}
-      </Header>
+      <HeaderLayout>
+        <Header>
+          {title}
+          {labelAction}
+        </Header>
+        <Toolbar
+          previewStyle={previewStyle}
+          onChangeLayout={toggleStyle}
+          onAddMedia={() => toggleMediaLib(true)}
+          onExpand={() => toggleFlyout(true)}
+        />
+      </HeaderLayout>
       {showFlyout ? (
         <FlyoutWrapper>
           <Flyout
@@ -64,23 +89,34 @@ export default function Editor({
       ) : (
         editor
       )}
+      <MediaLib
+        isOpen={showMediaLib}
+        onClose={() => toggleMediaLib(false)}
+        editor={editorRef.current?.getInstance()}
+      />
     </div>
   );
 }
 
+const HeaderLayout = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+`;
+const Header = styled.div`
+  display: flex;
+  flex-direction: row;
+  margin: 0.5rem 0;
+  & > *:not(:first-child) {
+    margin-left: 0.25rem;
+  }
+`;
 const FieldLabel = styled.p`
   font-weight: 600;
   color: #32324d;
   font-size: 0.75rem;
   line-height: 1.33;
-`;
-
-const Header = styled.div`
-  display: flex;
-  flex-direction: row;
-  & > *:not(:first-child) {
-    margin-left: 0.25rem;
-  }
 `;
 const Required = styled.span`
   color: #d02b20;
