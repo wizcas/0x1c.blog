@@ -1,18 +1,6 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import {
-  Editor as TuiEditor,
-  Viewer as TuiViewer,
-} from '@toast-ui/react-editor';
-import '@toast-ui/editor/dist/toastui-editor.css';
-import { useFullscreen, useToggle, useWindowSize } from 'react-use';
-import MediaLib from './MediaLib';
-
-const BREAKPOINT = 1440;
-
-function preferredPreviewStyle(width) {
-  return width >= BREAKPOINT ? 'vertical' : 'tab';
-}
+import TuiEditor from './TuiEditor';
 
 export default function Editor({
   onChange,
@@ -23,35 +11,6 @@ export default function Editor({
   labelAction,
   disabled,
 }) {
-  const wrapperRef = useRef(null);
-  const editorRef = useRef(null);
-  const { width } = useWindowSize();
-  const [previewStyle, setPreviewStyle] = useState(
-    preferredPreviewStyle(width)
-  );
-  const [showMediaLib, toggleMediaLib] = useToggle(false);
-  const [showFullscreen, toggleFullscreen] = useToggle(false);
-  const isFullscreen = useFullscreen(wrapperRef, showFullscreen, {
-    onClose: () => toggleFullscreen(false),
-  });
-
-  useEffect(() => {
-    setPreviewStyle(preferredPreviewStyle(width));
-  }, [width]);
-
-  function toggleStyle() {
-    setPreviewStyle((style) => (style === 'vertical' ? 'tab' : 'vertical'));
-  }
-  function onValueChange() {
-    const instance = editorRef.current?.getInstance();
-    if (!instance) {
-      console.error('editor instance not found');
-      return;
-    }
-    const md = instance.getMarkdown();
-    onChange({ target: { name, value: md } });
-  }
-
   return (
     <div>
       <Header>
@@ -61,36 +20,11 @@ export default function Editor({
         </FieldLabel>
         {labelAction}
       </Header>
-      {!disabled ? (
-        <div ref={wrapperRef}>
-          <Toolbar>
-            <ToolbarButton type="button" onClick={toggleStyle}>
-              {previewStyle === 'vertical' ? 'Tab mode' : 'Side-by-side'}
-            </ToolbarButton>
-            <ToolbarButton type="button" onClick={toggleFullscreen}>
-              {isFullscreen ? 'Normal' : 'Full screen'}
-            </ToolbarButton>
-            <ToolbarButton type="button" onClick={toggleMediaLib}>
-              MediaLib
-            </ToolbarButton>
-          </Toolbar>
-          <TuiEditor
-            ref={editorRef}
-            usageStatistics={false}
-            initialEditType="markdown"
-            initialValue={value}
-            height="600px"
-            previewStyle={previewStyle}
-            onChange={onValueChange}
-          />
-        </div>
-      ) : (
-        <TuiViewer initialValue={value} />
-      )}
-      <MediaLib
-        isOpen={showMediaLib}
-        onClose={() => toggleMediaLib(false)}
-        editor={editorRef.current?.getInstance()}
+      <TuiEditor
+        name={name}
+        value={value}
+        onChange={onChange}
+        disabled={disabled}
       />
     </div>
   );
@@ -113,17 +47,4 @@ const Header = styled.div`
 const Required = styled.span`
   color: #d02b20;
   font-size: 0.875rem;
-`;
-
-const Toolbar = styled.div`
-  display: flex;
-  flex-direction: row;
-  margin: 0.5rem 0;
-`;
-
-const ToolbarButton = styled.button`
-  background: #f5f5f5;
-  font-size: 0.75rem;
-  padding: 0.5em 1em;
-  border: 1px solid ccc;
 `;
