@@ -2,7 +2,7 @@ const parse = require('pg-connection-string').parse;
 
 module.exports = ({ env }) => {
   const config = parse(
-    env('BLOG_DATABASE_URL', 'postgres://postgres:postgres@localhost:5432/blog')
+    env('DATABASE_URL', 'postgres://postgres:postgres@localhost:5432/blog')
   );
   return {
     connection: {
