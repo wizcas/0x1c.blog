@@ -1,4 +1,5 @@
 const colors = require('tailwindcss/colors');
+const { fontFamily } = require('tailwindcss/defaultTheme');
 
 const screenUnits = new Array(10).fill(0).map((_, i) => (i + 1) * 10);
 
@@ -55,13 +56,19 @@ module.exports = {
       primary: { ...colors.rose, 400: '#EB6D71' },
       accent: colors.emerald,
     },
+    fontFamily: {
+      sans: ['Fira Sans', ...fontFamily.sans],
+      serif: [...fontFamily.serif],
+      mono: ['Fira Code', ...fontFamily.mono],
+      thin: ['Fira Sans Condensed', ...fontFamily.sans],
+    },
   },
   plugins: [
-    /***** official plugins *****/
+    /** *** official plugins **** */
     require('@tailwindcss/forms'),
     require('@tailwindcss/line-clamp'),
     require('@tailwindcss/typography'),
-    /**** Custom plugins ****/
+    /** ** Custom plugins *** */
     require('./plugins/codeLangs'),
   ],
 };

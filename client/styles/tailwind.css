@@ -15,7 +15,7 @@
   &:not(.quiet) {
     @apply text-primary-400 hover:text-primary-200;
     &:hover {
-      filter: drop-shadow(0 0 2px currentColor);
+      /* filter: drop-shadow(0 0 2px currentColor); */
       @apply decoration-2;
     }
   }
@@ -56,6 +56,7 @@
   }
   :--heading {
     @apply text-gray-50;
+    @apply font-thin;
   }
   h1 {
     @apply text-4xl font-extrabold;
@@ -191,10 +192,10 @@
       }
     }
     code {
-      @apply text-yellow-300 text-base;
-      @apply bg-black bg-opacity-10;
+      @apply text-yellow-500 text-base;
+      @apply bg-black bg-opacity-30;
       @apply rounded-sm;
-      @apply mx-1;
+      @apply mx-1 px-1;
       &::before,
       &::after {
         display: none;
