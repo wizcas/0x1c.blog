@@ -1,6 +1,7 @@
 import { json } from 'remix';
 
 import { renderMarkdown } from '~/helpers/markdown';
+import { replaceByCdnFullText } from '~/helpers/url';
 
 import {
   gqlClient,
@@ -38,7 +39,7 @@ export async function getArticle(id: string) {
     throw json('Article not found', { status: 404 });
   }
   const article = toArticleModel(data);
-  const { html, toc } = renderMarkdown(article.content);
+  const { html, toc } = renderMarkdown(replaceByCdnFullText(article.content));
   article.html = html;
   article.toc = toc;
   return article;

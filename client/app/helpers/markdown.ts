@@ -7,7 +7,7 @@ import ArticleMarkdownRenderer from './ArticleMarkdownRenderer';
 export function renderMarkdown(markdown: string) {
   const rdr = new ArticleMarkdownRenderer();
   const md = marked(markdown, {
-    baseUrl: process.env.SERVER_BASE,
+    baseUrl: process.env.SERVER_BASE_URL,
     gfm: true,
     renderer: rdr,
     highlight: (code, language) => {
