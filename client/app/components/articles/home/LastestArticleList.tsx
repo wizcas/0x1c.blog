@@ -44,7 +44,7 @@ export default function LatestArticleList({
       </ul>
       <Link
         to={`/category/${category.id}`}
-        className={classNames('self-end', '!text-gray-200')}
+        className={classNames('self-end', '!text-gray-200 hover:!text-white')}
       >
         {i('阅读更多')} <ChevronsRight className="inline-block" />
       </Link>
