@@ -10,6 +10,7 @@ WORKDIR /code
 COPY --from=BUILD_IMAGE /output/build ./build
 COPY --from=BUILD_IMAGE /output/node_modules ./node_modules
 COPY --from=BUILD_IMAGE /output/package.json ./
+COPY --from=BUILD_IMAGE /output/favicon.ico ./
 COPY --from=BUILD_IMAGE /output/src ./src
 COPY --from=BUILD_IMAGE /output/config ./config
 COPY --from=BUILD_IMAGE /output/public ./public

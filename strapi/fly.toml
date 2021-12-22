@@ -1,4 +1,4 @@
-# fly.toml file generated for blog-wizcas on 2021-12-21T01:06:28+08:00
+# fly.toml file generated for blog-strapi on 2021-12-22T23:25:03+08:00
 
 app = "blog-strapi"
 
