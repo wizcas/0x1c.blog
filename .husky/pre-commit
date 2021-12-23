@@ -2,5 +2,5 @@
 . "$(dirname "$0")/_/husky.sh"
 
 cd client
-npm run lint.pre-commit
+yarn lint.pre-commit
 cd ..
