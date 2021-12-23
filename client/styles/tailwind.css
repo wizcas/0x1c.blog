@@ -48,7 +48,7 @@
     font-size: 16px;
     @apply bg-gray-800;
     @apply text-gray-200;
-    /* @apply overflow-x-hidden; */
+    --popover-bg: theme(colors.gray.200);
   }
 
   .page-content {
@@ -245,4 +245,24 @@
       @extend %hyperlink-accent-underline;
     }
   }
+}
+
+.tippy-box[data-theme~='dark'] {
+  @apply text-gray-900 font-thin font-semibold;
+  @apply text-sm px-1 py-0;
+  @apply shadow-sm shadow-gray-800/30;
+  background-color: var(--popover-bg);
+}
+.tippy-box[data-theme~='dark'][data-placement^='top'] > .tippy-arrow::before {
+  border-top-color: var(--popover-bg);
+}
+.tippy-box[data-theme~='dark'][data-placement^='bottom']
+  > .tippy-arrow::before {
+  border-bottom-color: var(--popover-bg);
+}
+.tippy-box[data-theme~='dark'][data-placement^='left'] > .tippy-arrow::before {
+  border-left-color: var(--popover-bg);
+}
+.tippy-box[data-theme~='dark'][data-placement^='right'] > .tippy-arrow::before {
+  border-right-color: var(--popover-bg);
 }

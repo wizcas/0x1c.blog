@@ -1,6 +1,8 @@
+import Tippy from '@tippyjs/react';
 import classNames from 'classnames';
 import dayjs, { Dayjs } from 'dayjs';
 import { useMemo } from 'react';
+import { Clock } from 'react-feather';
 
 export type DateTimeFormat = 'full' | 'date' | 'time';
 interface Props {
@@ -16,15 +18,24 @@ const TEMPLATES: Record<string, string> = {
 TEMPLATES.full = `${TEMPLATES.date} ${TEMPLATES.time}`;
 
 export default function DateTime({ value, format = 'date', className }: Props) {
-  const valueString = useMemo(() => {
-    const datetime = dayjs(value);
-    const template = TEMPLATES[format] || format;
-    return datetime.format(template);
-  }, [value, format]);
+  const datetime = useMemo(() => dayjs(value), [value]);
+  const shortString = datetime.format(TEMPLATES[format] || format);
+  const tipString = datetime.format(TEMPLATES.full);
 
   return (
-    <span className={classNames('text-sm text-gray-400', className)}>
-      {valueString}
-    </span>
+    <Tippy
+      content={
+        <div className="flex items-center gap-2">
+          <Clock size={16} />
+          {tipString}
+        </div>
+      }
+      theme="dark"
+      arrow
+    >
+      <span className={classNames('text-sm text-gray-400', className)}>
+        {shortString}
+      </span>
+    </Tippy>
   );
 }

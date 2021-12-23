@@ -1,4 +1,5 @@
 import { Outlet } from 'remix';
+import tippyStyles from 'tippy.js/dist/tippy.css';
 
 import {
   Document,
@@ -7,7 +8,7 @@ import {
   ErrorBoundary,
 } from '~/components/frame';
 
-import styles from './tailwind.css';
+import tailwindStyles from './tailwind.css';
 
 import type { LinksFunction } from 'remix';
 
@@ -16,7 +17,8 @@ export { CatchBoundary, ErrorBoundary };
 // https://remix.run/api/app#links
 export const links: LinksFunction = () => {
   return [
-    { rel: 'stylesheet', href: styles },
+    { rel: 'stylesheet', href: tippyStyles },
+    { rel: 'stylesheet', href: tailwindStyles },
     { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
     {
       rel: 'preconnect',
