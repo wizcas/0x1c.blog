@@ -1,6 +1,6 @@
 const langColors = {
   text: {
-    'background-color': '#eee',
+    'background-color': '#eeeeee',
     color: '#333',
   },
   js: {
@@ -67,6 +67,11 @@ const langColors = {
     'background-color': '#044f75',
     color: 'white',
   },
+  yaml: {
+    'background-color': '#e98b1e',
+    color: 'black',
+  },
 };
 langColors['c++'] = langColors.cpp;
+langColors.yml = langColors.yaml;
 module.exports = langColors;

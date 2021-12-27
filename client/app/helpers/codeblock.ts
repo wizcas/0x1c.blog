@@ -18,6 +18,8 @@ const LANG_NAMES: Record<string, string> = {
   'c++': 'C++',
   sql: 'SQL',
   powershell: 'PowerShell',
+  yml: 'YAML',
+  yaml: 'YAML',
 };
 
 export function renderCodeBlock(pre: string, language: string): string {
