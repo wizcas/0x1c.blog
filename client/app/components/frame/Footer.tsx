@@ -10,7 +10,7 @@ export function Footer() {
           <i className={SYMBOL_CLASS}>&copy;</i>
           0x1C.dev
           <i className={classNames(SYMBOL_CLASS, 'mx-2')}>by</i>
-          <a href="mailto:chen@wizcas.is" className="!text-gray-200">
+          <a href="mailto:chen@0x1c.dev" className="!text-gray-200">
             Wizcas Chen
           </a>
         </p>
