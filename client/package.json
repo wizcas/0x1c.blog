@@ -9,7 +9,6 @@
   "version": "0.1.0",
   "license": "",
   "scripts": {
-    "prepare": "yarn build:css",
     "build": "yarn build:css && remix build",
     "build:css": "NODE_ENV=production tailwindcss --postcss -i ./styles/tailwind.css -o ./app/tailwind.css --minify",
     "dev": "pm2-dev pm2.config.js",
