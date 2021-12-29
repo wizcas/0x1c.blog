@@ -3,24 +3,15 @@ import { json } from 'remix';
 import { renderMarkdown } from '~/helpers/markdown';
 import { replaceByCdnFullText } from '~/helpers/url';
 
-import {
-  gqlClient,
-  queryArticle,
-  QueryArticleResponse,
-  queryArticles,
-  QueryArticlesResponse,
-  QueryArticlesVariable,
-  QueryArticleVariable,
-  toArticleModel,
-} from './strapi';
+import { gqlClient, queries, toArticleModel } from './strapi';
 
 import type { Articles, ArticlesFilter } from './models';
 
 export async function getArticles(filter: ArticlesFilter) {
   const response = await gqlClient.request<
-    QueryArticlesResponse,
-    QueryArticlesVariable
-  >(queryArticles, { ...filter });
+    queries.ArticlesResponse,
+    queries.ArticlesVariable
+  >(queries.articles, { ...filter });
   const { data, meta } = response.articles;
   return {
     articles: data.map(toArticleModel),
@@ -31,9 +22,9 @@ export async function getArticles(filter: ArticlesFilter) {
 
 export async function getArticle(id: string) {
   const response = await gqlClient.request<
-    QueryArticleResponse,
-    QueryArticleVariable
-  >(queryArticle, { id });
+    queries.ArticleResponse,
+    queries.ArticleVariable
+  >(queries.articleById, { id });
   const { data } = response.article;
   if (!data) {
     throw json('Article not found', { status: 404 });

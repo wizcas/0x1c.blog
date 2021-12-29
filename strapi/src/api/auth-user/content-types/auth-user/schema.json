@@ -4,7 +4,8 @@
   "info": {
     "singularName": "auth-user",
     "pluralName": "auth-users",
-    "displayName": "AuthUser"
+    "displayName": "AuthUser",
+    "description": ""
   },
   "options": {
     "draftAndPublish": false
@@ -28,6 +29,10 @@
       "relation": "manyToOne",
       "target": "api::reader.reader",
       "inversedBy": "authUsers"
+    },
+    "username": {
+      "type": "string",
+      "unique": true
     }
   }
 }

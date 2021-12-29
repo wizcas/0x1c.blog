@@ -1,6 +1,5 @@
 import { gql } from 'graphql-request';
 
-import type { ID } from './generalTypes';
 import type {
   CategoryAttributes,
   Collection,
@@ -8,12 +7,13 @@ import type {
   Singular,
   TopicAttributes,
   TagAttributes,
-} from './responseData';
+  ID,
+} from '../models';
 
-export interface QueryCategoriesResponse {
+export interface CategoriesResponse {
   categories: Collection<CategoryAttributes>;
 }
-export const queryCategories = gql`
+export const categories = gql`
   query Categories {
     categories {
       data {
@@ -36,7 +36,7 @@ export const queryCategories = gql`
   }
 `;
 
-export const queryCategoriesWithArticles = gql`
+export const categoriesWithArticles = gql`
   query CategoriesWithArticles {
     categories {
       data {
@@ -93,9 +93,9 @@ export const queryCategoriesWithArticles = gql`
   }
 `;
 
-export type QueryCategoryVariable = { categoryId: ID };
-export type QueryCategoryResponse = { category: Singular<CategoryAttributes> };
-export const queryCategory = gql`
+export type CategoryVariable = { categoryId: ID };
+export type CategoryResponse = { category: Singular<CategoryAttributes> };
+export const category = gql`
   query Category($categoryId: ID!) {
     category(id: $categoryId) {
       data {
@@ -118,9 +118,9 @@ export const queryCategory = gql`
   }
 `;
 
-export type QueryTopicVariable = { topicId: ID };
-export type QueryTopicResponse = { topic: Singular<TopicAttributes> };
-export const queryTopic = gql`
+export type TopicVariable = { topicId: ID };
+export type TopicResponse = { topic: Singular<TopicAttributes> };
+export const topicById = gql`
   query Topic($topicId: ID!) {
     topic(id: $topicId) {
       data {
@@ -133,9 +133,9 @@ export const queryTopic = gql`
   }
 `;
 
-export type QueryTagsByIdsVariable = { tagIds: ID[] };
-export type QueryTagsResponse = { tags: Collection<TagAttributes> };
-export const queryTagsByIds = gql`
+export type TagsByIdsVariable = { tagIds: ID[] };
+export type TagsResponse = { tags: Collection<TagAttributes> };
+export const tagsByIds = gql`
   query TagsByIds($tagIds: [ID]!) {
     tags(filters: { id: { in: $tagIds } }) {
       data {
@@ -148,17 +148,17 @@ export const queryTagsByIds = gql`
   }
 `;
 
-export type QueryArticlesVariable = {
+export type ArticlesVariable = {
   categoryId: ID;
   topicId?: ID;
   tagIds?: ID[];
   page?: number;
   pageSize?: number;
 };
-export type QueryArticlesResponse = {
+export type ArticlesResponse = {
   articles: Collection<ArticleAttributes>;
 };
-export const queryArticles = gql`
+export const articles = gql`
   query ArticlesByFilters(
     $categoryId: ID!
     $topicId: ID
@@ -219,9 +219,9 @@ export const queryArticles = gql`
   }
 `;
 
-export type QueryArticleVariable = { id: ID };
-export type QueryArticleResponse = { article: Singular<ArticleAttributes> };
-export const queryArticle = gql`
+export type ArticleVariable = { id: ID };
+export type ArticleResponse = { article: Singular<ArticleAttributes> };
+export const articleById = gql`
   query ($id: ID!) {
     article(id: $id) {
       data {

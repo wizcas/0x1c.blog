@@ -1,28 +1,19 @@
 import { json } from 'remix';
 
-import {
-  gqlClient,
-  queryCategories,
-  QueryCategoriesResponse,
-  queryCategoriesWithArticles,
-  queryCategory,
-  QueryCategoryResponse,
-  QueryCategoryVariable,
-  toCategoryModel,
-} from './strapi';
+import { gqlClient, queries, toCategoryModel } from './strapi';
 
 export async function getCategories(withArticles = true) {
-  const response = await gqlClient.request<QueryCategoriesResponse>(
-    withArticles ? queryCategoriesWithArticles : queryCategories
+  const response = await gqlClient.request<queries.CategoriesResponse>(
+    withArticles ? queries.categoriesWithArticles : queries.categories
   );
   return response.categories.data.map(toCategoryModel);
 }
 
 export async function getCategory(categoryId: string) {
   const response = await gqlClient.request<
-    QueryCategoryResponse,
-    QueryCategoryVariable
-  >(queryCategory, { categoryId });
+    queries.CategoryResponse,
+    queries.CategoryVariable
+  >(queries.category, { categoryId });
   const { data } = response.category;
   if (!data) throw json('Category not found', { status: 404 });
   return toCategoryModel(data);

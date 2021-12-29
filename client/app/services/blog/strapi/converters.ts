@@ -1,6 +1,7 @@
 import type { ImageAsset } from '~/components/presentation/Image';
 import { getServerUrl } from '~/helpers/url';
 
+import type { Article, Category, Tag, Topic } from '../models';
 import type {
   ArticleAttributes,
   AssetAttributes,
@@ -8,8 +9,7 @@ import type {
   Entity,
   TagAttributes,
   TopicAttributes,
-} from '.';
-import type { Article, Category, Tag, Topic } from '../models';
+} from './models';
 
 function toImageAsset(
   entity: Entity<AssetAttributes> | null | undefined
