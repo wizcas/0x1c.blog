@@ -3,7 +3,7 @@ import { json } from 'remix';
 import { renderMarkdown } from '~/helpers/markdown';
 import { replaceByCdnFullText } from '~/helpers/url';
 
-import { gqlClient, queries, toArticleModel } from './strapi';
+import { gqlClient, queries, converters } from './strapi';
 
 import type { Articles, ArticlesFilter } from './models';
 
@@ -14,7 +14,7 @@ export async function getArticles(filter: ArticlesFilter) {
   >(queries.articles, { ...filter });
   const { data, meta } = response.articles;
   return {
-    articles: data.map(toArticleModel),
+    articles: data.map(converters.toArticleModel),
     pageCount: meta?.pagination.pageCount ?? 0,
     total: meta?.pagination.total ?? 0,
   } as Articles;
@@ -29,7 +29,7 @@ export async function getArticle(id: string) {
   if (!data) {
     throw json('Article not found', { status: 404 });
   }
-  const article = toArticleModel(data);
+  const article = converters.toArticleModel(data);
   const { html, toc } = renderMarkdown(replaceByCdnFullText(article.content));
   article.html = html;
   article.toc = toc;

@@ -2,6 +2,9 @@ import { gql } from 'graphql-request';
 
 import { AuthUserAttributes, ID, ReaderAttributes, Singular } from '../models';
 
+export type CreateAuthUserVariable = {
+  data: AuthUserAttributes;
+};
 export type CreateAuthUserResponse = {
   createAuthUser: Singular<AuthUserAttributes>;
 };
@@ -24,6 +27,7 @@ export type ReaderInput = Omit<ReaderAttributes, 'authUsers'> & {
   authUsers?: ID[];
 };
 
+export type CreateReaderVariable = { data: ReaderInput };
 export type CreateReaderResponse = { createReader: Singular<ReaderAttributes> };
 export const createReader = gql`
   mutation CreateReader($data: ReaderInput!) {

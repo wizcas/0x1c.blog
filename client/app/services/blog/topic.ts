@@ -1,6 +1,6 @@
 import { json } from 'remix';
 
-import { gqlClient, queries, toTopicModel } from './strapi';
+import { gqlClient, queries, converters } from './strapi';
 
 export async function getTopic(topicId: string) {
   const response = await gqlClient.request<
@@ -11,5 +11,5 @@ export async function getTopic(topicId: string) {
   if (!data) {
     throw json('Topic not found', { status: 404 });
   }
-  return toTopicModel(data);
+  return converters.toTopicModel(data);
 }

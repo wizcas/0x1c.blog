@@ -1,4 +1,4 @@
-import { gqlClient, queries, toTagModel } from './strapi';
+import { gqlClient, queries, converters } from './strapi';
 
 const DELIMITER = '+';
 
@@ -15,5 +15,5 @@ export async function getTags(tagIds: string[]) {
     queries.TagsResponse,
     queries.TagsByIdsVariable
   >(queries.tagsByIds, { tagIds: tagIds.filter(Boolean) });
-  return response.tags.data.map(toTagModel);
+  return response.tags.data.map(converters.toTagModel);
 }
