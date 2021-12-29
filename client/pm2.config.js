@@ -2,7 +2,7 @@ module.exports = {
   apps: [
     {
       name: 'Remix',
-      script: 'npm run dev:remix',
+      script: 'PORT=3070 npm run dev:remix',
       ignore_watch: ['.'],
     },
     {

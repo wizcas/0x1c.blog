@@ -67,8 +67,8 @@ export default function ArticlePage() {
             </aside>
             <section className="prose prose-sm md:prose">
               <article ref={ref} dangerouslySetInnerHTML={htmlValue} />
-              <div>
-                <CommentEditor className="not-prose" />
+              <div className="mt-16 bg-gray-700 rounded-md">
+                <CommentEditor />
               </div>
             </section>
           </div>

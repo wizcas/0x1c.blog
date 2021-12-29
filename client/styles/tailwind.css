@@ -7,6 +7,22 @@
 
 /* Custom Definitions */
 @custom-selector :--heading h1, h2, h3, h4, h5, h6;
+@custom-selector :--input
+  [type='text'],
+  [type='email'],
+  [type='url'],
+  [type='password'],
+  [type='number'],
+  [type='date'],
+  [type='datetime-local'],
+  [type='month'],
+  [type='search'],
+  [type='tel'],
+  [type='time'],
+  [type='week'],
+  [multiple],
+  textarea,
+  select;
 
 %hyperlink {
   @apply transition-all duration-200 ease-out;
@@ -238,22 +254,23 @@
     }
   }
 
-  .comment-editor {
-    .ProseMirror {
-      @apply p-2 rounded-md;
-      @apply bg-gray-800 border-gray-600 border;
-      &.ProseMirror-focused {
-        @apply border-gray-500;
-      }
-      &:focus-visible {
-        @apply outline-none;
-        @apply ring-1 ring-accent-600;
-      }
+  :--input,
+  .ProseMirror {
+    @apply p-2 rounded-md;
+    @apply bg-gray-800 border-gray-600 border;
+    &:focus-visible {
+      @apply outline-none;
+      @apply ring-1 ring-accent-600;
     }
-    .ProseMirror p.is-editor-empty:first-child::before {
+  }
+  .ProseMirror {
+    p.is-editor-empty:first-child::before {
       @apply text-gray-500;
-      @apply float-left pointer-events-none h-0;
+      @apply float-left pointer-events-none h-0 block;
       content: attr(data-placeholder);
+    }
+    &.ProseMirror-focused {
+      @apply border-gray-500;
     }
   }
 }
