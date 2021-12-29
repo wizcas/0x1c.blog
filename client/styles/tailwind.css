@@ -89,6 +89,9 @@
   .icon {
     @apply inline-block;
   }
+  mark {
+    @apply bg-yellow-300 text-black;
+  }
 }
 
 @layer components {
@@ -237,8 +240,20 @@
 
   .comment-editor {
     .ProseMirror {
-      @apply p-2;
+      @apply p-2 rounded-md;
       @apply bg-gray-800 border-gray-600 border;
+      &.ProseMirror-focused {
+        @apply border-gray-500;
+      }
+      &:focus-visible {
+        @apply outline-none;
+        @apply ring-1 ring-accent-600;
+      }
+    }
+    .ProseMirror p.is-editor-empty:first-child::before {
+      @apply text-gray-500;
+      @apply float-left pointer-events-none h-0;
+      content: attr(data-placeholder);
     }
   }
 }
