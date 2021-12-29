@@ -13,6 +13,7 @@ import {
 import ArticleHeader from '~/components/articles/post/ArticleHeader';
 import { ReadingContext } from '~/components/articles/post/ReadingContext';
 import Toc from '~/components/articles/post/Toc';
+import CommentEditor from '~/components/editor/CommentEditor';
 import { CategoryContext } from '~/contexts/CategoryContext';
 import { genMeta } from '~/helpers/pageMeta';
 import useReadingData from '~/hooks/useReadingData';
@@ -64,11 +65,12 @@ export default function ArticlePage() {
                 </div>
               )}
             </aside>
-            <article
-              className="prose prose-sm md:prose"
-              ref={ref}
-              dangerouslySetInnerHTML={htmlValue}
-            />
+            <section className="prose prose-sm md:prose">
+              <article ref={ref} dangerouslySetInnerHTML={htmlValue} />
+              <div>
+                <CommentEditor className="not-prose" />
+              </div>
+            </section>
           </div>
         </main>
       </ReadingContext.Provider>

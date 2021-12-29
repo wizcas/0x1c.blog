@@ -154,10 +154,12 @@
     @apply flex flex-wrap gap-2 items-center;
   }
   .prose {
-    min-width: 0;
-    max-width: 100ch;
     color: unset;
+    @apply min-w-0 max-w-full w-[100ch];
     @apply text-gray-200;
+    & > * {
+      @apply max-w-full;
+    }
 
     :--heading {
       @apply text-gray-50;
@@ -230,6 +232,13 @@
     .lang-hint {
       @apply absolute top-0 right-0 px-2 py-1 rounded-bl-md;
       @apply text-xs;
+    }
+  }
+
+  .comment-editor {
+    .ProseMirror {
+      @apply p-2;
+      @apply bg-gray-800 border-gray-600 border;
     }
   }
 }
