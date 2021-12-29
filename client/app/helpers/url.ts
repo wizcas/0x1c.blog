@@ -28,7 +28,7 @@ export function replaceByCdnFullText(text: string) {
   const t0 = Date.now();
   const newText = text.replace(ORIGIN_REGEXP, REPLACE_CDN);
   // eslint-disable-next-line no-console
-  console.log('<Full text replact to CDN>', {
+  console.log('<Full text replace to CDN>', {
     length: text.length,
     elapsed: Date.now() - t0,
   });

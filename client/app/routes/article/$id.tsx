@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import hljsThemeUrl from 'highlight.js/styles/base16/eighties.css';
 import { useMemo, useRef } from 'react';
 import {
+  ActionFunction,
   json,
   LinksFunction,
   LoaderFunction,
@@ -41,6 +42,11 @@ export const meta: MetaFunction = ({ data }: { data: Article }) => {
     title,
     description: excerpt,
   });
+};
+
+export const action: ActionFunction = async ({ request }) => {
+  const data = await request.formData();
+  return null;
 };
 
 export default function ArticlePage() {

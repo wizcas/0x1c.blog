@@ -1,0 +1,37 @@
+{
+  "kind": "collectionType",
+  "collectionName": "readers",
+  "info": {
+    "singularName": "reader",
+    "pluralName": "readers",
+    "displayName": "Reader",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "authUsers": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::auth-user.auth-user",
+      "mappedBy": "reader"
+    },
+    "email": {
+      "type": "email",
+      "required": true,
+      "unique": true
+    },
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "comments": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::comment.comment",
+      "mappedBy": "reader"
+    }
+  }
+}

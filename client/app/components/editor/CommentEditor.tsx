@@ -22,7 +22,7 @@ export default function CommentEditor({ className }: Props) {
   });
   return (
     <Form
-      action="POST"
+      method="post"
       className={classNames('p-4 grid grid-cols-3 gap-2', className)}
     >
       <input type="text" placeholder="名字" name="name" />
