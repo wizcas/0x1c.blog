@@ -3,7 +3,7 @@ import { json } from 'remix';
 import { renderMarkdown } from '~/helpers/markdown';
 import { replaceByCdnFullText } from '~/helpers/url';
 
-import { gqlClient, queries, converters } from './strapi';
+import { gqlClient, queries, converters } from '../strapi';
 
 import type { Articles, ArticlesFilter } from './models';
 

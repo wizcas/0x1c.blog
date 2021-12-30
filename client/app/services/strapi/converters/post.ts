@@ -1,6 +1,6 @@
 import { parseEntity, toImageAsset } from './parser';
 
-import type { Article, Category, Tag, Topic } from '../../models';
+import type { Article, Category, Tag, Topic } from '../../blog/models';
 import type {
   ArticleAttributes,
   CategoryAttributes,

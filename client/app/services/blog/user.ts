@@ -1,9 +1,10 @@
 import { json } from 'remix';
 
+import { converters, gqlClient, mutations, queries } from '../strapi';
+import { AuthUserAttributes, Entity, ReaderAttributes } from '../strapi/models';
+import { ReaderInput } from '../strapi/mutations';
+
 import { ReaderFormData } from './models';
-import { converters, gqlClient, mutations, queries } from './strapi';
-import { AuthUserAttributes, Entity, ReaderAttributes } from './strapi/models';
-import { ReaderInput } from './strapi/mutations';
 
 async function findAuthUser(provider: string, uid: string) {
   const findResult = await gqlClient.request<

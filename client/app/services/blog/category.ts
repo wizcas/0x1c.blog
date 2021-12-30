@@ -1,6 +1,6 @@
 import { json } from 'remix';
 
-import { gqlClient, queries, converters } from './strapi';
+import { gqlClient, queries, converters } from '../strapi';
 
 export async function getCategories(withArticles = true) {
   const response = await gqlClient.request<queries.CategoriesResponse>(

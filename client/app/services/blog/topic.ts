@@ -1,6 +1,6 @@
 import { json } from 'remix';
 
-import { gqlClient, queries, converters } from './strapi';
+import { gqlClient, queries, converters } from '../strapi';
 
 export async function getTopic(topicId: string) {
   const response = await gqlClient.request<

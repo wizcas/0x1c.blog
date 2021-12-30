@@ -1,4 +1,4 @@
-import { Reader } from '../../models';
+import { Reader } from '../../blog/models';
 import { Entity, ReaderAttributes } from '../models';
 
 import { parseEntity } from './parser';

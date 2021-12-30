@@ -1,4 +1,4 @@
-import { Comment } from '../../models';
+import { Comment } from '../../blog/models';
 import { CommentAttributes, Entity } from '../models';
 
 import { parseEntity } from './parser';

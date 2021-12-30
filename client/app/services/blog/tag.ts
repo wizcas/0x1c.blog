@@ -1,4 +1,4 @@
-import { gqlClient, queries, converters } from './strapi';
+import { gqlClient, queries, converters } from '../strapi';
 
 const DELIMITER = '+';
 

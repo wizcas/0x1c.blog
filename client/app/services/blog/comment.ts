@@ -1,6 +1,7 @@
+import { gqlClient, queries } from '../strapi';
+import { toCommentModel } from '../strapi/converters';
+
 import { ReaderFormData } from './models';
-import { gqlClient, queries } from './strapi';
-import { toCommentModel } from './strapi/converters';
 
 export async function getArticleComments(articleId: string) {
   const response = await gqlClient.request<
