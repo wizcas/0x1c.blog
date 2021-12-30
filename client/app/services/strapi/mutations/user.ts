@@ -6,11 +6,11 @@ export type CreateAuthUserVariable = {
   data: AuthUserAttributes;
 };
 export type CreateAuthUserResponse = {
-  createAuthUser: Singular<AuthUserAttributes>;
+  authUser: Singular<AuthUserAttributes>;
 };
 export const createAuthUser = gql`
   mutation CreateAuthUser($data: AuthUserInput!) {
-    createAuthUser(data: $data) {
+    authUser: createAuthUser(data: $data) {
       data {
         id
         attributes {
@@ -28,10 +28,10 @@ export type ReaderInput = Omit<ReaderAttributes, 'authUsers'> & {
 };
 
 export type CreateReaderVariable = { data: ReaderInput };
-export type CreateReaderResponse = { createReader: Singular<ReaderAttributes> };
+export type CreateReaderResponse = { reader: Singular<ReaderAttributes> };
 export const createReader = gql`
   mutation CreateReader($data: ReaderInput!) {
-    createReader(data: $data) {
+    reader: createReader(data: $data) {
       data {
         id
         attributes {
@@ -53,10 +53,10 @@ export const createReader = gql`
   }
 `;
 export type UpdateReaderVariable = { id: ID; data: ReaderInput };
-export type UpdateReaderResponse = { updateReader: Singular<ReaderAttributes> };
+export type UpdateReaderResponse = { reader: Singular<ReaderAttributes> };
 export const updateReader = gql`
   mutation UpdateReader($id: ID!, $data: ReaderInput!) {
-    updateReader(id: $id, data: $data) {
+    reader: updateReader(id: $id, data: $data) {
       data {
         id
         attributes {

@@ -221,7 +221,7 @@ export const articles = gql`
 
 export type ArticleVariable = { id: ID };
 export type ArticleResponse = { article: Singular<ArticleAttributes> };
-export const articleById = gql`
+export const article = gql`
   query ($id: ID!) {
     article(id: $id) {
       data {

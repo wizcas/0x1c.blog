@@ -24,7 +24,7 @@ export async function getArticle(id: string) {
   const response = await gqlClient.request<
     queries.ArticleResponse,
     queries.ArticleVariable
-  >(queries.articleById, { id });
+  >(queries.article, { id });
   const { data } = response.article;
   if (!data) {
     throw json('Article not found', { status: 404 });

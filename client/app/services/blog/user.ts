@@ -23,7 +23,7 @@ async function createAuthUser(data: AuthUserAttributes) {
     mutations.CreateAuthUserResponse,
     mutations.CreateAuthUserVariable
   >(mutations.createAuthUser, { data });
-  return newAuthUser.createAuthUser.data?.id;
+  return newAuthUser.authUser.data?.id;
 }
 
 export async function findReader(email: string) {
@@ -69,7 +69,7 @@ export async function createReader(formData: ReaderFormData) {
     mutations.CreateReaderResponse,
     mutations.CreateReaderVariable
   >(mutations.createReader, { data });
-  const newReader = response.createReader?.data;
+  const newReader = response.reader?.data;
   if (!newReader) {
     throw json('failed creating new reader', { status: 400 });
   }
@@ -93,7 +93,7 @@ async function updateReader(id: string, formData: ReaderFormData) {
     id,
     data,
   });
-  const updatedReader = updateResponse.updateReader?.data;
+  const updatedReader = updateResponse.reader?.data;
   if (!updatedReader) {
     throw json('failed updating reader', { status: 500 });
   }
