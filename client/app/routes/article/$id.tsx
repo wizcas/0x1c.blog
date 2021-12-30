@@ -14,7 +14,9 @@ import {
 import ArticleHeader from '~/components/articles/post/ArticleHeader';
 import { ReadingContext } from '~/components/articles/post/ReadingContext';
 import Toc from '~/components/articles/post/Toc';
-import CommentEditor from '~/components/editor/CommentEditor';
+import CommentEditor, {
+  getCommentData,
+} from '~/components/editor/CommentEditor';
 import { CategoryContext } from '~/contexts/CategoryContext';
 import { genMeta } from '~/helpers/pageMeta';
 import useReadingData from '~/hooks/useReadingData';
@@ -44,8 +46,9 @@ export const meta: MetaFunction = ({ data }: { data: Article }) => {
   });
 };
 
-export const action: ActionFunction = async ({ request }) => {
-  const data = await request.formData();
+export const action: ActionFunction = async (args) => {
+  const { articleId, reader, parentId, content } = await getCommentData(args);
+
   return null;
 };
 

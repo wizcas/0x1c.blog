@@ -9,7 +9,7 @@ export interface ReaderFormData {
   name: string;
   email: string;
   website?: string;
-  authUser: {
+  authUser?: {
     provider: 'github';
     uid: string;
     username: string;
