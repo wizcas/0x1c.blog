@@ -6,7 +6,10 @@ export type CommentsVariable = { articleId: ID };
 export type CommentsResponse = { comments: Collection<CommentAttributes> };
 export const comments = gql`
   query Comments($articleId: ID!) {
-    comments(filters: { article: { id: { eq: $articleId } } }) {
+    comments(
+      filters: { article: { id: { eq: $articleId } } }
+      sort: ["createdAt:desc"]
+    ) {
       data {
         id
         attributes {

@@ -21,14 +21,27 @@ import { CategoryContext } from '~/contexts/CategoryContext';
 import { genMeta } from '~/helpers/pageMeta';
 import useReadingData from '~/hooks/useReadingData';
 import { getArticle } from '~/services/blog/article';
-import type { Article } from '~/services/blog/models';
+import { getComments, postComment } from '~/services/blog/comment';
+import type { Article, Comment } from '~/services/blog/models';
+
+interface LoaderData {
+  article: Article;
+  comments: Comment[];
+}
 
 export const loader: LoaderFunction = async ({ params }) => {
   const { id } = params;
   if (!id) {
     throw json('Article ID is required', { status: 400 });
   }
-  return getArticle(id);
+  return {
+    article: await getArticle(id),
+    comments: await getComments(id),
+  } as LoaderData;
+};
+
+export const action: ActionFunction = async (args) => {
+  return postComment(await getCommentData(args));
 };
 
 export const links: LinksFunction = () => [
@@ -46,14 +59,8 @@ export const meta: MetaFunction = ({ data }: { data: Article }) => {
   });
 };
 
-export const action: ActionFunction = async (args) => {
-  const { articleId, reader, parentId, content } = await getCommentData(args);
-
-  return null;
-};
-
 export default function ArticlePage() {
-  const article = useLoaderData<Article>();
+  const { article, comments } = useLoaderData<LoaderData>();
   const { html = '', category = null } = article;
 
   const htmlValue = useMemo(() => ({ __html: html }), [html]);
@@ -78,6 +85,9 @@ export default function ArticlePage() {
               <article ref={ref} dangerouslySetInnerHTML={htmlValue} />
               <div className="mt-16 bg-gray-700 rounded-md">
                 <CommentEditor />
+                {comments.map((comment) => (
+                  <div key={comment.id}>{comment.content}</div>
+                ))}
               </div>
             </section>
           </div>

@@ -5,7 +5,7 @@ import { gqlClient, queries, mutations, converters } from '../strapi';
 import { ReaderFormData } from './models';
 import { upsertReader } from './user';
 
-export async function getArticleComments(articleId: string) {
+export async function getComments(articleId: string) {
   const response = await gqlClient.request<
     queries.CommentsResponse,
     queries.CommentsVariable
@@ -17,12 +17,18 @@ export async function getArticleComments(articleId: string) {
   return response.comments.data.map(converters.toCommentModel);
 }
 
-export async function postComment(
-  reader: ReaderFormData,
-  content: string,
-  articleId: string,
-  parentId: string
-) {
+export interface CommentFormData {
+  reader: ReaderFormData;
+  content: string;
+  articleId: string;
+  parentId?: string;
+}
+export async function postComment({
+  reader,
+  content,
+  articleId,
+  parentId,
+}: CommentFormData) {
   const upsertedReader = await upsertReader(reader);
   const readerId = upsertedReader.id;
   const data: mutations.CommentInput = {
