@@ -1,7 +1,8 @@
 import classNames from 'classnames';
-import { CSSProperties, useContext } from 'react';
+import { CSSProperties, ReactNode, useContext } from 'react';
 import { Link } from 'remix';
 
+import { i } from '~/helpers/i18n';
 import type { TocItem } from '~/services/blog/models';
 
 import { ReadingContext } from './ReadingContext';
@@ -24,31 +25,59 @@ function TocList({ items, level }: { items: TocItem[]; level: number }) {
     <ul>
       {items.map((item) => (
         <li key={item.id}>
-          <Link
-            to={`#${item.id}`}
-            className={classNames(
-              'quiet',
-              'pl-[var(--offset)] py-1 inline-block',
-              'border-l-4 border-primary-400 border-opacity-0 hover:border-opacity-50',
-              'transition-all duration-200',
-              {
-                'font-semibold text-gray-50 !border-opacity-100':
-                  item.id === readingData.activeHeadingId,
-              }
-            )}
-            style={
-              {
-                '--offset': `${(level - 1) * 1 + 0.5}rem`,
-              } as CSSProperties
-            }
+          <TocLink
+            to={item.id}
+            level={level}
+            isActive={item.id === readingData.activeHeadingId}
           >
             {item.text}
-          </Link>
+          </TocLink>
           {item.children?.length && (
             <TocList items={item.children} level={level + 1} />
           )}
         </li>
       ))}
+      {level === 1 && (
+        <li>
+          <TocLink to="comments" level={1}>
+            {i('评论区')}
+          </TocLink>
+        </li>
+      )}
     </ul>
+  );
+}
+
+function TocLink({
+  to,
+  children,
+  isActive,
+  level,
+}: {
+  to: string;
+  children: ReactNode;
+  isActive?: boolean;
+  level: number;
+}) {
+  return (
+    <Link
+      to={`#${to}`}
+      className={classNames(
+        'quiet',
+        'pl-[var(--offset)] py-1 inline-block',
+        'border-l-4 border-primary-400 border-opacity-0 hover:border-opacity-50',
+        'transition-all duration-200',
+        {
+          'font-semibold text-gray-50 !border-opacity-100': isActive,
+        }
+      )}
+      style={
+        {
+          '--offset': `${(level - 1) * 1 + 0.5}rem`,
+        } as CSSProperties
+      }
+    >
+      {children}
+    </Link>
   );
 }

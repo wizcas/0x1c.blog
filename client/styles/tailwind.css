@@ -192,7 +192,7 @@
     a.anchor {
       @apply text-gray-400;
       @apply opacity-30;
-      @apply -mt-24 pt-24;
+      @apply -mt-24 pt-24 pl-2;
       @apply no-underline;
       &:hover {
         @apply opacity-60;
