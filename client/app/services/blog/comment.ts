@@ -1,9 +1,18 @@
 import { json } from 'remix';
 
+import CommentMarkdownRenderer from '~/helpers/CommentMarkdownRenderer';
+import { renderMarkdown } from '~/helpers/markdown';
+
 import { gqlClient, queries, mutations, converters } from '../strapi';
 
-import { ReaderFormData } from './models';
+import { Comment, ReaderFormData } from './models';
 import { upsertReader } from './user';
+
+function renderHtml(model: Comment) {
+  const { html } = renderMarkdown(model.content, new CommentMarkdownRenderer());
+  model.html = html;
+  return model;
+}
 
 export async function getComments(articleId: string) {
   const response = await gqlClient.request<
@@ -14,7 +23,9 @@ export async function getComments(articleId: string) {
   });
   const hasComments = response.comments.data.length > 0;
   if (!hasComments) return [];
-  return response.comments.data.map(converters.toCommentModel);
+  return response.comments.data.map((comment) =>
+    renderHtml(converters.toCommentModel(comment))
+  );
 }
 
 export interface CommentFormData {
@@ -45,5 +56,5 @@ export async function postComment({
   if (!comment) {
     throw json('comment not created', { status: 500 });
   }
-  return converters.toCommentModel(comment);
+  return renderHtml(converters.toCommentModel(comment));
 }

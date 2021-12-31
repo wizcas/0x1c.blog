@@ -9,6 +9,8 @@ export function toCommentModel(entity: Entity<CommentAttributes>): Comment {
   return {
     ...data,
     content: attributes.content,
+    datetime: attributes.updatedAt,
+    isEdited: attributes.updatedAt > attributes.createdAt,
     parentId: attributes.parent.data?.id,
     reader: attributes.reader.data
       ? toReaderModel(attributes.reader.data)

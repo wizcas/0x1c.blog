@@ -14,6 +14,8 @@ export const comments = gql`
         id
         attributes {
           content
+          createdAt
+          updatedAt
           article {
             data {
               id

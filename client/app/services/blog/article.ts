@@ -1,5 +1,6 @@
 import { json } from 'remix';
 
+import ArticleMarkdownRenderer from '~/helpers/ArticleMarkdownRenderer';
 import { renderMarkdown } from '~/helpers/markdown';
 import { replaceByCdnFullText } from '~/helpers/url';
 
@@ -30,7 +31,10 @@ export async function getArticle(id: string) {
     throw json('Article not found', { status: 404 });
   }
   const article = converters.toArticleModel(data);
-  const { html, toc } = renderMarkdown(replaceByCdnFullText(article.content));
+  const { html, toc } = renderMarkdown(
+    replaceByCdnFullText(article.content),
+    new ArticleMarkdownRenderer()
+  );
   article.html = html;
   article.toc = toc;
   return article;

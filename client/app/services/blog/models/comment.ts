@@ -5,4 +5,7 @@ export interface Comment {
   reader: Reader | null;
   parentId: string | null | undefined;
   content: string;
+  html?: string;
+  datetime: string;
+  isEdited: boolean;
 }

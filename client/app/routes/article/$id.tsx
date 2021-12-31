@@ -14,9 +14,10 @@ import {
 import ArticleHeader from '~/components/articles/post/ArticleHeader';
 import { ReadingContext } from '~/components/articles/post/ReadingContext';
 import Toc from '~/components/articles/post/Toc';
+import CommentCard from '~/components/comment/CommentCard';
 import CommentEditor, {
   getCommentData,
-} from '~/components/editor/CommentEditor';
+} from '~/components/comment/CommentEditor';
 import { CategoryContext } from '~/contexts/CategoryContext';
 import { genMeta } from '~/helpers/pageMeta';
 import useReadingData from '~/hooks/useReadingData';
@@ -86,7 +87,7 @@ export default function ArticlePage() {
               <div className="mt-16 bg-gray-700 rounded-md">
                 <CommentEditor />
                 {comments.map((comment) => (
-                  <div key={comment.id}>{comment.content}</div>
+                  <CommentCard key={comment.id} comment={comment} />
                 ))}
               </div>
             </section>
