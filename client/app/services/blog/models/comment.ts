@@ -4,7 +4,8 @@ export interface Comment {
   id: string;
   reader: Reader | null;
   parentId: string | null | undefined;
-  content: string;
+  markdown: string;
+  text: string;
   html?: string;
   datetime: string;
   isEdited: boolean;

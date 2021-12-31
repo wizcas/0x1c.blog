@@ -14,10 +14,8 @@ import {
 import ArticleHeader from '~/components/articles/post/ArticleHeader';
 import { ReadingContext } from '~/components/articles/post/ReadingContext';
 import Toc from '~/components/articles/post/Toc';
-import CommentCard from '~/components/comment/CommentCard';
-import CommentEditor, {
-  getCommentData,
-} from '~/components/comment/CommentEditor';
+import { getCommentFormData } from '~/components/comment/CommentEditor';
+import CommentPanel from '~/components/comment/CommentPanel';
 import { CategoryContext } from '~/contexts/CategoryContext';
 import { genMeta } from '~/helpers/pageMeta';
 import useReadingData from '~/hooks/useReadingData';
@@ -42,7 +40,7 @@ export const loader: LoaderFunction = async ({ params }) => {
 };
 
 export const action: ActionFunction = async (args) => {
-  return postComment(await getCommentData(args));
+  return postComment(await getCommentFormData(args));
 };
 
 export const links: LinksFunction = () => [
@@ -84,12 +82,7 @@ export default function ArticlePage() {
             </aside>
             <section className="prose prose-sm md:prose">
               <article ref={ref} dangerouslySetInnerHTML={htmlValue} />
-              <div className="mt-16 bg-gray-700 rounded-md">
-                <CommentEditor />
-                {comments.map((comment) => (
-                  <CommentCard key={comment.id} comment={comment} />
-                ))}
-              </div>
+              <CommentPanel comments={comments} />
             </section>
           </div>
         </main>

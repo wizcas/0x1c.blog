@@ -9,7 +9,10 @@ import { Comment, ReaderFormData } from './models';
 import { upsertReader } from './user';
 
 function renderHtml(model: Comment) {
-  const { html } = renderMarkdown(model.content, new CommentMarkdownRenderer());
+  const { html } = renderMarkdown(
+    model.markdown,
+    new CommentMarkdownRenderer()
+  );
   model.html = html;
   return model;
 }
@@ -30,20 +33,23 @@ export async function getComments(articleId: string) {
 
 export interface CommentFormData {
   reader: ReaderFormData;
-  content: string;
+  markdown: string;
+  text: string;
   articleId: string;
   parentId?: string;
 }
 export async function postComment({
   reader,
-  content,
+  markdown,
+  text,
   articleId,
   parentId,
 }: CommentFormData) {
   const upsertedReader = await upsertReader(reader);
   const readerId = upsertedReader.id;
   const data: mutations.CommentInput = {
-    content,
+    markdown,
+    text,
     article: articleId,
     reader: readerId,
     parent: parentId,

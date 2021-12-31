@@ -4,7 +4,8 @@ import { ID, Singular } from '../models';
 import { CommentAttributes } from '../models/comment';
 
 export interface CommentInput {
-  content: string;
+  markdown: string;
+  text: string;
   article: ID;
   reader: ID;
   parent?: ID;
@@ -21,7 +22,7 @@ export const postComment = gql`
       data {
         id
         attributes {
-          content
+          markdown
           article {
             data {
               id

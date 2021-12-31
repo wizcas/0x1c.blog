@@ -16,13 +16,14 @@
     }
   },
   "attributes": {
-    "content": {
+    "markdown": {
       "pluginOptions": {
         "i18n": {
-          "localized": true
+          "localized": false
         }
       },
-      "type": "richtext"
+      "type": "richtext",
+      "required": true
     },
     "article": {
       "type": "relation",
@@ -47,6 +48,15 @@
       "relation": "manyToOne",
       "target": "api::reader.reader",
       "inversedBy": "comments"
+    },
+    "text": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      },
+      "type": "text",
+      "required": true
     }
   }
 }

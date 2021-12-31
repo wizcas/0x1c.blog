@@ -13,7 +13,8 @@ export const comments = gql`
       data {
         id
         attributes {
-          content
+          markdown
+          text
           createdAt
           updatedAt
           article {

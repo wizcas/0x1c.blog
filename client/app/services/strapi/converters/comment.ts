@@ -8,7 +8,8 @@ export function toCommentModel(entity: Entity<CommentAttributes>): Comment {
   const { data, attributes } = parseEntity<Comment, CommentAttributes>(entity);
   return {
     ...data,
-    content: attributes.content,
+    markdown: attributes.markdown,
+    text: attributes.text,
     datetime: attributes.updatedAt,
     isEdited: attributes.updatedAt > attributes.createdAt,
     parentId: attributes.parent.data?.id,

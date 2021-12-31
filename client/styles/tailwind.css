@@ -230,7 +230,7 @@
       & > code {
         background: unset;
         color: unset;
-        @apply m-0;
+        @apply m-0 p-0;
       }
     }
 
@@ -254,6 +254,32 @@
     }
   }
 
+  .comment-panel {
+    p {
+      @apply my-2;
+    }
+  }
+
+  .comment-editor {
+    pre {
+      @apply my-2;
+      @apply !bg-gray-900;
+    }
+    .ProseMirror {
+      p {
+        @apply my-0;
+      }
+      p.is-editor-empty:first-child::before {
+        @apply text-gray-500;
+        @apply float-left pointer-events-none h-0 block;
+        content: attr(data-placeholder);
+      }
+      &.ProseMirror-focused {
+        @apply border-gray-500;
+      }
+    }
+  }
+
   :--input,
   .ProseMirror {
     @apply p-2 rounded-md;
@@ -261,16 +287,6 @@
     &:focus-visible {
       @apply outline-none;
       @apply ring-1 ring-accent-600;
-    }
-  }
-  .ProseMirror {
-    p.is-editor-empty:first-child::before {
-      @apply text-gray-500;
-      @apply float-left pointer-events-none h-0 block;
-      content: attr(data-placeholder);
-    }
-    &.ProseMirror-focused {
-      @apply border-gray-500;
     }
   }
 }
@@ -288,22 +304,21 @@
   }
 }
 
-.tippy-box[data-theme~='dark'] {
+.tippy-box {
   @apply text-gray-900 font-thin font-semibold;
   @apply text-sm px-1 py-0;
   @apply shadow-sm shadow-gray-800/30;
   background-color: var(--popover-bg);
 }
-.tippy-box[data-theme~='dark'][data-placement^='top'] > .tippy-arrow::before {
+.tippy-box[data-placement^='top'] > .tippy-arrow::before {
   border-top-color: var(--popover-bg);
 }
-.tippy-box[data-theme~='dark'][data-placement^='bottom']
-  > .tippy-arrow::before {
+.tippy-box[data-placement^='bottom'] > .tippy-arrow::before {
   border-bottom-color: var(--popover-bg);
 }
-.tippy-box[data-theme~='dark'][data-placement^='left'] > .tippy-arrow::before {
+.tippy-box[data-placement^='left'] > .tippy-arrow::before {
   border-left-color: var(--popover-bg);
 }
-.tippy-box[data-theme~='dark'][data-placement^='right'] > .tippy-arrow::before {
+.tippy-box[data-placement^='right'] > .tippy-arrow::before {
   border-right-color: var(--popover-bg);
 }

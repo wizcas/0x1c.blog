@@ -30,8 +30,6 @@ export default function DateTime({ value, format = 'date', className }: Props) {
           {tipString}
         </div>
       }
-      theme="dark"
-      arrow
     >
       <span className={classNames('text-sm text-gray-400', className)}>
         {shortString}

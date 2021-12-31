@@ -3,7 +3,8 @@ import { ArticleAttributes } from './post';
 import { ReaderAttributes } from './user';
 
 export interface CommentAttributes {
-  content: string;
+  markdown: string;
+  text: string;
   createdAt: string;
   updatedAt: string;
   parent: Singular<CommentAttributes>;
