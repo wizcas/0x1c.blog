@@ -1,3 +1,4 @@
+import Tippy from '@tippyjs/react';
 import Highlight from '@tiptap/extension-highlight';
 import Placeholder from '@tiptap/extension-placeholder';
 import Typography from '@tiptap/extension-typography';
@@ -5,7 +6,7 @@ import { useEditor, EditorContent } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import classNames from 'classnames';
 import { useRef, useState } from 'react';
-import { CornerUpLeft } from 'react-feather';
+import { CornerUpLeft, Trash2 } from 'react-feather';
 import { Form } from 'remix';
 import invariant from 'tiny-invariant';
 import TurndownService from 'turndown';
@@ -27,6 +28,7 @@ export async function getCommentFormData({
   const website = formData.get('website')?.toString();
   const markdown = formData.get('markdown')?.toString();
   const text = formData.get('text')?.toString();
+  const parentId = formData.get('parentId')?.toString() || undefined;
   if (!email) {
     errors.email = 'required';
   }
@@ -52,15 +54,21 @@ export async function getCommentFormData({
       email,
       website,
     },
+    parentId,
   };
 }
 
 interface Props {
   parent?: Comment;
+  onClearParent?: () => void;
   className?: string;
 }
 
-export default function CommentEditor({ parent, className }: Props) {
+export default function CommentEditor({
+  parent,
+  className,
+  onClearParent,
+}: Props) {
   const [content, setContent] = useState<{
     markdown: string;
     text: string;
@@ -84,7 +92,7 @@ export default function CommentEditor({ parent, className }: Props) {
     ],
     onUpdate({ editor }) {
       const markdown = turndownService.current.turndown(editor.getHTML());
-      const text = editor.getText();
+      const text = editor.getText().replace(/^\s*\n/gm, '');
       setContent({ markdown, text });
     },
   });
@@ -106,12 +114,13 @@ export default function CommentEditor({ parent, className }: Props) {
       <input type="text" placeholder="个人网站" name="website" />
       <input type="hidden" name="markdown" value={content.markdown} />
       <input type="hidden" name="text" value={content.text} />
+      <input type="hidden" name="parentId" value={parent?.id ?? ''} />
       <EditorContent
         editor={editor}
         className={classNames('comment-editor', 'lg:col-span-3')}
       />
       {parent && (
-        <div className={classNames('flex items-center gap-2', 'lg:col-span-2')}>
+        <div className={classNames('flex items-center gap-4', 'lg:col-span-2')}>
           <CornerUpLeft className="text-gray-300" />
           <div className="text-sm text-gray-400">
             <span>{i(`将回复`)}</span>
@@ -120,6 +129,15 @@ export default function CommentEditor({ parent, className }: Props) {
             </span>
             <span className="line-clamp-1 italic">{parent.text}</span>
           </div>
+          <Tippy content={i(`不再作为回复`)}>
+            <button
+              type="button"
+              className="btn btn-plain"
+              onClick={onClearParent}
+            >
+              <Trash2 />
+            </button>
+          </Tippy>
         </div>
       )}
       <button

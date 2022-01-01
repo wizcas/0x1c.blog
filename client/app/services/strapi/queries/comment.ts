@@ -25,6 +25,28 @@ export const comments = gql`
           parent {
             data {
               id
+              attributes {
+                markdown
+                text
+                createdAt
+                updatedAt
+                reader {
+                  data {
+                    id
+                    attributes {
+                      name
+                      website
+                      authUsers {
+                        data {
+                          attributes {
+                            provider
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
             }
           }
           reader {

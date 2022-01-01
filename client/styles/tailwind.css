@@ -111,6 +111,17 @@
 }
 
 @layer components {
+  .btn {
+    @apply transition-all duration-200 ease-out;
+    &.btn-plain {
+      &:hover {
+        @apply text-primary-400;
+      }
+      &:active {
+        @apply text-primary-500;
+      }
+    }
+  }
   .glass {
     @apply backdrop-blur-md;
     @apply bg-gray-800 bg-opacity-70;

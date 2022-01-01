@@ -20,7 +20,10 @@ export default function CommentPanel({ comments }: Props) {
         </a>
       </h1>
       <div className="mt-0 bg-gray-700 rounded-md comment-panel">
-        <CommentEditor parent={repliedParent} />
+        <CommentEditor
+          parent={repliedParent}
+          onClearParent={() => setRepliedParent(undefined)}
+        />
         {comments.map((comment) => (
           <CommentCard
             key={comment.id}
