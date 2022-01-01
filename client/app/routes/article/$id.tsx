@@ -14,7 +14,10 @@ import {
 import ArticleHeader from '~/components/articles/post/ArticleHeader';
 import { ReadingContext } from '~/components/articles/post/ReadingContext';
 import Toc from '~/components/articles/post/Toc';
-import { getCommentFormData } from '~/components/comment/CommentEditor';
+import {
+  getCommentFormData,
+  getReaderInfo,
+} from '~/components/comment/CommentEditor';
 import CommentPanel from '~/components/comment/CommentPanel';
 import { CategoryContext } from '~/contexts/CategoryContext';
 import { genMeta } from '~/helpers/pageMeta';
@@ -28,7 +31,7 @@ interface LoaderData {
   comments: Comment[];
 }
 
-export const loader: LoaderFunction = async ({ params }) => {
+export const loader: LoaderFunction = async ({ request, params }) => {
   const { id } = params;
   if (!id) {
     throw json('Article ID is required', { status: 400 });
@@ -36,6 +39,7 @@ export const loader: LoaderFunction = async ({ params }) => {
   return {
     article: await getArticle(id),
     comments: await getComments(id),
+    ...(await getReaderInfo(request)),
   } as LoaderData;
 };
 

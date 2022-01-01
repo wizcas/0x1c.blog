@@ -27,15 +27,15 @@ async function createAuthUser(data: AuthUserAttributes) {
 }
 
 export async function findReader(email: string) {
-  const findResult = await gqlClient.request<
+  const response = await gqlClient.request<
     queries.FindReaderResponse,
     queries.FindReaderByEmailVariable
   >(queries.findReaderByEmail, { email });
-  const hasReader = findResult.readers.data.length > 0;
+  const hasReader = response.readers.data.length > 0;
   if (!hasReader) {
     return null;
   }
-  const firstMatch = findResult.readers.data[0];
+  const firstMatch = response.readers.data[0];
   return converters.toReaderModel(firstMatch);
 }
 

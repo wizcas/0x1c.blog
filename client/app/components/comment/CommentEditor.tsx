@@ -5,17 +5,27 @@ import Typography from '@tiptap/extension-typography';
 import { useEditor, EditorContent } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import classNames from 'classnames';
-import { useRef, useState } from 'react';
+import debounce from 'lodash/debounce';
+import { ChangeEvent, useCallback, useEffect, useRef, useState } from 'react';
 import { CornerUpLeft, Trash2 } from 'react-feather';
-import { Form } from 'remix';
+import { Form, useLoaderData, useSubmit } from 'remix';
 import invariant from 'tiny-invariant';
 import TurndownService from 'turndown';
 
 import { i } from '~/helpers/i18n';
 import { CommentFormData } from '~/services/blog/comment';
-import { Comment } from '~/services/blog/models';
+import type { Comment } from '~/services/blog/models';
+import { findReader } from '~/services/blog/user';
 
 import type { DataFunctionArgs } from '@remix-run/server-runtime';
+
+export async function getReaderInfo(request: DataFunctionArgs['request']) {
+  const email = new URL(request.url).searchParams.get('email');
+  const reader = email ? await findReader(email) : null;
+  return {
+    reader: { ...reader, email },
+  };
+}
 
 export async function getCommentFormData({
   request,
@@ -96,6 +106,50 @@ export default function CommentEditor({
       setContent({ markdown, text });
     },
   });
+
+  // Auto detect the commenting reader by email
+  // If a reader is found, auto populate the other form fields
+  const { reader } = useLoaderData();
+  const readerEmail = reader?.email || '';
+  const prevReaderEmail = useRef<string>('');
+  const [email, setEmail] = useState<string>('');
+  const [name, setName] = useState<string>('');
+  const [website, setWebsite] = useState<string>('');
+  useEffect(() => {
+    if (readerEmail !== prevReaderEmail.current) {
+      prevReaderEmail.current = readerEmail;
+      setEmail(readerEmail);
+      setName(reader?.name || '');
+      setWebsite(reader?.website || '');
+    }
+  }, [readerEmail]);
+
+  const submit = useSubmit();
+  const queryEmail = useCallback(
+    (value: string) => {
+      return debounce(() => {
+        const email = value.trim();
+        if (!email) return;
+        submit(new URLSearchParams({ email }));
+      }, 500);
+    },
+    [submit]
+  );
+  const handleEmailInput = useCallback(
+    (e: ChangeEvent<HTMLInputElement>) => {
+      const value = e.target.value.toString();
+      setEmail(value);
+      queryEmail(value)();
+    },
+    [queryEmail]
+  );
+  const handleNormalInput = useCallback(
+    (fn: (value: string) => void) => (e: ChangeEvent<HTMLInputElement>) => {
+      fn(e.target.value);
+    },
+    []
+  );
+
   return (
     <Form
       method="post"
@@ -108,10 +162,26 @@ export default function CommentEditor({
         type="email"
         placeholder="邮箱 (仅用于识别身份)*"
         name="email"
+        value={email}
+        // onBlur={handleEmailInput}
+        onChange={handleEmailInput}
         required
       />
-      <input type="text" placeholder="名字*" name="name" required />
-      <input type="text" placeholder="个人网站" name="website" />
+      <input
+        type="text"
+        placeholder="名字*"
+        name="name"
+        value={name}
+        onChange={handleNormalInput(setName)}
+        required
+      />
+      <input
+        type="text"
+        placeholder="个人网站"
+        name="website"
+        value={website}
+        onChange={handleNormalInput(setWebsite)}
+      />
       <input type="hidden" name="markdown" value={content.markdown} />
       <input type="hidden" name="text" value={content.text} />
       <input type="hidden" name="parentId" value={parent?.id ?? ''} />
