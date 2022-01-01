@@ -5,9 +5,9 @@ import Typography from '@tiptap/extension-typography';
 import { useEditor, EditorContent } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import classNames from 'classnames';
-import debounce from 'lodash/debounce';
 import { ChangeEvent, useCallback, useEffect, useRef, useState } from 'react';
 import { CornerUpLeft, Trash2 } from 'react-feather';
+import { useDebounce } from 'react-use';
 import { Form, useLoaderData, useSubmit } from 'remix';
 import invariant from 'tiny-invariant';
 import TurndownService from 'turndown';
@@ -115,6 +115,7 @@ export default function CommentEditor({
   const [email, setEmail] = useState<string>('');
   const [name, setName] = useState<string>('');
   const [website, setWebsite] = useState<string>('');
+
   useEffect(() => {
     if (readerEmail !== prevReaderEmail.current) {
       prevReaderEmail.current = readerEmail;
@@ -125,30 +126,31 @@ export default function CommentEditor({
   }, [readerEmail]);
 
   const submit = useSubmit();
-  const queryEmail = useCallback(
-    (value: string) => {
-      return debounce(() => {
-        const email = value.trim();
-        if (!email) return;
-        submit(new URLSearchParams({ email }));
-      }, 500);
+  useDebounce(
+    () => {
+      const trimmed = email.trim();
+      localStorage.setItem('readerEmail', trimmed);
+      if (!trimmed) return;
+      submit(new URLSearchParams({ email: trimmed }));
     },
-    [submit]
+    300,
+    [email, submit]
   );
-  const handleEmailInput = useCallback(
-    (e: ChangeEvent<HTMLInputElement>) => {
-      const value = e.target.value.toString();
-      setEmail(value);
-      queryEmail(value)();
-    },
-    [queryEmail]
-  );
+  const handleEmailInput = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value.toString();
+    setEmail(value);
+  }, []);
   const handleNormalInput = useCallback(
     (fn: (value: string) => void) => (e: ChangeEvent<HTMLInputElement>) => {
       fn(e.target.value);
     },
     []
   );
+
+  useEffect(() => {
+    const lastEmail = localStorage.getItem('readerEmail') || '';
+    setEmail(lastEmail);
+  }, []);
 
   return (
     <Form
