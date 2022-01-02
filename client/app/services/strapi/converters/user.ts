@@ -10,5 +10,6 @@ export function toReaderModel(entity: Entity<ReaderAttributes>): Reader {
     name: attributes.name,
     website: attributes.website,
     provider: attributes.authUsers?.data[0]?.attributes?.provider,
+    avatar: `https://avatars.dicebear.com/api/pixel-art-neutral/${attributes.uid}.svg`,
   };
 }

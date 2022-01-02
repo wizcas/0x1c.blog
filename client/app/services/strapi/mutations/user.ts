@@ -35,6 +35,7 @@ export const createReader = gql`
       data {
         id
         attributes {
+          uid
           name
           email
           website

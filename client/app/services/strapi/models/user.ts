@@ -1,6 +1,7 @@
 import { Collection } from './base';
 
 export interface ReaderAttributes {
+  uid: string;
   name: string;
   email: string;
   website?: string;

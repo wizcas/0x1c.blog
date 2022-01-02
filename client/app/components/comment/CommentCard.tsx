@@ -42,8 +42,14 @@ export default function CommentCard({
         }
       )}
     >
-      <div className="flex justify-between items-center">
+      <div className="flex justify-between items-center mb-2">
         <div className="flex flex-row items-center gap-2">
+          <img
+            // dangerouslySetInnerHTML={{ __html: comment.reader?.avatar || '' }}
+            alt=""
+            src={comment.reader?.avatar || ''}
+            className="w-8 h-8 overflow-clip"
+          />
           {comment.reader && (
             <>
               {isParent && (

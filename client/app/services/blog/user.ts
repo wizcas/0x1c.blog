@@ -1,5 +1,7 @@
 import { json } from 'remix';
 
+import { hashString } from '~/helpers/string';
+
 import { converters, gqlClient, mutations, queries } from '../strapi';
 import { AuthUserAttributes, Entity, ReaderAttributes } from '../strapi/models';
 import { ReaderInput } from '../strapi/mutations';
@@ -39,11 +41,11 @@ export async function findReader(email: string) {
   return converters.toReaderModel(firstMatch);
 }
 
-async function getAuthUsers(
+async function getReaderInput(
   formData: ReaderFormData,
   reader?: Entity<ReaderAttributes>
 ): Promise<ReaderInput> {
-  const { authUser, ...rest } = formData;
+  const { authUser, email, ...rest } = formData;
   const authUsers: string[] = [
     ...((reader?.attributes?.authUsers?.data
       ?.map((au) => au.id)
@@ -60,11 +62,11 @@ async function getAuthUsers(
       }
     }
   }
-  return { ...rest, authUsers };
+  return { ...rest, authUsers, email, uid: hashString(email).toString(16) };
 }
 
 export async function createReader(formData: ReaderFormData) {
-  const data = await getAuthUsers(formData);
+  const data = await getReaderInput(formData);
   const response = await gqlClient.request<
     mutations.CreateReaderResponse,
     mutations.CreateReaderVariable
@@ -85,7 +87,7 @@ async function updateReader(id: string, formData: ReaderFormData) {
   if (!reader) {
     throw json('reader not found', { status: 404 });
   }
-  const data = await getAuthUsers(formData, reader);
+  const data = await getReaderInput(formData, reader);
   const updateResponse = await gqlClient.request<
     mutations.UpdateReaderResponse,
     mutations.UpdateReaderVariable

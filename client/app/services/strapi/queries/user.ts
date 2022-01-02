@@ -33,6 +33,7 @@ export const reader = gql`
       data {
         id
         attributes {
+          uid
           name
           email
           website

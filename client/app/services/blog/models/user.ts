@@ -1,6 +1,7 @@
 export interface Reader {
   id: string;
   name: string;
+  avatar: string;
   website?: string;
   provider?: 'github';
 }

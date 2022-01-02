@@ -40,6 +40,7 @@ export const postComment = gql`
                   data {
                     id
                     attributes {
+                      uid
                       name
                       website
                       authUsers {
@@ -59,6 +60,7 @@ export const postComment = gql`
             data {
               id
               attributes {
+                uid
                 name
                 website
                 authUsers {

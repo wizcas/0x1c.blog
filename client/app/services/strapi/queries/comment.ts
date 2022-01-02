@@ -34,6 +34,7 @@ export const comments = gql`
                   data {
                     id
                     attributes {
+                      uid
                       name
                       website
                       authUsers {
@@ -53,6 +54,7 @@ export const comments = gql`
             data {
               id
               attributes {
+                uid
                 name
                 website
                 authUsers {
