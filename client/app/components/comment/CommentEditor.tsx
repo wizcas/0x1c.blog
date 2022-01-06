@@ -8,7 +8,7 @@ import classNames from 'classnames';
 import { ChangeEvent, useCallback, useEffect, useRef, useState } from 'react';
 import { CornerUpLeft, Trash2 } from 'react-feather';
 import { useDebounce } from 'react-use';
-import { Form, useLoaderData, useSubmit } from 'remix';
+import { Form, useActionData, useLoaderData, useSubmit } from 'remix';
 import invariant from 'tiny-invariant';
 import TurndownService from 'turndown';
 
@@ -16,6 +16,8 @@ import { i } from '~/helpers/i18n';
 import { CommentFormData } from '~/services/blog/comment';
 import type { Comment } from '~/services/blog/models';
 import { findReader } from '~/services/blog/user';
+
+import RequireMark from '../form/RequrieMark';
 
 import type { DataFunctionArgs } from '@remix-run/server-runtime';
 
@@ -30,7 +32,10 @@ export async function getReaderInfo(request: DataFunctionArgs['request']) {
 export async function getCommentFormData({
   request,
   params,
-}: DataFunctionArgs): Promise<CommentFormData> {
+}: DataFunctionArgs): Promise<{
+  data: CommentFormData | null;
+  errors?: Record<string, string>;
+}> {
   const formData = await request.formData();
   const errors: Record<string, string> = {};
   const email = formData.get('email')?.toString();
@@ -46,7 +51,10 @@ export async function getCommentFormData({
     errors.name = 'required';
   }
   if (!markdown) {
-    errors.content = 'required';
+    errors.markdown = 'required';
+  }
+  if (Object.values(errors).filter(Boolean).length > 0) {
+    return { errors, data: null };
   }
   const articleId = params.id;
   invariant(articleId, 'article id is required');
@@ -56,15 +64,17 @@ export async function getCommentFormData({
   invariant(text, 'text is required');
 
   return {
-    articleId,
-    markdown,
-    text,
-    reader: {
-      name,
-      email,
-      website,
+    data: {
+      articleId,
+      markdown,
+      text,
+      reader: {
+        name,
+        email,
+        website,
+      },
+      parentId,
     },
-    parentId,
   };
 }
 
@@ -133,7 +143,7 @@ export default function CommentEditor({
       if (!trimmed) return;
       submit(new URLSearchParams({ email: trimmed }));
     },
-    300,
+    500,
     [email, submit]
   );
   const handleEmailInput = useCallback((e: ChangeEvent<HTMLInputElement>) => {
@@ -152,6 +162,9 @@ export default function CommentEditor({
     setEmail(lastEmail);
   }, []);
 
+  // Handle form errors
+  const { commentFormErrors: errors = {} } = useActionData() ?? {};
+
   return (
     <Form
       method="post"
@@ -160,37 +173,61 @@ export default function CommentEditor({
         className
       )}
     >
-      <input
-        type="email"
-        placeholder="邮箱 (仅用于识别身份)*"
-        name="email"
-        value={email}
-        // onBlur={handleEmailInput}
-        onChange={handleEmailInput}
-        required
-      />
-      <input
-        type="text"
-        placeholder="名字*"
-        name="name"
-        value={name}
-        onChange={handleNormalInput(setName)}
-        required
-      />
-      <input
-        type="text"
-        placeholder="个人网站"
-        name="website"
-        value={website}
-        onChange={handleNormalInput(setWebsite)}
-      />
+      <label>
+        <span className="text-sm text-gray-300">
+          邮箱
+          <RequireMark />
+        </span>
+        <input
+          type="email"
+          placeholder="仅用于识别身份，不会公开"
+          name="email"
+          value={email}
+          onChange={handleEmailInput}
+        />
+        {errors.markdown === 'required' && (
+          <div className="text-red-600">请输入有效的邮箱</div>
+        )}
+      </label>
+      <label>
+        <span className="text-sm text-gray-300">
+          名字
+          <RequireMark />
+        </span>
+        <input
+          type="text"
+          placeholder="希望别人怎么称呼您?"
+          name="name"
+          value={name}
+          onChange={handleNormalInput(setName)}
+        />
+        {errors.markdown === 'required' && (
+          <div className="text-red-600">请输入您的名字</div>
+        )}
+      </label>
+      <label>
+        <span className="text-sm text-gray-300">个人网站</span>
+        <input
+          type="text"
+          placeholder="将您的站点分享给其他人"
+          name="website"
+          value={website}
+          onChange={handleNormalInput(setWebsite)}
+        />
+      </label>
       <input type="hidden" name="markdown" value={content.markdown} />
       <input type="hidden" name="text" value={content.text} />
       <input type="hidden" name="parentId" value={parent?.id ?? ''} />
-      <EditorContent
-        editor={editor}
-        className={classNames('comment-editor', 'lg:col-span-3')}
-      />
+      <label className="lg:col-span-3">
+        <span className="text-sm text-gray-300">评论 (支持 Markdown 语法)</span>
+        <EditorContent
+          editor={editor}
+          className={classNames('comment-editor')}
+        />
+        {errors.markdown === 'required' && (
+          <div className="text-red-600">请输入评论内容</div>
+        )}
+      </label>
       {parent && (
         <div className={classNames('flex items-center gap-4', 'lg:col-span-2')}>
           <CornerUpLeft className="text-gray-300" />

@@ -10,6 +10,7 @@ import {
   MetaFunction,
   useLoaderData,
 } from 'remix';
+import invariant from 'tiny-invariant';
 
 import ArticleHeader from '~/components/articles/post/ArticleHeader';
 import { ReadingContext } from '~/components/articles/post/ReadingContext';
@@ -44,7 +45,12 @@ export const loader: LoaderFunction = async ({ request, params }) => {
 };
 
 export const action: ActionFunction = async (args) => {
-  return postComment(await getCommentFormData(args));
+  const { data, errors } = await getCommentFormData(args);
+  if (errors) {
+    return { commentFormErrors: errors };
+  }
+  invariant(data, 'comment form data is null');
+  return postComment(data);
 };
 
 export const links: LinksFunction = () => [
