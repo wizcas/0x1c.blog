@@ -7,6 +7,22 @@
 
 /* Custom Definitions */
 @custom-selector :--heading h1, h2, h3, h4, h5, h6;
+@custom-selector :--input
+  [type='text'],
+  [type='email'],
+  [type='url'],
+  [type='password'],
+  [type='number'],
+  [type='date'],
+  [type='datetime-local'],
+  [type='month'],
+  [type='search'],
+  [type='tel'],
+  [type='time'],
+  [type='week'],
+  [multiple],
+  textarea,
+  select;
 
 %hyperlink {
   @apply transition-all duration-200 ease-out;
@@ -89,9 +105,23 @@
   .icon {
     @apply inline-block;
   }
+  mark {
+    @apply bg-yellow-300 text-black;
+  }
 }
 
 @layer components {
+  .btn {
+    @apply transition-all duration-200 ease-out;
+    &.btn-plain {
+      &:hover {
+        @apply text-primary-400;
+      }
+      &:active {
+        @apply text-primary-500;
+      }
+    }
+  }
   .glass {
     @apply backdrop-blur-md;
     @apply bg-gray-800 bg-opacity-70;
@@ -154,10 +184,12 @@
     @apply flex flex-wrap gap-2 items-center;
   }
   .prose {
-    min-width: 0;
-    max-width: 100ch;
     color: unset;
+    @apply min-w-0 max-w-full w-[100ch];
     @apply text-gray-200;
+    & > * {
+      @apply max-w-full;
+    }
 
     :--heading {
       @apply text-gray-50;
@@ -171,7 +203,7 @@
     a.anchor {
       @apply text-gray-400;
       @apply opacity-30;
-      @apply -mt-24 pt-24;
+      @apply -mt-24 pt-24 pl-2;
       @apply no-underline;
       &:hover {
         @apply opacity-60;
@@ -209,7 +241,7 @@
       & > code {
         background: unset;
         color: unset;
-        @apply m-0;
+        @apply m-0 p-0;
       }
     }
 
@@ -232,6 +264,42 @@
       @apply text-xs;
     }
   }
+
+  .comment-panel {
+    p {
+      @apply my-2;
+    }
+  }
+
+  .comment-editor {
+    pre {
+      @apply my-2;
+      @apply !bg-gray-900;
+    }
+    .ProseMirror {
+      p {
+        @apply my-0;
+      }
+      p.is-editor-empty:first-child::before {
+        @apply text-gray-500;
+        @apply float-left pointer-events-none h-0 block;
+        content: attr(data-placeholder);
+      }
+      &.ProseMirror-focused {
+        @apply border-gray-500;
+      }
+    }
+  }
+
+  :--input,
+  .ProseMirror {
+    @apply p-2 rounded-md;
+    @apply bg-gray-800 border-gray-600 border;
+    &:focus-visible {
+      @apply outline-none;
+      @apply ring-1 ring-accent-600;
+    }
+  }
 }
 
 @layer utilities {
@@ -247,22 +315,21 @@
   }
 }
 
-.tippy-box[data-theme~='dark'] {
+.tippy-box {
   @apply text-gray-900 font-thin font-semibold;
   @apply text-sm px-1 py-0;
   @apply shadow-sm shadow-gray-800/30;
   background-color: var(--popover-bg);
 }
-.tippy-box[data-theme~='dark'][data-placement^='top'] > .tippy-arrow::before {
+.tippy-box[data-placement^='top'] > .tippy-arrow::before {
   border-top-color: var(--popover-bg);
 }
-.tippy-box[data-theme~='dark'][data-placement^='bottom']
-  > .tippy-arrow::before {
+.tippy-box[data-placement^='bottom'] > .tippy-arrow::before {
   border-bottom-color: var(--popover-bg);
 }
-.tippy-box[data-theme~='dark'][data-placement^='left'] > .tippy-arrow::before {
+.tippy-box[data-placement^='left'] > .tippy-arrow::before {
   border-left-color: var(--popover-bg);
 }
-.tippy-box[data-theme~='dark'][data-placement^='right'] > .tippy-arrow::before {
+.tippy-box[data-placement^='right'] > .tippy-arrow::before {
   border-right-color: var(--popover-bg);
 }

@@ -1,34 +1,13 @@
-import type { ImageAsset } from '~/components/presentation/Image';
-import { getServerUrl } from '~/helpers/url';
+import { parseEntity, toImageAsset } from './parser';
 
+import type { Article, Category, Tag, Topic } from '../../blog/models';
 import type {
   ArticleAttributes,
-  AssetAttributes,
   CategoryAttributes,
   Entity,
   TagAttributes,
   TopicAttributes,
-} from '.';
-import type { Article, Category, Tag, Topic } from '../models';
-
-function toImageAsset(
-  entity: Entity<AssetAttributes> | null | undefined
-): ImageAsset | undefined {
-  if (!entity) return undefined;
-  const { url, previewUrl } = entity.attributes;
-  return {
-    url: getServerUrl(url),
-    previewUrl: getServerUrl(previewUrl),
-  };
-}
-
-function parseEntity<TData, TAttributes>(
-  entity: Entity<TAttributes>
-): { data: TData; attributes: TAttributes } {
-  const { id, attributes } = entity;
-  const data = { id: id || '' } as unknown as TData;
-  return { data, attributes };
-}
+} from '../models';
 
 export function toCategoryModel(entity: Entity<CategoryAttributes>): Category {
   const { data, attributes } = parseEntity<Category, CategoryAttributes>(

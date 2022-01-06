@@ -1,29 +1,21 @@
 import { json } from 'remix';
 
+import ArticleMarkdownRenderer from '~/helpers/ArticleMarkdownRenderer';
 import { renderMarkdown } from '~/helpers/markdown';
 import { replaceByCdnFullText } from '~/helpers/url';
 
-import {
-  gqlClient,
-  queryArticle,
-  QueryArticleResponse,
-  queryArticles,
-  QueryArticlesResponse,
-  QueryArticlesVariable,
-  QueryArticleVariable,
-  toArticleModel,
-} from './strapi';
+import { gqlClient, queries, converters } from '../strapi';
 
 import type { Articles, ArticlesFilter } from './models';
 
 export async function getArticles(filter: ArticlesFilter) {
   const response = await gqlClient.request<
-    QueryArticlesResponse,
-    QueryArticlesVariable
-  >(queryArticles, { ...filter });
+    queries.ArticlesResponse,
+    queries.ArticlesVariable
+  >(queries.articles, { ...filter });
   const { data, meta } = response.articles;
   return {
-    articles: data.map(toArticleModel),
+    articles: data.map(converters.toArticleModel),
     pageCount: meta?.pagination.pageCount ?? 0,
     total: meta?.pagination.total ?? 0,
   } as Articles;
@@ -31,15 +23,18 @@ export async function getArticles(filter: ArticlesFilter) {
 
 export async function getArticle(id: string) {
   const response = await gqlClient.request<
-    QueryArticleResponse,
-    QueryArticleVariable
-  >(queryArticle, { id });
+    queries.ArticleResponse,
+    queries.ArticleVariable
+  >(queries.article, { id });
   const { data } = response.article;
   if (!data) {
     throw json('Article not found', { status: 404 });
   }
-  const article = toArticleModel(data);
-  const { html, toc } = renderMarkdown(replaceByCdnFullText(article.content));
+  const article = converters.toArticleModel(data);
+  const { html, toc } = renderMarkdown(
+    replaceByCdnFullText(article.content),
+    new ArticleMarkdownRenderer()
+  );
   article.html = html;
   article.toc = toc;
   return article;

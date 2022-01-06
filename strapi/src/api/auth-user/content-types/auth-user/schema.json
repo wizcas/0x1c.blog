@@ -1,0 +1,38 @@
+{
+  "kind": "collectionType",
+  "collectionName": "auth_users",
+  "info": {
+    "singularName": "auth-user",
+    "pluralName": "auth-users",
+    "displayName": "AuthUser",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "provider": {
+      "type": "enumeration",
+      "enum": [
+        "github"
+      ],
+      "required": true
+    },
+    "uid": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "reader": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::reader.reader",
+      "inversedBy": "authUsers"
+    },
+    "username": {
+      "type": "string",
+      "unique": true
+    }
+  }
+}

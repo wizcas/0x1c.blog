@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import hljsThemeUrl from 'highlight.js/styles/base16/eighties.css';
 import { useMemo, useRef } from 'react';
 import {
+  ActionFunction,
   json,
   LinksFunction,
   LoaderFunction,
@@ -13,18 +14,37 @@ import {
 import ArticleHeader from '~/components/articles/post/ArticleHeader';
 import { ReadingContext } from '~/components/articles/post/ReadingContext';
 import Toc from '~/components/articles/post/Toc';
+import {
+  getCommentFormData,
+  getReaderInfo,
+} from '~/components/comment/CommentEditor';
+import CommentPanel from '~/components/comment/CommentPanel';
 import { CategoryContext } from '~/contexts/CategoryContext';
 import { genMeta } from '~/helpers/pageMeta';
 import useReadingData from '~/hooks/useReadingData';
 import { getArticle } from '~/services/blog/article';
-import type { Article } from '~/services/blog/models';
+import { getComments, postComment } from '~/services/blog/comment';
+import type { Article, Comment } from '~/services/blog/models';
 
-export const loader: LoaderFunction = async ({ params }) => {
+interface LoaderData {
+  article: Article;
+  comments: Comment[];
+}
+
+export const loader: LoaderFunction = async ({ request, params }) => {
   const { id } = params;
   if (!id) {
     throw json('Article ID is required', { status: 400 });
   }
-  return getArticle(id);
+  return {
+    article: await getArticle(id),
+    comments: await getComments(id),
+    ...(await getReaderInfo(request)),
+  } as LoaderData;
+};
+
+export const action: ActionFunction = async (args) => {
+  return postComment(await getCommentFormData(args));
 };
 
 export const links: LinksFunction = () => [
@@ -43,7 +63,7 @@ export const meta: MetaFunction = ({ data }: { data: Article }) => {
 };
 
 export default function ArticlePage() {
-  const article = useLoaderData<Article>();
+  const { article, comments } = useLoaderData<LoaderData>();
   const { html = '', category = null } = article;
 
   const htmlValue = useMemo(() => ({ __html: html }), [html]);
@@ -64,11 +84,10 @@ export default function ArticlePage() {
                 </div>
               )}
             </aside>
-            <article
-              className="prose prose-sm md:prose"
-              ref={ref}
-              dangerouslySetInnerHTML={htmlValue}
-            />
+            <section className="prose prose-sm md:prose">
+              <article ref={ref} dangerouslySetInnerHTML={htmlValue} />
+              <CommentPanel comments={comments} />
+            </section>
           </div>
         </main>
       </ReadingContext.Provider>

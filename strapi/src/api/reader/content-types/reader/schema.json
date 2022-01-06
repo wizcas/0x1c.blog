@@ -1,0 +1,46 @@
+{
+  "kind": "collectionType",
+  "collectionName": "readers",
+  "info": {
+    "singularName": "reader",
+    "pluralName": "readers",
+    "displayName": "Reader",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "authUsers": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::auth-user.auth-user",
+      "mappedBy": "reader"
+    },
+    "email": {
+      "type": "email",
+      "required": true,
+      "unique": true
+    },
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "comments": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::comment.comment",
+      "mappedBy": "reader"
+    },
+    "website": {
+      "type": "string",
+      "regex": "https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)"
+    },
+    "uid": {
+      "type": "string",
+      "unique": true,
+      "required": true
+    }
+  }
+}

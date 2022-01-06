@@ -5,10 +5,14 @@ import pinyin from 'pinyin';
 import type { TocItem } from '~/services/blog/models';
 
 import { renderCodeBlock } from './codeblock';
+import { RendererWithToc } from './markdown';
 
 type RenderThis = typeof Renderer & { parser: Parser };
 
-export default class ArticleMarkdownRenderer extends Renderer {
+export default class ArticleMarkdownRenderer
+  extends Renderer
+  implements RendererWithToc
+{
   tocItems: TocItem[] = [];
 
   heading(

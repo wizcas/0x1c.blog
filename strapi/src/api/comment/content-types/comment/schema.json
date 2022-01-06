@@ -1,0 +1,62 @@
+{
+  "kind": "collectionType",
+  "collectionName": "comments",
+  "info": {
+    "singularName": "comment",
+    "pluralName": "comments",
+    "displayName": "Comment",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
+  "attributes": {
+    "markdown": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      },
+      "type": "richtext",
+      "required": true
+    },
+    "article": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::article.article",
+      "inversedBy": "comments"
+    },
+    "parent": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::comment.comment",
+      "inversedBy": "children"
+    },
+    "children": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::comment.comment",
+      "mappedBy": "parent"
+    },
+    "reader": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::reader.reader",
+      "inversedBy": "comments"
+    },
+    "text": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      },
+      "type": "text",
+      "required": true
+    }
+  }
+}

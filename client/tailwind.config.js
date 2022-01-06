@@ -65,7 +65,6 @@ module.exports = {
   },
   plugins: [
     /** *** official plugins **** */
-    require('@tailwindcss/forms'),
     require('@tailwindcss/line-clamp'),
     require('@tailwindcss/typography'),
     /** ** Custom plugins *** */

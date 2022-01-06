@@ -75,6 +75,12 @@
       "relation": "manyToMany",
       "target": "api::tag.tag",
       "inversedBy": "articles"
+    },
+    "comments": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::comment.comment",
+      "mappedBy": "article"
     }
   }
 }
