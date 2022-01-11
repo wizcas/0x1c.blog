@@ -2,6 +2,8 @@ import { useState } from 'react';
 
 import { Comment } from '~/services/blog/models';
 
+import TocAnchor from '../articles/post/TocAnchor';
+
 import CommentCard from './CommentCard';
 import CommentEditor from './CommentEditor';
 
@@ -15,9 +17,7 @@ export default function CommentPanel({ comments }: Props) {
     <div className="mt-16">
       <h1>
         评论区
-        <a id="comments" href="#comments" className="anchor">
-          #
-        </a>
+        <TocAnchor id="comments" />
       </h1>
       <div className="mt-0 bg-gray-700 rounded-md comment-panel">
         <CommentEditor

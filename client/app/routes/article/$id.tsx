@@ -1,7 +1,7 @@
 /* eslint-disable react/no-danger */
 import classNames from 'classnames';
 import hljsThemeUrl from 'highlight.js/styles/base16/eighties.css';
-import { useMemo, useRef } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 import {
   ActionFunction,
   json,
@@ -15,6 +15,7 @@ import invariant from 'tiny-invariant';
 import ArticleHeader from '~/components/articles/post/ArticleHeader';
 import { ReadingContext } from '~/components/articles/post/ReadingContext';
 import Toc from '~/components/articles/post/Toc';
+import { copyAnchorLink } from '~/components/articles/post/TocAnchor';
 import {
   getCommentFormData,
   getReaderInfo,
@@ -72,10 +73,30 @@ export default function ArticlePage() {
   const { article, comments } = useLoaderData<LoaderData>();
   const { html = '', category = null } = article;
 
-  const htmlValue = useMemo(() => ({ __html: html }), [html]);
+  const navScopeRef = useRef<HTMLDivElement>(null);
+  const articleRef = useRef<HTMLDivElement>(null);
+  const articleNode = useMemo(
+    () => (
+      <article ref={articleRef} dangerouslySetInnerHTML={{ __html: html }} />
+    ),
+    [html]
+  );
 
-  const ref = useRef<HTMLDivElement>(null);
-  const readingData = useReadingData({ ref, headingActiveRatio: 0.8 }, [html]);
+  const readingData = useReadingData(
+    { ref: navScopeRef, headingActiveRatio: 0.8 },
+    [articleNode]
+  );
+
+  // Manually hydrate the anchors because they're out of React's scope
+  useEffect(() => {
+    const articleEl = articleRef.current;
+    if (!articleEl) return;
+    articleEl.querySelectorAll('[data-toc-anchor]').forEach((anchor) => {
+      (anchor as HTMLElement).onclick = () => {
+        copyAnchorLink(anchor.id);
+      };
+    });
+  }, [articleNode]);
 
   return (
     <CategoryContext.Provider value={category}>
@@ -90,8 +111,8 @@ export default function ArticlePage() {
                 </div>
               )}
             </aside>
-            <section className="prose prose-sm md:prose">
-              <article ref={ref} dangerouslySetInnerHTML={htmlValue} />
+            <section className="prose prose-sm md:prose" ref={navScopeRef}>
+              {articleNode}
               <CommentPanel comments={comments} />
             </section>
           </div>

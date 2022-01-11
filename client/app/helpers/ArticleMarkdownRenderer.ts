@@ -1,7 +1,10 @@
 import flattenDeep from 'lodash/flattenDeep';
 import { Parser, Renderer, Slugger } from 'marked';
 import pinyin from 'pinyin';
+import { createElement } from 'react';
+import { renderToStaticMarkup } from 'react-dom/server';
 
+import TocAnchor from '~/components/articles/post/TocAnchor';
 import type { TocItem } from '~/services/blog/models';
 
 import { renderCodeBlock } from './codeblock';
@@ -25,14 +28,11 @@ export default class ArticleMarkdownRenderer
       style: pinyin.STYLE_NORMAL,
     });
     const slug = flattenDeep(py).join('-');
-    const escaped = text.toLowerCase().replace(/[\s]+/g, '-');
-    const href = `#${slug}`;
     this.tocItems.push({ id: slug, text: raw, level });
+    const anchor = renderToStaticMarkup(createElement(TocAnchor, { id: slug }));
     return `<h${level}>
     ${text}
-    <a href="${href}" name="${escaped}" class="anchor" id="${slug}">
-    #
-    </a>
+    ${anchor}
     </h${level}>`;
   }
 

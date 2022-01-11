@@ -200,7 +200,7 @@
       @extend %hyperlink-accent-underline;
     }
 
-    a.anchor {
+    span.anchor {
       @apply text-gray-400;
       @apply opacity-30;
       @apply -mt-24 pt-24 pl-2;

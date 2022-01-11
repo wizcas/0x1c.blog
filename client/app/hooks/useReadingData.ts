@@ -38,10 +38,9 @@ export default function useReadingData<TElement extends HTMLElement>(
     if (!ref.current) return;
     const root = ref.current;
     const tops: HeadingTop[] = [];
-    root.querySelectorAll('h1,h2,h3,h4,h5,h6').forEach((value) => {
+    root.querySelectorAll('[data-toc-anchor]').forEach((value) => {
       const el = value as HTMLElement;
-      const anchor = el.querySelector('a') as HTMLAnchorElement;
-      tops.push({ id: anchor.id, top: el.offsetTop });
+      tops.push({ id: el.id, top: el.offsetTop });
     });
     setHeadingTops(tops);
   }, [...(deps ?? [])]);
